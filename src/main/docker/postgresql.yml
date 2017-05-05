@@ -1,0 +1,11 @@
+version: '2'
+services:
+    gastronomee-postgresql:
+        image: postgres:9.6.2
+        # volumes:
+        #     - ~/volumes/jhipster/gastronomee/postgresql/:/var/lib/postgresql/
+        environment:
+            - POSTGRES_USER=gastronomee
+            - POSTGRES_PASSWORD=
+        ports:
+            - 5432:5432
