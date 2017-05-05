@@ -18,6 +18,9 @@
         vm.register = register;
         vm.registerAccount = {};
         vm.success = null;
+        
+        vm.authority=null;
+        vm.authorities = ['ROLE_USER', 'ROLE_MANAGER'];
 
         $timeout(function (){angular.element('#login').focus();});
 
@@ -25,6 +28,10 @@
             if (vm.registerAccount.password !== vm.confirmPassword) {
                 vm.doNotMatch = 'ERROR';
             } else {
+            	
+            	vm.registerAccount.authorities=[];
+            	vm.registerAccount.authorities.push(vm.authority);
+            	
                 vm.registerAccount.langKey = $translate.use();
                 vm.doNotMatch = null;
                 vm.error = null;

@@ -49,6 +49,14 @@
                     </p>
                     </div>
                 </div>
+                
+                <div class="form-group">
+		            <label data-translate="register.roles">Roles</label>
+		            <select class="form-control" name="authority" ng-model="vm.authority"
+		                    ng-options="authority for authority in vm.authorities">		               
+		            </select>
+		        </div>
+		        
                 <div class="form-group">
                     <label class="control-label" for="email" data-translate="global.form.email">Email</label>
                     <input type="email" class="form-control" id="email" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
