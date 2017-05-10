@@ -97,3 +97,5 @@ which basically adds a new role: ROLE_MANAGER to the jhi_authority table
             	vm.registerAccount.authorities=[];
             	vm.registerAccount.authorities.push(vm.authority); 
 
+### Step 3 - Generate the application from jdl(in the root folder of the project is located gastronomee-jdl.jh file):
+		jhipster-uml gastronomee-jdl.jh
