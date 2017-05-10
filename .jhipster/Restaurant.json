@@ -1,0 +1,81 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "one-to-one",
+      "relationshipName": "location",
+      "otherEntityName": "location",
+      "otherEntityField": "id",
+      "ownerSide": true,
+      "otherEntityRelationshipName": "restaurant"
+    },
+    {
+      "relationshipId": 2,
+      "relationshipType": "many-to-one",
+      "relationshipName": "manager",
+      "otherEntityName": "user",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "maxlength"
+      ],
+      "fieldValidateRulesMaxlength": 2500
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "open",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "close",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 5,
+      "fieldName": "tables",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldId": 6,
+      "fieldName": "chairs",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldId": 7,
+      "fieldName": "dayOfWeekClosed",
+      "fieldType": "DayOfWeek",
+      "fieldValues": "MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY"
+    },
+    {
+      "fieldId": 8,
+      "fieldName": "opened",
+      "fieldType": "Boolean"
+    }
+  ],
+  "changelogDate": "20170510210848",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "no",
+  "entityTableName": "restaurant"
+}

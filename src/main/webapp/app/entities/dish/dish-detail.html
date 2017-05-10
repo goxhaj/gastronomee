@@ -1,0 +1,49 @@
+
+<div>
+    <h2><span data-translate="gastronomeeApp.dish.detail.title">Dish</span> {{vm.dish.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="gastronomeeApp.dish.name">Name</span></dt>
+        <dd>
+            <span>{{vm.dish.name}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.recipe">Recipe</span></dt>
+        <dd>
+            <span>{{vm.dish.recipe}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.active">Active</span></dt>
+        <dd>
+            <span>{{vm.dish.active}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.priority">Priority</span></dt>
+        <dd>
+            <span>{{vm.dish.priority}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.menu">Menu</span></dt>
+        <dd>
+            <a ui-sref="menu-detail({id:vm.dish.menu.id})">{{vm.dish.menu.id}}</a>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.ingredient">Ingredient</span></dt>
+        <dd>
+            <span ng-repeat="ingredient in vm.dish.ingredients">
+                <a ui-sref="ingredient-detail({id: ingredient.id})">{{ingredient.id}}</a>{{$last ? '' : ', '}}
+            </span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.category">Category</span></dt>
+        <dd>
+            <a ui-sref="dish-category-detail({id:vm.dish.category.id})">{{vm.dish.category.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="dish-detail.edit({id:vm.dish.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

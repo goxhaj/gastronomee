@@ -1,0 +1,115 @@
+
+<form name="editForm" role="form" novalidate ng-submit="vm.save()" show-validation>
+
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                ng-click="vm.clear()">&times;</button>
+        <h4 class="modal-title" id="myRestaurantLabel" data-translate="gastronomeeApp.restaurant.home.createOrEditLabel">Create or edit a Restaurant</h4>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" ng-show="vm.restaurant.id">
+            <label for="id" data-translate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                    ng-model="vm.restaurant.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                    ng-model="vm.restaurant.name"
+                    required/>
+            <div ng-show="editForm.name.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                    ng-model="vm.restaurant.description"
+                    ng-maxlength="2500"/>
+            <div ng-show="editForm.description.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.description.$error.maxlength" data-translate="entity.validation.maxlength" translate-value-max="2500">
+                    This field cannot be longer than 2500 characters.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.open" for="field_open">Open</label>
+            <input type="text" class="form-control" name="open" id="field_open"
+                    ng-model="vm.restaurant.open"
+                    required/>
+            <div ng-show="editForm.open.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.open.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.close" for="field_close">Close</label>
+            <input type="text" class="form-control" name="close" id="field_close"
+                    ng-model="vm.restaurant.close"
+                    required/>
+            <div ng-show="editForm.close.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.close.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.tables" for="field_tables">Tables</label>
+            <input type="number" class="form-control" name="tables" id="field_tables"
+                    ng-model="vm.restaurant.tables"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.chairs" for="field_chairs">Chairs</label>
+            <input type="number" class="form-control" name="chairs" id="field_chairs"
+                    ng-model="vm.restaurant.chairs"
+                    />
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.dayOfWeekClosed" for="field_dayOfWeekClosed">Day Of Week Closed</label>
+            <select class="form-control" name="dayOfWeekClosed" ng-model="vm.restaurant.dayOfWeekClosed" id="field_dayOfWeekClosed">
+                <option value="MONDAY" data-translate="gastronomeeApp.DayOfWeek.MONDAY">MONDAY</option>
+                <option value="TUESDAY" data-translate="gastronomeeApp.DayOfWeek.TUESDAY">TUESDAY</option>
+                <option value="WEDNESDAY" data-translate="gastronomeeApp.DayOfWeek.WEDNESDAY">WEDNESDAY</option>
+                <option value="THURSDAY" data-translate="gastronomeeApp.DayOfWeek.THURSDAY">THURSDAY</option>
+                <option value="FRIDAY" data-translate="gastronomeeApp.DayOfWeek.FRIDAY">FRIDAY</option>
+                <option value="SATURDAY" data-translate="gastronomeeApp.DayOfWeek.SATURDAY">SATURDAY</option>
+                <option value="SUNDAY" data-translate="gastronomeeApp.DayOfWeek.SUNDAY">SUNDAY</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.restaurant.opened" for="field_opened">Opened</label>
+                <input type="checkbox" name="opened" id="field_opened"
+                          ng-model="vm.restaurant.opened"/>
+        </div>
+
+        <div class="form-group">
+            <label data-translate="gastronomeeApp.restaurant.location" for="field_location">Location</label>
+            <select class="form-control" id="field_location" name="location" ng-model="vm.restaurant.location" ng-options="location as location.id for location in vm.locations | orderBy:'id' track by location.id">
+                <option value=""></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label data-translate="gastronomeeApp.restaurant.manager" for="field_manager">Manager</label>
+            <select class="form-control" id="field_manager" name="manager" ng-model="vm.restaurant.manager" ng-options="user as user.id for user in vm.users track by user.id">
+                <option value=""></option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="vm.clear()">
+            <span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span data-translate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" ng-disabled="editForm.$invalid || vm.isSaving" class="btn btn-primary">
+            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

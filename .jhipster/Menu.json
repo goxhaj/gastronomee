@@ -1,0 +1,36 @@
+{
+  "relationships": [
+    {
+      "relationshipId": 1,
+      "relationshipType": "many-to-one",
+      "relationshipName": "restaurant",
+      "otherEntityName": "restaurant",
+      "otherEntityField": "id"
+    }
+  ],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "priority",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20170510210849",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "no",
+  "entityTableName": "menu"
+}

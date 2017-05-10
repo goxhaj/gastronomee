@@ -1,0 +1,25 @@
+{
+    "gastronomeeApp": {
+        "dishCategory" : {
+            "home": {
+                "title": "Dish Categories",
+                "createLabel": "Create a new Dish Category",
+                "createOrEditLabel": "Create or edit a Dish Category",
+                "search": "Search for Dish Category"
+            },
+            "created": "A new Dish Category is created with identifier {{ param }}",
+            "updated": "A Dish Category is updated with identifier {{ param }}",
+            "deleted": "A Dish Category is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Dish Category {{ id }}?"
+            },
+            "detail": {
+                "title": "Dish Category"
+            },
+            "name": "Name",
+            "description": "Description",
+            "active": "Active",
+            "priority": "Priority"
+        }
+    }
+}

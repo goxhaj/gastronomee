@@ -1,0 +1,99 @@
+<div>
+    <h2 data-translate="gastronomeeApp.restaurant.home.title">Restaurants</h2>
+    <jhi-alert></jhi-alert>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-4 no-padding-left">
+                <button class="btn btn-primary" ui-sref="restaurant.new" >
+                    <span class="glyphicon glyphicon-plus"></span>
+                    <span class="hidden-xs-down"  data-translate="gastronomeeApp.restaurant.home.createLabel">
+                        Create new Restaurant
+                    </span>
+                </button>
+            </div>
+            <div class="col-xs-8 no-padding-right">
+                <form name="searchForm" class="form-inline">
+                    <div class="input-group pull-right" >
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'gastronomeeApp.restaurant.home.search' | translate }}">
+                        <span  class="input-group-btn width-min" >
+                            <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
+                                <span class="glyphicon glyphicon-search"></span>
+                            </button>
+                        </span>
+                        <span class="input-group-btn width-min" ng-if="vm.currentSearch">
+                            <button class="btn btn-info" ng-click="vm.clear()">
+                                <span class="glyphicon glyphicon-trash"></span>
+                            </button>
+                        </span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="table-responsive">
+        <table class="jh-table table table-striped">
+            <thead>
+                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
+                    <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="name"><span data-translate="gastronomeeApp.restaurant.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="description"><span data-translate="gastronomeeApp.restaurant.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="open"><span data-translate="gastronomeeApp.restaurant.open">Open</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="close"><span data-translate="gastronomeeApp.restaurant.close">Close</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="tables"><span data-translate="gastronomeeApp.restaurant.tables">Tables</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="chairs"><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dayOfWeekClosed"><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="opened"><span data-translate="gastronomeeApp.restaurant.opened">Opened</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="location.id"><span data-translate="gastronomeeApp.restaurant.location">Location</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="manager.id"><span data-translate="gastronomeeApp.restaurant.manager">Manager</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="restaurant in vm.restaurants track by restaurant.id">
+                    <td><a ui-sref="restaurant-detail({id:restaurant.id})">{{restaurant.id}}</a></td>
+                    <td>{{restaurant.name}}</td>
+                    <td>{{restaurant.description}}</td>
+                    <td>{{restaurant.open}}</td>
+                    <td>{{restaurant.close}}</td>
+                    <td>{{restaurant.tables}}</td>
+                    <td>{{restaurant.chairs}}</td>
+                    <td data-translate="{{'gastronomeeApp.DayOfWeek.' + restaurant.dayOfWeekClosed}}">{{restaurant.dayOfWeekClosed}}</td>
+                    <td>{{restaurant.opened}}</td>
+                    <td>
+                        <a ui-sref="location-detail({id:restaurant.location.id})">{{restaurant.location.id}}</a>
+                    </td>
+                    <td>
+                        {{restaurant.manager.id}}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group flex-btn-group-container">
+                            <button type="submit"
+                                    ui-sref="restaurant-detail({id:restaurant.id})"
+                                    class="btn btn-info btn-sm">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.view"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="restaurant.edit({id:restaurant.id})"
+                                    class="btn btn-primary btn-sm">
+                                <span class="glyphicon glyphicon-pencil"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
+                            </button>
+                            <button type="submit"
+                                    ui-sref="restaurant.delete({id:restaurant.id})"
+                                    class="btn btn-danger btn-sm">
+                                <span class="glyphicon glyphicon-remove-circle"></span>
+                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center">
+        <jhi-item-count page="vm.page" total="vm.queryCount" items-per-page="vm.itemsPerPage"></jhi-item-count>
+    </div>
+    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
+</div>

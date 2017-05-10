@@ -1,0 +1,33 @@
+{
+  "relationships": [],
+  "fields": [
+    {
+      "fieldId": 1,
+      "fieldName": "name",
+      "fieldType": "String",
+      "fieldValidateRules": [
+        "required"
+      ]
+    },
+    {
+      "fieldId": 2,
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldId": 3,
+      "fieldName": "active",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldId": 4,
+      "fieldName": "priority",
+      "fieldType": "Integer"
+    }
+  ],
+  "changelogDate": "20170510210852",
+  "dto": "no",
+  "pagination": "pager",
+  "service": "no",
+  "entityTableName": "dish_category"
+}

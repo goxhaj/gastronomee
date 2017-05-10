@@ -1,0 +1,92 @@
+entity Region {
+	name String
+}
+
+entity Country {
+	name String
+}
+
+
+entity Location {
+	streetAddress String,
+	postalCode String,
+	city String,
+	stateProvince String
+}
+
+entity Restaurant {
+	name String required,
+    description String maxlength(2500),
+    open String required,
+    close String required,
+    tables Integer,
+    chairs Integer,
+    dayOfWeekClosed DayOfWeek, 
+    opened Boolean
+}
+
+enum DayOfWeek {
+    MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+}
+
+entity Menu {
+	name String required,
+    active Boolean,
+    priority Integer
+}
+
+entity Dish {
+	name String required,
+	recipe String maxlength(2500),
+    active Boolean,
+    priority Integer
+}
+
+entity Ingredient {
+	name String required,
+    description String,
+    active Boolean,
+    priority Integer
+}
+
+entity DishCategory {
+	name String required,
+    description String,
+    active Boolean,
+    priority Integer
+}
+
+
+relationship OneToOne {
+	Country{region} to Region
+}
+
+relationship OneToOne {
+	Location{country} to Country
+}
+
+relationship OneToOne {
+	Restaurant{location} to Location
+}
+
+relationship ManyToOne {
+	Restaurant{manager} to User
+}
+
+relationship ManyToOne {
+	 Menu{restaurant} to Restaurant
+}
+
+relationship ManyToOne {
+	 Dish{menu} to Menu
+}
+
+relationship ManyToMany {
+	Dish{ingredient} to Ingredient{dish}
+}
+
+relationship ManyToOne {
+	Dish{category} to DishCategory
+}
+
+paginate Region, Country, Location, Restaurant, Menu, Dish, Ingredient, DishCategory with pager

@@ -5,7 +5,20 @@
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
 
     <include file="classpath:config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210845_added_entity_Region.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210846_added_entity_Country.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210847_added_entity_Location.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210851_added_entity_Ingredient.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210852_added_entity_DishCategory.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210848_added_entity_Restaurant.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210849_added_entity_Menu.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210850_added_entity_Dish.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
+    <include file="classpath:config/liquibase/changelog/20170510210846_added_entity_constraints_Country.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210847_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210848_added_entity_constraints_Restaurant.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210849_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210850_added_entity_constraints_Dish.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     
     <!-- load application specific data here -->

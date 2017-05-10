@@ -1,0 +1,31 @@
+{
+    "gastronomeeApp": {
+        "restaurant" : {
+            "home": {
+                "title": "Restaurants",
+                "createLabel": "Create a new Restaurant",
+                "createOrEditLabel": "Create or edit a Restaurant",
+                "search": "Search for Restaurant"
+            },
+            "created": "A new Restaurant is created with identifier {{ param }}",
+            "updated": "A Restaurant is updated with identifier {{ param }}",
+            "deleted": "A Restaurant is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Restaurant {{ id }}?"
+            },
+            "detail": {
+                "title": "Restaurant"
+            },
+            "name": "Name",
+            "description": "Description",
+            "open": "Open",
+            "close": "Close",
+            "tables": "Tables",
+            "chairs": "Chairs",
+            "dayOfWeekClosed": "Day Of Week Closed",
+            "opened": "Opened",
+            "location": "Location",
+            "manager": "Manager"
+        }
+    }
+}

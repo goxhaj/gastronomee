@@ -43,6 +43,16 @@ public class CacheConfiguration {
             cm.createCache(com.gastronomee.domain.PersistentToken.class.getName(), jcacheConfiguration);
             cm.createCache(com.gastronomee.domain.User.class.getName() + ".persistentTokens", jcacheConfiguration);
             cm.createCache(com.gastronomee.domain.SocialUserConnection.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Region.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Country.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Location.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Ingredient.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Ingredient.class.getName() + ".dishes", jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.DishCategory.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Restaurant.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Menu.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Dish.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.Dish.class.getName() + ".ingredients", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }
