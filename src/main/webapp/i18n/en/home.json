@@ -1,7 +1,7 @@
 {
     "home": {
         "title": "Welcome, Java Hipster!",
-        "subtitle": "This is your homepage",
+        "subtitle": "Gastronomee is the application that is build to provide people that enjoys delicious food with a unique space.",
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
         },

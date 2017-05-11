@@ -369,4 +369,13 @@ Social Buttons
     color: #fff;
 }
 
+.footer{
+	float:right;
+}
+
+.srRestaurant{
+	min-width:500px;
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */
+
+
