@@ -1,0 +1,7 @@
+id;login;password_hash;first_name;last_name;email;image_url;activated;lang_key;created_by;last_modified_by;created_date
+5;manager1;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Manager1;Manager1;manager1@localhost;;true;en;system;system;2017-05-11 12:12:00
+6;manager2;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Manager2;Manager2;manager2@localhost;;true;en;system;system;2017-05-11 12:12:00
+7;manager3;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Manager3;Manager3;manager3@localhost;;true;en;system;system;2017-05-11 12:12:00
+8;manager4;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Manager4;Manager4;manager4@localhost;;true;en;system;system;2017-05-11 12:12:00
+9;manager5;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Manager5;Manager5;manager5@localhost;;true;en;system;system;2017-05-11 12:12:00
+10;manager6;$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K;Manager6;Manager6;manager6@localhost;;true;en;system;system;2017-05-11 12:12:00

@@ -9,5 +9,79 @@
 	        <column name="name" value="ROLE_MANAGER"/>
 	    </insert>
 	</changeSet>
+	
+	<!-- create 6 managers -->
+	<changeSet author="ardi" id="load_user_managers">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/managers.csv"
+	                  separator=";"
+	                  tableName="jhi_user">
+	    </loadData>
+    </changeSet>
+    
+    <!-- add the 6 managers created previously to manager role -->
+    <changeSet author="ardi" id="load_user_manager_authorities">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/managers_authorities.csv"
+	                  separator=";"
+	                  tableName="jhi_user_authority">
+	    </loadData>
+    </changeSet>
+	
+	<changeSet author="ardi" id="load_countries">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/countries.csv"
+	                  separator=","
+	                  tableName="country">
+	    </loadData>
+    </changeSet>
+    
+    <changeSet author="ardi" id="load_regions">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/regions.csv"
+	                  separator=","
+	                  tableName="region">
+	    </loadData>
+    </changeSet>
+    
+    <changeSet author="ardi" id="load_dish_categories">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/dish_categories.csv"
+	                  separator=","
+	                  tableName="dish_category">
+	    </loadData>
+    </changeSet>
+    
+    <changeSet author="ardi" id="load_ingredients">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/ingredients.csv"
+	                  separator=","
+	                  tableName="ingredient">
+	    </loadData>
+    </changeSet>
+    
+   <changeSet author="ardi" id="load_restaurants">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/restaurants.csv"
+	                  separator=";"
+	                  tableName="restaurant">
+	    </loadData>
+    </changeSet>
+    
+    <changeSet author="ardi" id="load_menu">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/menus.csv"
+	                  separator=";"
+	                  tableName="menu">
+	    </loadData>
+    </changeSet>
+    
+    <changeSet author="ardi" id="load_dishes">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/dishes.csv"
+	                  separator=";"
+	                  tableName="dish">
+	    </loadData>
+    </changeSet>
 
 </databaseChangeLog>

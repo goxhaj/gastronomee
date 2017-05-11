@@ -1,0 +1,5 @@
+id;name;recipe;active;priority;menu_id;category_id
+1;Carbonara;La carbonara si prepara usando uova fresche, guanciale, peppe nero e tanto amore;true;1;2;2
+2;Amatriciana;L'amatriciana si prepara usando sugo, guanciale, peppe nero, bucatini e tanto amore;true;2;2;2
+3;Pizza Margheritta;La margheritta si prepara usando sugo, mozzaerlla rescha, bazilico e come si sa manco qua manca l'amore;true;3;2;3
+
