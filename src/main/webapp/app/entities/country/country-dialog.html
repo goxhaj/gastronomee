@@ -22,7 +22,7 @@
 
         <div class="form-group">
             <label data-translate="gastronomeeApp.country.region" for="field_region">Region</label>
-            <select class="form-control" id="field_region" name="region" ng-model="vm.country.region" ng-options="region as region.id for region in vm.regions | orderBy:'id' track by region.id">
+            <select class="form-control" id="field_region" name="region" ng-model="vm.country.region" ng-options="region as region.name for region in vm.regions | orderBy:'id' track by region.id">
                 <option value=""></option>
             </select>
         </div>

@@ -38,8 +38,8 @@
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span data-translate="gastronomeeApp.dishCategory.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="description"><span data-translate="gastronomeeApp.dishCategory.description">Description</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="active"><span data-translate="gastronomeeApp.dishCategory.active">Active</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="priority"><span data-translate="gastronomeeApp.dishCategory.priority">Priority</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="active"><span data-translate="gastronomeeApp.dishCategory.active">Active</span> <span class="glyphicon glyphicon-sort"></span></th>                  
                     <th></th>
                 </tr>
             </thead>
@@ -48,8 +48,11 @@
                     <td><a ui-sref="dish-category-detail({id:dishCategory.id})">{{dishCategory.id}}</a></td>
                     <td>{{dishCategory.name}}</td>
                     <td>{{dishCategory.description}}</td>
-                    <td>{{dishCategory.active}}</td>
                     <td>{{dishCategory.priority}}</td>
+					<td>		     
+			            <span ng-if="dishCategory.active==true" class="label label-success">{{dishCategory.active}}</span>
+						<span ng-if="dishCategory.active==false" class="label label-danger">{{dishCategory.active}}</span>
+			        </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

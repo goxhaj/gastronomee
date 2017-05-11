@@ -4,21 +4,28 @@
     <hr>
     <jhi-alert-error></jhi-alert-error>
     <dl class="dl-horizontal jh-entity-details">
+       
         <dt><span data-translate="gastronomeeApp.ingredient.name">Name</span></dt>
         <dd>
             <span>{{vm.ingredient.name}}</span>
         </dd>
+       
         <dt><span data-translate="gastronomeeApp.ingredient.description">Description</span></dt>
         <dd>
             <span>{{vm.ingredient.description}}</span>
         </dd>
-        <dt><span data-translate="gastronomeeApp.ingredient.active">Active</span></dt>
-        <dd>
-            <span>{{vm.ingredient.active}}</span>
-        </dd>
+
         <dt><span data-translate="gastronomeeApp.ingredient.priority">Priority</span></dt>
         <dd>
             <span>{{vm.ingredient.priority}}</span>
+        </dd>
+        
+        <dt><span data-translate="gastronomeeApp.ingredient.active">Active</span></dt>
+        <dd ng-if="vm.ingredient.active==true">
+            <span class="label label-success">{{vm.ingredient.active}}</span>
+        </dd>
+        <dd ng-if="vm.ingredient.active==false">
+            <span class="label label-danger">{{vm.ingredient.active}}</span>
         </dd>
     </dl>
 

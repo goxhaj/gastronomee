@@ -8,11 +8,13 @@
     </div>
     <div class="modal-body">
         <jhi-alert-error></jhi-alert-error>
+        
         <div class="form-group" ng-show="vm.dishCategory.id">
             <label for="id" data-translate="global.field.id">ID</label>
             <input type="text" class="form-control" id="id" name="id"
                     ng-model="vm.dishCategory.id" readonly />
         </div>
+        
         <div class="form-group">
             <label class="control-label" data-translate="gastronomeeApp.dishCategory.name" for="field_name">Name</label>
             <input type="text" class="form-control" name="name" id="field_name"
@@ -25,22 +27,25 @@
                 </p>
             </div>
         </div>
+        
         <div class="form-group">
             <label class="control-label" data-translate="gastronomeeApp.dishCategory.description" for="field_description">Description</label>
-            <input type="text" class="form-control" name="description" id="field_description"
+            <textarea rows="3" type="text" class="form-control" name="description" id="field_description"
                     ng-model="vm.dishCategory.description"
-                    />
+                    ></textarea>
         </div>
-        <div class="form-group">
-            <label class="control-label" data-translate="gastronomeeApp.dishCategory.active" for="field_active">Active</label>
-                <input type="checkbox" name="active" id="field_active"
-                          ng-model="vm.dishCategory.active"/>
-        </div>
+
         <div class="form-group">
             <label class="control-label" data-translate="gastronomeeApp.dishCategory.priority" for="field_priority">Priority</label>
             <input type="number" class="form-control" name="priority" id="field_priority"
                     ng-model="vm.dishCategory.priority"
                     />
+        </div>
+        
+        <div class="form-group">
+            <label class="control-label" data-translate="gastronomeeApp.dishCategory.active" for="field_active">Active</label>
+                <input type="checkbox" name="active" id="field_active"
+                          ng-model="vm.dishCategory.active"/>
         </div>
 
     </div>

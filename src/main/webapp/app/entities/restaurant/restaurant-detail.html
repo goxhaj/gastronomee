@@ -8,41 +8,52 @@
         <dd>
             <span>{{vm.restaurant.name}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.restaurant.description">Description</span></dt>
         <dd>
             <span>{{vm.restaurant.description}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.restaurant.open">Open</span></dt>
         <dd>
             <span>{{vm.restaurant.open}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.restaurant.close">Close</span></dt>
         <dd>
             <span>{{vm.restaurant.close}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.restaurant.tables">Tables</span></dt>
         <dd>
             <span>{{vm.restaurant.tables}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span></dt>
         <dd>
             <span>{{vm.restaurant.chairs}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</span></dt>
         <dd>
             <span data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span>
         </dd>
-        <dt><span data-translate="gastronomeeApp.restaurant.opened">Opened</span></dt>
-        <dd>
-            <span>{{vm.restaurant.opened}}</span>
-        </dd>
+
         <dt><span data-translate="gastronomeeApp.restaurant.location">Location</span></dt>
         <dd>
-            <a ui-sref="location-detail({id:vm.restaurant.location.id})">{{vm.restaurant.location.id}}</a>
+            <a ui-sref="location-detail({id:vm.restaurant.location.id})">{{vm.restaurant.location.name}}</a>
         </dd>
         <dt><span data-translate="gastronomeeApp.restaurant.manager">Manager</span></dt>
         <dd>
             {{vm.restaurant.manager.id}}
+        </dd>
+        
+        <dt><span data-translate="gastronomeeApp.restaurant.opened">Opened</span></dt>
+		<dd ng-if="vm.restaurant.opened==true">
+            <span class="label label-success">{{vm.restaurant.opened}}</span>
+        </dd>
+        <dd ng-if="vm.restaurant.opened==false">
+            <span class="label label-danger">{{vm.restaurant.opened}}</span>
         </dd>
     </dl>
 

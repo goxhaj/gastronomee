@@ -25,23 +25,25 @@
                 </p>
             </div>
         </div>
+
         <div class="form-group">
-            <label class="control-label" data-translate="gastronomeeApp.menu.active" for="field_active">Active</label>
-                <input type="checkbox" name="active" id="field_active"
-                          ng-model="vm.menu.active"/>
+            <label data-translate="gastronomeeApp.menu.restaurant" for="field_restaurant">Restaurant</label>
+            <select class="form-control" id="field_restaurant" name="restaurant" ng-model="vm.menu.restaurant" ng-options="restaurant as restaurant.name for restaurant in vm.restaurants track by restaurant.id">
+                <option value=""></option>
+            </select>
         </div>
-        <div class="form-group">
+        
+         <div class="form-group">
             <label class="control-label" data-translate="gastronomeeApp.menu.priority" for="field_priority">Priority</label>
             <input type="number" class="form-control" name="priority" id="field_priority"
                     ng-model="vm.menu.priority"
                     />
         </div>
-
+        
         <div class="form-group">
-            <label data-translate="gastronomeeApp.menu.restaurant" for="field_restaurant">Restaurant</label>
-            <select class="form-control" id="field_restaurant" name="restaurant" ng-model="vm.menu.restaurant" ng-options="restaurant as restaurant.id for restaurant in vm.restaurants track by restaurant.id">
-                <option value=""></option>
-            </select>
+            <label class="control-label" data-translate="gastronomeeApp.menu.active" for="field_active">Active</label>
+                <input type="checkbox" name="active" id="field_active"
+                          ng-model="vm.menu.active"/>
         </div>
     </div>
     <div class="modal-footer">

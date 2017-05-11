@@ -8,17 +8,23 @@
         <dd>
             <span>{{vm.menu.name}}</span>
         </dd>
-        <dt><span data-translate="gastronomeeApp.menu.active">Active</span></dt>
-        <dd>
-            <span>{{vm.menu.active}}</span>
-        </dd>
+
         <dt><span data-translate="gastronomeeApp.menu.priority">Priority</span></dt>
         <dd>
             <span>{{vm.menu.priority}}</span>
         </dd>
+        
         <dt><span data-translate="gastronomeeApp.menu.restaurant">Restaurant</span></dt>
         <dd>
-            <a ui-sref="restaurant-detail({id:vm.menu.restaurant.id})">{{vm.menu.restaurant.id}}</a>
+            <a ui-sref="restaurant-detail({id:vm.menu.restaurant.id})">{{vm.menu.restaurant.name}}</a>
+        </dd>
+        
+        <dt><span data-translate="gastronomeeApp.menu.active">Active</span></dt>
+        <dd ng-if="vm.menu.active==true">
+            <span class="label label-success">{{vm.menu.active}}</span>
+        </dd>
+        <dd ng-if="vm.menu.active==false">
+            <span class="label label-danger">{{vm.menu.active}}</span>
         </dd>
     </dl>
 

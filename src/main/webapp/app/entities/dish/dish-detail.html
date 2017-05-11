@@ -12,27 +12,30 @@
         <dd>
             <span>{{vm.dish.recipe}}</span>
         </dd>
-        <dt><span data-translate="gastronomeeApp.dish.active">Active</span></dt>
-        <dd>
-            <span>{{vm.dish.active}}</span>
-        </dd>
         <dt><span data-translate="gastronomeeApp.dish.priority">Priority</span></dt>
         <dd>
             <span>{{vm.dish.priority}}</span>
         </dd>
         <dt><span data-translate="gastronomeeApp.dish.menu">Menu</span></dt>
         <dd>
-            <a ui-sref="menu-detail({id:vm.dish.menu.id})">{{vm.dish.menu.id}}</a>
+            <a ui-sref="menu-detail({id:vm.dish.menu.id})">{{vm.dish.menu.name}}</a>
         </dd>
         <dt><span data-translate="gastronomeeApp.dish.ingredient">Ingredient</span></dt>
         <dd>
             <span ng-repeat="ingredient in vm.dish.ingredients">
-                <a ui-sref="ingredient-detail({id: ingredient.id})">{{ingredient.id}}</a>{{$last ? '' : ', '}}
+                <a ui-sref="ingredient-detail({id: ingredient.id})">{{ingredient.name}}</a>{{$last ? '' : ', '}}
             </span>
         </dd>
         <dt><span data-translate="gastronomeeApp.dish.category">Category</span></dt>
         <dd>
-            <a ui-sref="dish-category-detail({id:vm.dish.category.id})">{{vm.dish.category.id}}</a>
+            <a ui-sref="dish-category-detail({id:vm.dish.category.id})">{{vm.dish.category.name}}</a>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dish.active">Active</span></dt>
+        <dd ng-if="vm.dish.active==true">
+            <span class="label label-success">{{vm.dish.active}}</span>
+        </dd>
+        <dd ng-if="vm.dish.active==false">
+            <span class="label label-danger">{{vm.dish.active}}</span>
         </dd>
     </dl>
 

@@ -43,9 +43,8 @@
                     <th jh-sort-by="tables"><span data-translate="gastronomeeApp.restaurant.tables">Tables</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="chairs"><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="dayOfWeekClosed"><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="opened"><span data-translate="gastronomeeApp.restaurant.opened">Opened</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="location.id"><span data-translate="gastronomeeApp.restaurant.location">Location</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="manager.id"><span data-translate="gastronomeeApp.restaurant.manager">Manager</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="opened"><span data-translate="gastronomeeApp.restaurant.opened">Opened</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -59,13 +58,13 @@
                     <td>{{restaurant.tables}}</td>
                     <td>{{restaurant.chairs}}</td>
                     <td data-translate="{{'gastronomeeApp.DayOfWeek.' + restaurant.dayOfWeekClosed}}">{{restaurant.dayOfWeekClosed}}</td>
-                    <td>{{restaurant.opened}}</td>
                     <td>
-                        <a ui-sref="location-detail({id:restaurant.location.id})">{{restaurant.location.id}}</a>
+                        {{restaurant.manager.login}}
                     </td>
-                    <td>
-                        {{restaurant.manager.id}}
-                    </td>
+                    <td>		     
+			            <span ng-if="restaurant.opened==true" class="label label-success">{{restaurant.opened}}</span>
+						<span ng-if="restaurant.opened==false" class="label label-danger">{{restaurant.opened}}</span>
+			        </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"

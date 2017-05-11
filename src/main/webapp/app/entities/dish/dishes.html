@@ -38,10 +38,10 @@
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="name"><span data-translate="gastronomeeApp.dish.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="recipe"><span data-translate="gastronomeeApp.dish.recipe">Recipe</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="active"><span data-translate="gastronomeeApp.dish.active">Active</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="menu.name"><span data-translate="gastronomeeApp.dish.menu">Menu</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="category.name"><span data-translate="gastronomeeApp.dish.category">Category</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th jh-sort-by="priority"><span data-translate="gastronomeeApp.dish.priority">Priority</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="menu.id"><span data-translate="gastronomeeApp.dish.menu">Menu</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="category.id"><span data-translate="gastronomeeApp.dish.category">Category</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="active"><span data-translate="gastronomeeApp.dish.active">Active</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
@@ -49,15 +49,18 @@
                 <tr ng-repeat="dish in vm.dishes track by dish.id">
                     <td><a ui-sref="dish-detail({id:dish.id})">{{dish.id}}</a></td>
                     <td>{{dish.name}}</td>
-                    <td>{{dish.recipe}}</td>
-                    <td>{{dish.active}}</td>
+                    <td>{{dish.recipe}}</td>             
+                    <td>
+                        <a ui-sref="menu-detail({id:dish.menu.id})">{{dish.menu.name}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="dish-category-detail({id:dish.category.id})">{{dish.category.name}}</a>
+                    </td>
                     <td>{{dish.priority}}</td>
-                    <td>
-                        <a ui-sref="menu-detail({id:dish.menu.id})">{{dish.menu.id}}</a>
-                    </td>
-                    <td>
-                        <a ui-sref="dish-category-detail({id:dish.category.id})">{{dish.category.id}}</a>
-                    </td>
+                    <td>		     
+			            <span ng-if="dish.active==true" class="label label-success">{{dish.active}}</span>
+						<span ng-if="dish.active==false" class="label label-danger">{{dish.active}}</span>
+			        </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
