@@ -5,18 +5,19 @@
 	<div class="page-header">
 		<div class="form-group">
 			<div class="form-inline">
-				<input class="form-control input-lg srRestaurant" type="text"
-					ng-model="vm.restaurant.name" placeholder="Find restaurants">
-				<button type="submit" class="btn btn-lg btn-primary"
-					ng-click="vm.findRestaurants(vm.restaurant.name)">Find</button>
+				<form name="searchForm" class="form-inline">
+					<input class="form-control input-lg srRestaurant" type="text"
+						ng-model="vm.searchQuery" placeholder="Find restaurants">
+					<button type="submit" class="btn btn-lg btn-primary"
+						ng-click="vm.search(vm.searchQuery)">Find</button>
+				</form>
 			</div>
-
+			<hr />
 			<div ng-if="vm.restaurants.length>0">
 				<ul class="list-group">
 					<li class="list-group-item"
 						ng-repeat="restaurant in vm.restaurants track by restaurant.id">
-						<a ui-sref="restaurant-detail({id:restaurant.id})">{{restaurant.name}}</a>
-						- <span>{{restaurant.description}}</span>
+						<a ui-sref="restaurant-detail({id:restaurant.id})">{{restaurant.name}}</a> <span>{{restaurant.description}}</span>
 					</li>
 				</ul>
 			</div>
