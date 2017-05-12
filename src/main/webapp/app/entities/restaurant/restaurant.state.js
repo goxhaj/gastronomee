@@ -58,7 +58,7 @@
             parent: 'restaurant',
             url: '/restaurant/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'gastronomeeApp.restaurant.detail.title'
             },
             views: {

@@ -3,19 +3,18 @@
     
     <jhi-alert-error></jhi-alert-error>
 
-    <h2>{{vm.restaurant.name}}</h2>
-    <span ng-if="vm.restaurant.opened==true">
-    	<sup class="label label-success">OPENED</sup>
-    </span>
-    <span ng-if="vm.restaurant.opened==false">
-    	<sup class="label label-danger">CLOSED</sup>
-    </span>           
+    <h2>{{vm.restaurant.name}} <sup>
+    	<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
+    	<span ng-if="vm.restaurant.opened==false" class="label label-danger">CLOSED</span>
+    </sup></h2>
+	
+	   
     
     <div class="info">
-    	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: {{vm.restaurant.open}} - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: {{vm.restaurant.close}} | 
-    	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: {{vm.restaurant.manager.login}} | 
-    	<label data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</label>: <span data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span> | 
-    	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: {{vm.restaurant.tables}} | <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: {{vm.restaurant.chairs}}
+    	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: <span class="label label-success">{{vm.restaurant.open}}</span> - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: <span class="label label-danger">{{vm.restaurant.close}}</span>  
+    	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: <span class="label label-default">{{vm.restaurant.manager.login}}</span>  
+    	<label data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</label>: <span class="label label-danger" data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span>  
+    	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: <span class="label label-info">{{vm.restaurant.tables}}</span>  <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: <span class="label label-info">{{vm.restaurant.chairs}}</span>
     </div>
     
     <div class="row">
