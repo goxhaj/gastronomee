@@ -40,9 +40,15 @@
 
         <div class="form-group">
             <label data-translate="gastronomeeApp.dish.menu" for="field_menu">Menu</label>
-            <select class="form-control" id="field_menu" name="menu" ng-model="vm.dish.menu" ng-options="menu as menu.name for menu in vm.menus track by menu.id">
+            <select required class="form-control" id="field_menu" name="menu" ng-model="vm.dish.menu" ng-options="menu as menu.name for menu in vm.menus track by menu.id">
                 <option value=""></option>
             </select>
+            <div ng-show="editForm.menu.$invalid">
+                <p class="help-block"
+                    ng-show="editForm.name.$error.required" data-translate="entity.validation.required">
+                    This field is required.
+                </p>
+            </div>
         </div>
         <div class="form-group">
             <label data-translate="gastronomeeApp.dish.ingredient" for="field_ingredient">Ingredient</label>

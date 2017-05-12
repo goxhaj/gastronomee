@@ -46,6 +46,8 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('restaurant');
+                    $translatePartialLoader.addPart('location');
+                    $translatePartialLoader.addPart('country');
                     $translatePartialLoader.addPart('dayOfWeek');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();

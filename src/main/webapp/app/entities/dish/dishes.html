@@ -59,7 +59,7 @@
                     <td>{{dish.priority}}</td>
                     <td>		     
 			            <span ng-if="dish.active==true" class="label label-success">{{dish.active}}</span>
-						<span ng-if="dish.active==false" class="label label-danger">{{dish.active}}</span>
+						<span ng-if="dish.active==false || dish.active==''" class="label label-danger">{{dish.active}}</span>
 			        </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">

@@ -13,7 +13,7 @@
         vm.dish = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.menus = Menu.query();
+        vm.menus = Menu.myMenus();
         vm.ingredients = Ingredient.query();
         vm.dishcategories = DishCategory.query();
 

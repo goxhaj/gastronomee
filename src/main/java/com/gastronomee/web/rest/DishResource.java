@@ -1,14 +1,14 @@
 package com.gastronomee.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.gastronomee.domain.Dish;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
-import com.gastronomee.repository.DishRepository;
-import com.gastronomee.repository.search.DishSearchRepository;
-import com.gastronomee.web.rest.util.HeaderUtil;
-import com.gastronomee.web.rest.util.PaginationUtil;
-import io.swagger.annotations.ApiParam;
-import io.github.jhipster.web.util.ResponseUtil;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.List;
+import java.util.Optional;
+
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
@@ -16,17 +16,31 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import com.codahale.metrics.annotation.Timed;
+import com.gastronomee.domain.Dish;
+import com.gastronomee.domain.Menu;
+import com.gastronomee.domain.Restaurant;
+import com.gastronomee.repository.DishRepository;
+import com.gastronomee.repository.MenuRepository;
+import com.gastronomee.repository.RestaurantRepository;
+import com.gastronomee.repository.search.DishSearchRepository;
+import com.gastronomee.security.AuthoritiesConstants;
+import com.gastronomee.web.rest.util.HeaderUtil;
+import com.gastronomee.web.rest.util.PaginationUtil;
 
-import static org.elasticsearch.index.query.QueryBuilders.*;
+import io.github.jhipster.web.util.ResponseUtil;
+import io.swagger.annotations.ApiParam;
 
 /**
  * REST controller for managing Dish.
@@ -42,10 +56,17 @@ public class DishResource {
     private final DishRepository dishRepository;
 
     private final DishSearchRepository dishSearchRepository;
+    
+    private final MenuRepository menuRepository;
+    
+    private final RestaurantRepository restaurantRepository;
 
-    public DishResource(DishRepository dishRepository, DishSearchRepository dishSearchRepository) {
+    public DishResource(DishRepository dishRepository, DishSearchRepository dishSearchRepository, 
+    		MenuRepository menuRepository, RestaurantRepository restaurantRepository) {
         this.dishRepository = dishRepository;
         this.dishSearchRepository = dishSearchRepository;
+        this.menuRepository = menuRepository;
+        this.restaurantRepository = restaurantRepository;
     }
 
     /**
@@ -57,10 +78,17 @@ public class DishResource {
      */
     @PostMapping("/dishes")
     @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
     public ResponseEntity<Dish> createDish(@Valid @RequestBody Dish dish) throws URISyntaxException {
         log.debug("REST request to save Dish : {}", dish);
         if (dish.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new dish cannot already have an ID")).body(null);
+        }
+        if (dish.getMenu() == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "menurequired", "A menu is required to create a dish")).body(null);
         }
         Dish result = dishRepository.save(dish);
         dishSearchRepository.save(result);
@@ -80,16 +108,46 @@ public class DishResource {
      */
     @PutMapping("/dishes")
     @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
     public ResponseEntity<Dish> updateDish(@Valid @RequestBody Dish dish) throws URISyntaxException {
         log.debug("REST request to update Dish : {}", dish);
         if (dish.getId() == null) {
             return createDish(dish);
+        }
+        if (dish.getMenu() == null) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "menurequired", "A menu is required to update a dish")).body(null);
         }
         Dish result = dishRepository.save(dish);
         dishSearchRepository.save(result);
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, dish.getId().toString()))
             .body(result);
+    }
+    
+    /**
+     * GET  /restaurants/my : get all my restaurants.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
+     */
+    @GetMapping("/dishes/my")
+    @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
+    public ResponseEntity<List<Dish>> getMyDishes(@ApiParam Pageable pageable) {
+        log.debug("REST request to get my Dishes");
+        
+        List<Restaurant> restaurants = restaurantRepository.findByManagerIsCurrentUser();
+        List<Menu> menus = menuRepository.findAllByRestaurantIn(restaurants);
+
+        Page<Dish> page = dishRepository.findAllByMenuIn(menus, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dishes/my");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**
@@ -129,6 +187,10 @@ public class DishResource {
      */
     @DeleteMapping("/dishes/{id}")
     @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
     public ResponseEntity<Void> deleteDish(@PathVariable Long id) {
         log.debug("REST request to delete Dish : {}", id);
         dishRepository.delete(id);

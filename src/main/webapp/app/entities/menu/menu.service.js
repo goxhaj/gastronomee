@@ -7,10 +7,11 @@
     Menu.$inject = ['$resource'];
 
     function Menu ($resource) {
-        var resourceUrl =  'api/menus/:id';
+        var resourceUrl =  'api/menus/:id/:action';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'myMenus': { method: 'GET', isArray: true, params: {action: 'my'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

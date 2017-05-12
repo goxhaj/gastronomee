@@ -17,6 +17,7 @@
                 "title": "Country"
             },
             "name": "Name",
+            "search": "Search...",
             "region": "Region"
         }
     }

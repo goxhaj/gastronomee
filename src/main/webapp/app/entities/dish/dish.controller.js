@@ -26,14 +26,14 @@
 
         function loadAll () {
             if (pagingParams.search) {
-                DishSearch.query({
+                DishSearch.myDishes({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                Dish.query({
+                Dish.myDishes({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()

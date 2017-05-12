@@ -1,7 +1,11 @@
 package com.gastronomee.repository;
 
 import com.gastronomee.domain.Menu;
+import com.gastronomee.domain.Restaurant;
+import com.gastronomee.domain.User;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.*;
 
 import java.util.List;
@@ -11,5 +15,13 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface MenuRepository extends JpaRepository<Menu,Long> {
+
+	List<Menu> findAllByRestaurantId(Long id);
+	Page<Menu> findAllByRestaurantId(Long id, Pageable pageable);
+	
+	List<Menu> findAllByRestaurantIn(List<Restaurant> restaurants);
+	Page<Menu> findAllByRestaurantIn(List<Restaurant> restaurants, Pageable pageable);
+	
+	
 
 }

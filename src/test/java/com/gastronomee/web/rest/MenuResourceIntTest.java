@@ -4,6 +4,7 @@ import com.gastronomee.GastronomeeApp;
 
 import com.gastronomee.domain.Menu;
 import com.gastronomee.repository.MenuRepository;
+import com.gastronomee.repository.RestaurantRepository;
 import com.gastronomee.repository.search.MenuSearchRepository;
 import com.gastronomee.web.rest.errors.ExceptionTranslator;
 
@@ -49,6 +50,9 @@ public class MenuResourceIntTest {
 
     @Autowired
     private MenuRepository menuRepository;
+    
+    @Autowired
+    private RestaurantRepository restaurantRepository;
 
     @Autowired
     private MenuSearchRepository menuSearchRepository;
@@ -72,7 +76,7 @@ public class MenuResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        MenuResource menuResource = new MenuResource(menuRepository, menuSearchRepository);
+        MenuResource menuResource = new MenuResource(menuRepository, menuSearchRepository, restaurantRepository);
         this.restMenuMockMvc = MockMvcBuilders.standaloneSetup(menuResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

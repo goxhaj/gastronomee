@@ -4,6 +4,8 @@ import com.gastronomee.GastronomeeApp;
 
 import com.gastronomee.domain.Dish;
 import com.gastronomee.repository.DishRepository;
+import com.gastronomee.repository.MenuRepository;
+import com.gastronomee.repository.RestaurantRepository;
 import com.gastronomee.repository.search.DishSearchRepository;
 import com.gastronomee.web.rest.errors.ExceptionTranslator;
 
@@ -55,6 +57,13 @@ public class DishResourceIntTest {
 
     @Autowired
     private DishSearchRepository dishSearchRepository;
+    
+    @Autowired
+    private MenuRepository menuRepository;
+    
+    @Autowired
+    private RestaurantRepository restaurantRepository;
+    
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -75,7 +84,7 @@ public class DishResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        DishResource dishResource = new DishResource(dishRepository, dishSearchRepository);
+        DishResource dishResource = new DishResource(dishRepository, dishSearchRepository, menuRepository, restaurantRepository);
         this.restDishMockMvc = MockMvcBuilders.standaloneSetup(dishResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

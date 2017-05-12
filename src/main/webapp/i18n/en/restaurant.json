@@ -17,12 +17,12 @@
                 "title": "Restaurant"
             },
             "name": "Name",
-            "description": "Description",
+            "description": "Who we are",
             "open": "Open",
             "close": "Close",
             "tables": "Tables",
             "chairs": "Chairs",
-            "dayOfWeekClosed": "Day Of Week Closed",
+            "dayOfWeekClosed": "Closed on",
             "opened": "Opened",
             "location": "Location",
             "manager": "Manager"

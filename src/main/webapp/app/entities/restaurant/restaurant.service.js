@@ -7,10 +7,12 @@
     Restaurant.$inject = ['$resource'];
 
     function Restaurant ($resource) {
-        var resourceUrl =  'api/restaurants/:id';
+        var resourceUrl =  'api/restaurants/:id/:action';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'myRestaurants': { method: 'GET', isArray: true, params: {action: 'my'}},
+            'menus': { method: 'GET', isArray: true, params: {action: 'menus'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

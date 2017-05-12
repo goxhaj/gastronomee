@@ -373,6 +373,10 @@ Social Buttons
 	float:right;
 }
 
+.restaurant{
+	border-bottom: 1px dotted #ccc;
+}
+
 .srRestaurant{
 	min-width:500px;
 }

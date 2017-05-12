@@ -7,10 +7,11 @@
     Dish.$inject = ['$resource'];
 
     function Dish ($resource) {
-        var resourceUrl =  'api/dishes/:id';
+        var resourceUrl =  'api/dishes/:id/:action';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'myDishes': { method: 'GET', isArray: true, params: {action: 'my'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

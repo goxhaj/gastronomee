@@ -36,7 +36,7 @@ public class Dish implements Serializable {
     private String recipe;
 
     @Column(name = "active")
-    private Boolean active;
+    private boolean active;
 
     @Column(name = "priority")
     private Integer priority;
@@ -78,11 +78,11 @@ public class Dish implements Serializable {
         this.recipe = recipe;
     }
 
-    public Boolean isActive() {
+    public boolean isActive() {
         return active;
     }
 
-    public void setActive(Boolean active) {
+    public void setActive(boolean active) {
         this.active = active;
     }
 

@@ -1,62 +1,65 @@
 
 <div>
-    <h2><span data-translate="gastronomeeApp.restaurant.detail.title">Restaurant</span> {{vm.restaurant.id}}</h2>
-    <hr>
+    
     <jhi-alert-error></jhi-alert-error>
-    <dl class="dl-horizontal jh-entity-details">
-        <dt><span data-translate="gastronomeeApp.restaurant.name">Name</span></dt>
-        <dd>
-            <span>{{vm.restaurant.name}}</span>
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.description">Description</span></dt>
-        <dd>
-            <span>{{vm.restaurant.description}}</span>
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.open">Open</span></dt>
-        <dd>
-            <span>{{vm.restaurant.open}}</span>
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.close">Close</span></dt>
-        <dd>
-            <span>{{vm.restaurant.close}}</span>
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.tables">Tables</span></dt>
-        <dd>
-            <span>{{vm.restaurant.tables}}</span>
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span></dt>
-        <dd>
-            <span>{{vm.restaurant.chairs}}</span>
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</span></dt>
-        <dd>
-            <span data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span>
-        </dd>
 
-        <dt><span data-translate="gastronomeeApp.restaurant.location">Location</span></dt>
-        <dd>
-            <a ui-sref="location-detail({id:vm.restaurant.location.id})">{{vm.restaurant.location.name}}</a>
-        </dd>
-        <dt><span data-translate="gastronomeeApp.restaurant.manager">Manager</span></dt>
-        <dd>
-            {{vm.restaurant.manager.id}}
-        </dd>
-        
-        <dt><span data-translate="gastronomeeApp.restaurant.opened">Opened</span></dt>
-		<dd ng-if="vm.restaurant.opened==true">
-            <span class="label label-success">{{vm.restaurant.opened}}</span>
-        </dd>
-        <dd ng-if="vm.restaurant.opened==false">
-            <span class="label label-danger">{{vm.restaurant.opened}}</span>
-        </dd>
-    </dl>
+    <h2>{{vm.restaurant.name}}</h2>
+    <span ng-if="vm.restaurant.opened==true">
+    	<sup class="label label-success">OPENED</sup>
+    </span>
+    <span ng-if="vm.restaurant.opened==false">
+    	<sup class="label label-danger">CLOSED</sup>
+    </span>           
+    
+    <div class="info">
+    	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: {{vm.restaurant.open}} - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: {{vm.restaurant.close}} | 
+    	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: {{vm.restaurant.manager.login}} | 
+    	<label data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</label>: <span data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span> | 
+    	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: {{vm.restaurant.tables}} | <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: {{vm.restaurant.chairs}}
+    </div>
+    
+    <div class="row">
+	    <div class="col-md-8">
+	        <h3 data-translate="gastronomeeApp.restaurant.description">Description</h3>
+			{{vm.restaurant.description}}
+			
+			<div ng-if="vm.menus.length>0">
+				<div class="menu" ng-repeat="menu in vm.menus track by menu.id">
+					<h4>{{menu.name}}</h4>
+				</div>
+			</div>
+		
+		</div>
+    	<div ng-if="vm.restaurant.location!=null" class="col-md-4">
+		    <h3 data-translate="gastronomeeApp.restaurant.location">Location</h3>
+		    <div>
+	        	<div class="row">
+			     	<label class="col-md-6 control-label" data-translate="gastronomeeApp.location.streetAddress">Street Address</label>		      
+			        <span class="col-md-6">{{vm.restaurant.location.streetAddress}}</span>
+				</div>
+				<div class="row">
+		        	<label class="col-md-6 control-label" data-translate="gastronomeeApp.location.postalCode">Postal code</label>		      		        	
+			        <span class="col-md-6">{{vm.restaurant.location.postalCode}}</span>
+		        </div>
 
+		        <div class="row">
+		            <label class="col-md-6 control-label" data-translate="gastronomeeApp.location.city">City</label>
+			        <span class="col-md-6">{{vm.restaurant.location.city}}</span>
+			    </div>
+			    <div class="row">
+			        <label class="col-md-6 control-label" data-translate="gastronomeeApp.location.stateProvince">State province</label>
+			    	<span class="col-md-6">{{vm.restaurant.location.stateProvince}}</span>
+	        	</div>
+				<div class="row">
+				   <label class="col-md-6 control-label" data-translate="gastronomeeApp.location.country">Country</label>
+					<span class="col-md-6">{{vm.restaurant.location.country.name}}</span>
+	        	</div>
+	        </div>
+		</div>
+   	</div>
+   	
+	<hr>
+	
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">

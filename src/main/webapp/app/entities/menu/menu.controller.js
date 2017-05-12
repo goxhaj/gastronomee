@@ -26,14 +26,14 @@
 
         function loadAll () {
             if (pagingParams.search) {
-                MenuSearch.query({
+                MenuSearch.myMenus({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                Menu.query({
+                Menu.myMenus({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()

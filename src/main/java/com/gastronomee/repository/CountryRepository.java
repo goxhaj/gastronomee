@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Spring Data JPA repository for the Country entity.
  */
-@SuppressWarnings("unused")
 public interface CountryRepository extends JpaRepository<Country,Long> {
+
+	List<Country> findByNameIgnoreCaseContaining(String name);
 
 }

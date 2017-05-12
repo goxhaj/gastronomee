@@ -13,13 +13,10 @@
 				</form>
 			</div>
 			<hr />
-			<div ng-if="vm.restaurants.length>0">
-				<ul class="list-group">
-					<li class="list-group-item"
-						ng-repeat="restaurant in vm.restaurants track by restaurant.id">
-						<a ui-sref="restaurant-detail({id:restaurant.id})">{{restaurant.name}}</a> <span>{{restaurant.description}}</span>
-					</li>
-				</ul>
+			<div class="restaurant-list" ng-if="vm.restaurants.length>0">
+				<div class="restaurant" ng-repeat="restaurant in vm.restaurants track by restaurant.id">
+					<h3><a ui-sref="restaurant-detail({id:restaurant.id})">{{restaurant.name}}</a></h3><h4>{{restaurant.description}}</h4>
+				</div>
 			</div>
 		</div>
 	</div>

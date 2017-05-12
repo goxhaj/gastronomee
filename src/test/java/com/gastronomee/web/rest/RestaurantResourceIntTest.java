@@ -1,11 +1,18 @@
 package com.gastronomee.web.rest;
 
-import com.gastronomee.GastronomeeApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.gastronomee.domain.Restaurant;
-import com.gastronomee.repository.RestaurantRepository;
-import com.gastronomee.repository.search.RestaurantSearchRepository;
-import com.gastronomee.web.rest.errors.ExceptionTranslator;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,15 +28,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import com.gastronomee.GastronomeeApp;
+import com.gastronomee.domain.Restaurant;
 import com.gastronomee.domain.enumeration.DayOfWeek;
+import com.gastronomee.repository.LocationRepository;
+import com.gastronomee.repository.MenuRepository;
+import com.gastronomee.repository.RestaurantRepository;
+import com.gastronomee.repository.UserRepository;
+import com.gastronomee.repository.search.LocationSearchRepository;
+import com.gastronomee.repository.search.RestaurantSearchRepository;
+import com.gastronomee.web.rest.errors.ExceptionTranslator;
 /**
  * Test class for the RestaurantResource REST controller.
  *
@@ -68,6 +76,18 @@ public class RestaurantResourceIntTest {
 
     @Autowired
     private RestaurantSearchRepository restaurantSearchRepository;
+    
+    @Autowired
+    private MenuRepository menuRepository;
+    
+    @Autowired
+    private LocationRepository locationRepository;
+
+    @Autowired
+    private LocationSearchRepository locationSearchRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -88,7 +108,8 @@ public class RestaurantResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        RestaurantResource restaurantResource = new RestaurantResource(restaurantRepository, restaurantSearchRepository);
+        RestaurantResource restaurantResource = new RestaurantResource(restaurantRepository, restaurantSearchRepository, 
+        		locationRepository, locationSearchRepository, menuRepository, userRepository);
         this.restRestaurantMockMvc = MockMvcBuilders.standaloneSetup(restaurantResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

@@ -1,7 +1,7 @@
 id;name;description;jhi_open;jhi_close;jhi_tables;chairs;day_of_week_closed;opened;location_id;manager_id
 1;Restaurant Bora;We are the home of byrek and tave dheu;10:30AM;02:30AM;10;40;MONDAY;true;null;5
 2;Ristorante Pizzeria Da Pucci Pucci;This is an Italian restaruant where you could go and eat some really good pizza;10:30AM;02:30AM;10;40;SUNDAY;true;null;6
-3;Indian Restaurant New Delhi Bora;We are the best in terms of flaviours;10:30AM;02:30AM;10;40;MONDAY;true;null;7
+3;Indian Restaurant New Delhi;We are the best in terms of flaviours;10:30AM;02:30AM;10;40;MONDAY;true;null;7
 4;French restaurant Gourmet;This is an Albanian restaruant;10:30AM;02:30AM;10;40;MONDAY;true;null;8
 5;Chinese restaurant Zhang Wei;Let's have a new taste of oriental food;10:30AM;02:30AM;10;40;MONDAY;true;null;9
-6;Japanese restaurant Takahashi;The best place in town to eat Japanese food;10:30AM;02:30AM;10;40;MONDAY;true;null;10
+6;Japanese restaurant Takahashi;The best place in town to eat Japanese food;10:30AM;02:30AM;10;40;TUESDAY;true;null;10

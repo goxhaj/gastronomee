@@ -7,10 +7,13 @@
     Country.$inject = ['$resource'];
 
     function Country ($resource) {
-        var resourceUrl =  'api/countries/:id';
+        var resourceUrl =  'api/countries/:id/:action';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'getCountries': { 
+            	method: 'GET', isArray: true, params:{ action : 'name' }
+            },
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {
