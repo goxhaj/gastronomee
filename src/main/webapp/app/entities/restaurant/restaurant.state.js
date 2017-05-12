@@ -71,6 +71,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('restaurant');
+                    $translatePartialLoader.addPart('menu');
                     $translatePartialLoader.addPart('dayOfWeek');
                     return $translate.refresh();
                 }],

@@ -12,12 +12,16 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
-    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
+
     <!-- endinject -->
+
     <!-- endbuild -->
     <!-- build:css content/css/main.css -->
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
+    
+    <!-- ui-select files -->
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
 </head>
 <body ng-app="gastronomeeApp" ng-strict-di>
     <!--[if lt IE 9]>
@@ -58,6 +62,7 @@
     <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+    <script src="bower_components/angular-filter/dist/angular-filter.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -70,9 +75,11 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
-    <script src="bower_components/angular-filter/dist/angular-filter.min.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
+    
+    <!-- ui-select -->
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
 
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
@@ -193,12 +200,6 @@
     <script src="app/blocks/config/alert.config.js"></script>
     <script src="app/app.state.js"></script>
     <script src="app/app.constants.js"></script>
-    <script src="app/angular-ui-select/index.js"></script>
-    <script src="app/angular-ui-select/docs/assets/plunkr.js"></script>
-    <script src="app/angular-ui-select/docs/assets/demo.js"></script>
-    <script src="app/angular-ui-select/docs/assets/app.js"></script>
-    <script src="app/angular-ui-select/dist/select.min.js"></script>
-    <script src="app/angular-ui-select/dist/select.js"></script>
     <script src="app/admin/user-management/user-management-dialog.controller.js"></script>
     <script src="app/admin/user-management/user-management-detail.controller.js"></script>
     <script src="app/admin/user-management/user-management-delete-dialog.controller.js"></script>
