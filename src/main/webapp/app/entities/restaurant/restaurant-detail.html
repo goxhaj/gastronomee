@@ -23,10 +23,15 @@
 	        <h3 data-translate="gastronomeeApp.restaurant.description">Description</h3>
 			{{vm.restaurant.description}}
 			
-			<div ng-if="vm.menus.length>0">
-				<div class="menu" ng-repeat="menu in vm.menus track by menu.id">
-					<h4>{{menu.name}}</h4>
-				</div>
+			<div ng-if="vm.dishes.length>0">
+				<ul ng-repeat="(key, value) in dishes | groupBy: 'menu'">
+				  Menu: <b>{{key}}</b>
+				  <br>
+				  <li ng-repeat="dish in value">
+				    <b>{{ dish.name }} </b> 
+				    <br>
+				  </li>
+				</ul>
 			</div>
 		
 		</div>

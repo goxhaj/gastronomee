@@ -31,6 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.gastronomee.GastronomeeApp;
 import com.gastronomee.domain.Restaurant;
 import com.gastronomee.domain.enumeration.DayOfWeek;
+import com.gastronomee.repository.DishRepository;
 import com.gastronomee.repository.LocationRepository;
 import com.gastronomee.repository.MenuRepository;
 import com.gastronomee.repository.RestaurantRepository;
@@ -88,6 +89,9 @@ public class RestaurantResourceIntTest {
     
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private DishRepository dishRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -109,7 +113,7 @@ public class RestaurantResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         RestaurantResource restaurantResource = new RestaurantResource(restaurantRepository, restaurantSearchRepository, 
-        		locationRepository, locationSearchRepository, menuRepository, userRepository);
+        		locationRepository, locationSearchRepository, menuRepository, userRepository, dishRepository);
         this.restRestaurantMockMvc = MockMvcBuilders.standaloneSetup(restaurantResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

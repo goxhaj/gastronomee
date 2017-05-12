@@ -11,6 +11,7 @@
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'restaurantDishes': { method: 'GET', isArray: true, params: {action: 'dishes'}},
             'myRestaurants': { method: 'GET', isArray: true, params: {action: 'my'}},
             'menus': { method: 'GET', isArray: true, params: {action: 'menus'}},
             'get': {

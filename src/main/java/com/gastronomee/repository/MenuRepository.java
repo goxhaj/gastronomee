@@ -22,6 +22,8 @@ public interface MenuRepository extends JpaRepository<Menu,Long> {
 	List<Menu> findAllByRestaurantIn(List<Restaurant> restaurants);
 	Page<Menu> findAllByRestaurantIn(List<Restaurant> restaurants, Pageable pageable);
 	
+	List<Menu> findAllByRestaurant(Restaurant restaurant);
+	
 	
 
 }

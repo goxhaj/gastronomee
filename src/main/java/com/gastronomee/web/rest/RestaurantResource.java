@@ -28,9 +28,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
+import com.gastronomee.domain.Dish;
 import com.gastronomee.domain.Location;
 import com.gastronomee.domain.Menu;
 import com.gastronomee.domain.Restaurant;
+import com.gastronomee.repository.DishRepository;
 import com.gastronomee.repository.LocationRepository;
 import com.gastronomee.repository.MenuRepository;
 import com.gastronomee.repository.RestaurantRepository;
@@ -67,19 +69,23 @@ public class RestaurantResource {
     private final LocationSearchRepository locationSearchRepository;
     
     private final UserRepository userRepository;
+    
+    private final DishRepository dishRepository;
 
     public RestaurantResource(RestaurantRepository restaurantRepository, 
     		RestaurantSearchRepository restaurantSearchRepository,
     		LocationRepository locationRepository, 
     		LocationSearchRepository locationSearchRepository,
     		MenuRepository menuRepository,
-    		UserRepository userRepository) {
+    		UserRepository userRepository,
+    	    DishRepository dishRepository) {
         this.restaurantRepository = restaurantRepository;
         this.restaurantSearchRepository = restaurantSearchRepository;
         this.locationRepository = locationRepository;
         this.locationSearchRepository = locationSearchRepository;
         this.menuRepository = menuRepository;
         this.userRepository = userRepository;
+        this.dishRepository = dishRepository;
     }
 
     /**
@@ -203,6 +209,28 @@ public class RestaurantResource {
         Page<Menu> page = menuRepository.findAllByRestaurantId(id, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants/{id}/menus");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /restaurants/{id}/dishes : get all the restaurant dishes.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
+     */
+    @GetMapping("/restaurants/{id}/dishes")
+    @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
+    public ResponseEntity<List<Dish>> getAllDishesByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
+        log.debug("REST request to get restaurant Dishes");
+        
+        Restaurant restaurant = restaurantRepository.findOne(id);
+        List<Menu> menus = menuRepository.findAllByRestaurant(restaurant);
+
+        List<Dish> page = dishRepository.findAllByMenuIn(menus);
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
     /**

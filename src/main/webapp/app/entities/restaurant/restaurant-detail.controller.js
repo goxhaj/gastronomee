@@ -5,25 +5,24 @@
         .module('gastronomeeApp')
         .controller('RestaurantDetailController', RestaurantDetailController);
 
-    RestaurantDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'previousState', 'entity', 'Restaurant', 'Location', 'User', 'Menu'];
+    RestaurantDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'AlertService', 'previousState', 'entity', 'Restaurant', 'Location', 'User'];
 
-    function RestaurantDetailController($scope, $rootScope, $stateParams, previousState, entity, Restaurant, Location, User, Menu) {
+    function RestaurantDetailController($scope, $rootScope, $stateParams, AlertService, previousState, entity, Restaurant, Location, User ) {
         var vm = this;
 
         vm.restaurant = entity;
-        vm.menus = [];
+        vm.dishes = [];
         vm.previousState = previousState.name;
-
         
-        loadAllMenus();
+        loadAllDishes();
         
-        function loadAllMenus () {
-        	Restaurant.menus({
-        			id: vm.restaurant.id
+        function loadAllDishes () {
+        	Restaurant.restaurantDishes({
+        		id: vm.restaurant.id
             }, onSuccess, onError);
             
             function onSuccess(data, headers) {
-                vm.menus = data;
+                vm.dishes = data;
             }
             
             function onError(error) {

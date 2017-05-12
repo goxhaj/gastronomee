@@ -127,8 +127,9 @@ public class DishResource {
             .body(result);
     }
     
+    
     /**
-     * GET  /restaurants/my : get all my restaurants.
+     * GET  /dishes/my : get all my dishes.
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
@@ -149,6 +150,8 @@ public class DishResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dishes/my");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
+    
+   
 
     /**
      * GET  /dishes : get all the dishes.
