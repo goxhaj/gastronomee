@@ -39,6 +39,15 @@
             <column name="country_id" type="bigint">
                 <constraints unique="true" nullable="true" />
             </column>
+            
+            <column name="lat" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
+            <column name="lon" type="bigint">
+                <constraints nullable="true" />
+            </column>
+            
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here, do not remove-->
         </createTable>
         

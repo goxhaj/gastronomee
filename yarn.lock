@@ -2306,6 +2306,13 @@ generator-jhipster@4.3.0:
     yeoman-generator "1.1.1"
     yo "1.8.5"
 
+geo-position@~1.0.0:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/geo-position/-/geo-position-1.0.2.tgz#d99821e67bc02f59b13992fcff98a256f8ad19e1"
+  dependencies:
+    obj "0.0.0"
+    once "~1.1.1"
+
 get-caller-file@^1.0.1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/get-caller-file/-/get-caller-file-1.0.2.tgz#f702e63127e7e231c160a80c1554acb70d5047e5"
@@ -4800,6 +4807,10 @@ oauth-sign@~0.8.0, oauth-sign@~0.8.1:
   version "0.8.2"
   resolved "https://registry.yarnpkg.com/oauth-sign/-/oauth-sign-0.8.2.tgz#46a6ab7f0aead8deae9ec0565780b7d4efeb9d43"
 
+obj@0.0.0:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/obj/-/obj-0.0.0.tgz#734856ce10147c78040f4b4dfc89194cecb181f7"
+
 object-assign@*, object-assign@^4.0.0, object-assign@^4.0.1, object-assign@^4.1.0:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
@@ -4842,6 +4853,10 @@ once@1.x, once@^1.3.0, once@^1.3.3:
   resolved "https://registry.yarnpkg.com/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
   dependencies:
     wrappy "1"
+
+once@~1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/once/-/once-1.1.1.tgz#9db574933ccb08c3a7614d154032c09ea6f339e7"
 
 once@~1.3.0:
   version "1.3.3"
@@ -4964,6 +4979,12 @@ osenv@^0.1.0, osenv@^0.1.4:
   dependencies:
     os-homedir "^1.0.0"
     os-tmpdir "^1.0.0"
+
+osm@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/osm/-/osm-1.0.0.tgz#cb0b49ee3f61c3a563876f1dcc1e4f0dd45eeed6"
+  dependencies:
+    geo-position "~1.0.0"
 
 osx-release@^1.0.0:
   version "1.1.0"

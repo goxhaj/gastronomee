@@ -142,6 +142,12 @@ public class RestaurantResource {
     })
     public ResponseEntity<Restaurant> updateRestaurant(@Valid @RequestBody Restaurant restaurant) throws URISyntaxException {
         log.debug("REST request to update Restaurant : {}", restaurant);
+        
+        if (restaurant!=null &&  !hasPermission(restaurant.getId())) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createFailureAlert(ENTITY_NAME, restaurant.getId().toString(), "Permission denied!")).build();
+        }
+        
         if (restaurant.getId() == null) {
             return createRestaurant(restaurant);
         }
@@ -262,18 +268,18 @@ public class RestaurantResource {
     public ResponseEntity<Void> deleteRestaurant(@PathVariable Long id) {
         log.debug("REST request to delete Restaurant : {}", id);
         
-        if (restaurantRepository.findOneByManagerLoginAndId(SecurityUtils.getCurrentUserLogin(), id) !=null || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-            restaurantRepository.delete(id);
-            restaurantSearchRepository.delete(id);
-            return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-        } else {//not allowed
-            return ResponseEntity.status(403).headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
-        }
+        if (!hasPermission(id)) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        }    
+
+        restaurantRepository.delete(id);
+        restaurantSearchRepository.delete(id);
+        return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+
         
     }
     
-    
-
     /**
      * SEARCH  /_search/restaurants?query=:query : search for the restaurant corresponding
      * to the query.
@@ -290,6 +296,14 @@ public class RestaurantResource {
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/restaurants");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
-
+    
+    private boolean hasPermission(Long id){
+    	if(restaurantRepository.findOneByManagerLoginAndId(SecurityUtils.getCurrentUserLogin(), id) !=null || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
+    		return true;
+    	} else {
+    		log.warn("Permission denied of User with ID: {}", id);
+    		return false;
+    	}
+    }
 
 }

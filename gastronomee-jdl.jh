@@ -58,11 +58,11 @@ entity DishCategory {
 
 
 relationship OneToOne {
-	Country{region} to Region
+	Country{region(name)} to Region
 }
 
 relationship OneToOne {
-	Location{country} to Country
+	Location{country(name)} to Country
 }
 
 relationship OneToOne {
@@ -70,23 +70,35 @@ relationship OneToOne {
 }
 
 relationship ManyToOne {
-	Restaurant{manager} to User
+	Restaurant{manager(login)} to User
 }
 
 relationship ManyToOne {
-	 Menu{restaurant} to Restaurant
+	Ingredient{user(login)} to User
 }
 
 relationship ManyToOne {
-	 Dish{menu} to Menu
+	Dish{user(login)} to User
+}
+
+relationship ManyToOne {
+	DishCategory{user(login)} to User
+}
+
+relationship ManyToOne {
+	 Menu{restaurant(name)} to Restaurant
+}
+
+relationship ManyToOne {
+	 Dish{menu(name)} to Menu
 }
 
 relationship ManyToMany {
-	Dish{ingredient} to Ingredient{dish}
+	Dish{ingredient(name)} to Ingredient{dish}
 }
 
 relationship ManyToOne {
-	Dish{category} to DishCategory
+	Dish{category(name)} to DishCategory
 }
 
 paginate Region, Country, Location, Restaurant, Menu, Dish, Ingredient, DishCategory with pager

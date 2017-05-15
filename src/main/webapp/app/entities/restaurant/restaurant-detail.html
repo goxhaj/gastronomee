@@ -12,9 +12,9 @@
     
     <div class="info">
     	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: <span class="label label-success">{{vm.restaurant.open}}</span> - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: <span class="label label-danger">{{vm.restaurant.close}}</span>  
-    	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: <span class="label label-default">{{vm.restaurant.manager.login}}</span>  
-    	<label data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</label>: <span class="label label-danger" data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span>  
-    	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: <span class="label label-info">{{vm.restaurant.tables}}</span>  <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: <span class="label label-info">{{vm.restaurant.chairs}}</span>
+    	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: {{vm.restaurant.manager.login}}  
+    	<label data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</label>: <span data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span>  
+    	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: {{vm.restaurant.tables}}  <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: {{vm.restaurant.chairs}}
     </div>
     
     <div class="row">

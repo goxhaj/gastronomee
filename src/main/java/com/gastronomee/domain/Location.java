@@ -35,6 +35,11 @@ public class Location implements Serializable {
 
     @Column(name = "state_province")
     private String stateProvince;
+    
+    private long lat;
+    private long lon;
+    
+    
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -88,7 +93,23 @@ public class Location implements Serializable {
         this.country = country;
     }
 
-    @Override
+    public long getLat() {
+		return lat;
+	}
+
+	public void setLat(long lat) {
+		this.lat = lat;
+	}
+
+	public long getLon() {
+		return lon;
+	}
+
+	public void setLon(long lon) {
+		this.lon = lon;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;
