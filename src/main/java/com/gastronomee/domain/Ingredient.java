@@ -45,6 +45,9 @@ public class Ingredient implements Serializable {
     @JsonIgnore
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Dish> dishes = new HashSet<>();
+    
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -93,8 +96,16 @@ public class Ingredient implements Serializable {
     public void setDishes(Set<Dish> dishes) {
         this.dishes = dishes;
     }
+    
+    public User getUser() {
+		return user;
+	}
 
-    @Override
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

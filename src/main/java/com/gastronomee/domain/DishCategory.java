@@ -37,6 +37,9 @@ public class DishCategory implements Serializable {
 
     @Column(name = "priority")
     private Integer priority;
+    
+    @ManyToOne
+    private User user;
 
     public Long getId() {
         return id;
@@ -78,7 +81,15 @@ public class DishCategory implements Serializable {
         this.priority = priority;
     }
 
-    @Override
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

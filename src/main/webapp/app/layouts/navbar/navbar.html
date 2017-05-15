@@ -55,14 +55,14 @@
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span data-translate="global.menu.entities.location">Location</span>
                                 </a>
-                            </li>
-                        <li has-any-authority="ROLE_ADMIN" ui-sref-active="active">
+                        </li>
+                        <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
                                 <a ui-sref="ingredient" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span data-translate="global.menu.entities.ingredient">Ingredient</span>
                                 </a>
                             </li>
-                        <li has-any-authority="ROLE_ADMIN" ui-sref-active="active">
+                        <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
                                 <a ui-sref="dish-category" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span data-translate="global.menu.entities.dishCategory">Dish Category</span>

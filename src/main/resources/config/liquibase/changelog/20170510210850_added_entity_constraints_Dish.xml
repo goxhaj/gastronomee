@@ -19,6 +19,7 @@
                                  constraintName="fk_dish_ingredient_dishes_id"
                                  referencedColumnNames="id"
                                  referencedTableName="dish"/>
+                                 
         <addForeignKeyConstraint baseColumnNames="ingredients_id"
                                  baseTableName="dish_ingredient"
                                  constraintName="fk_dish_ingredient_ingredients_id"
@@ -30,6 +31,12 @@
                                  constraintName="fk_dish_category_id"
                                  referencedColumnNames="id"
                                  referencedTableName="dish_category"/>
+                                 
+        <addForeignKeyConstraint baseColumnNames="user_id"
+                                 baseTableName="dish"
+                                 constraintName="fk_dish_user_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
 
     </changeSet>
 </databaseChangeLog>

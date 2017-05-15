@@ -43,6 +43,9 @@ public class Dish implements Serializable {
 
     @ManyToOne
     private Menu menu;
+    
+    @ManyToOne
+    private User user;
 
     @ManyToMany
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
@@ -118,7 +121,15 @@ public class Dish implements Serializable {
         this.category = dishCategory;
     }
 
-    @Override
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

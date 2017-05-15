@@ -19,6 +19,9 @@
     <include file="classpath:config/liquibase/changelog/20170510210848_added_entity_constraints_Restaurant.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170510210849_added_entity_constraints_Menu.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170510210850_added_entity_constraints_Dish.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210851_added_entity_constrains_Ingredient.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170510210852_added_entity_constrains_DishCategory.xml" relativeToChangelogFile="false"/>
+    
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
     
     <!-- load application specific data here -->
