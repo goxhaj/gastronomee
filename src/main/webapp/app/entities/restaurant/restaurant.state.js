@@ -58,7 +58,7 @@
             parent: 'restaurant',
             url: '/restaurant/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'gastronomeeApp.restaurant.detail.title'
             },
             views: {
@@ -71,6 +71,7 @@
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('restaurant');
+                    $translatePartialLoader.addPart('menu');
                     $translatePartialLoader.addPart('dayOfWeek');
                     return $translate.refresh();
                 }],
