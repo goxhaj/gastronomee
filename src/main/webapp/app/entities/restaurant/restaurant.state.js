@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/restaurant?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+                authorities: [],
                 pageTitle: 'gastronomeeApp.restaurant.home.title'
             },
             views: {
@@ -92,7 +92,7 @@
             parent: 'restaurant-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -117,7 +117,7 @@
             parent: 'restaurant',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -152,7 +152,7 @@
             parent: 'restaurant',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -177,7 +177,7 @@
             parent: 'restaurant',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+                authorities: ['ROLE_MANAGER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

@@ -5,14 +5,13 @@
         .module('gastronomeeApp')
         .controller('HomeController', HomeController);
 
-    HomeController.$inject = ['$scope', 'Principal', 'LoginService', 'Restaurant', 'RestaurantSearch', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
+    HomeController.$inject = ['$scope', 'AlertService', 'Principal', 'LoginService', 'Restaurant', 'RestaurantSearch', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
 
-    function HomeController ($scope, Principal, LoginService, Restaurant, RestaurantSearch, $state, ParseLinks, paginationConstants, pagingParams) {
+    function HomeController ($scope, AlertService, Principal, LoginService, Restaurant, RestaurantSearch, $state, ParseLinks, paginationConstants, pagingParams) {
         var vm = this;
         
         vm.account = null;
         vm.isAuthenticated = null;
-        vm.login = LoginService.open;
         vm.register = register;
         
         vm.restaurants = [];
@@ -34,8 +33,6 @@
             getAccount();        
             $state.go("dashboard");
         });
-
-        getAccount();
 
         function getAccount() {
             Principal.identity().then(function(account) {
