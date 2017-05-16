@@ -7,6 +7,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 import java.util.Objects;
 
 /**
@@ -33,6 +34,12 @@ public class Rating implements Serializable {
 
     @Column(name = "jhi_comment")
     private String comment;
+    
+    @Column(name = "created")
+    private ZonedDateTime created;
+    
+    @Column(name = "updated")
+    private ZonedDateTime updated;
 
     @ManyToOne
     private User user;
@@ -99,8 +106,25 @@ public class Rating implements Serializable {
     public void setRestaurant(Restaurant restaurant) {
         this.restaurant = restaurant;
     }
+    
 
-    @Override
+    public ZonedDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(ZonedDateTime created) {
+		this.created = created;
+	}
+
+	public ZonedDateTime getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(ZonedDateTime updated) {
+		this.updated = updated;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

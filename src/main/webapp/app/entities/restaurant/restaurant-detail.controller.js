@@ -8,18 +8,46 @@
     RestaurantDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'AlertService', 'previousState', 'entity', 'Restaurant', 'Location', 'Rating'];
 
     function RestaurantDetailController($scope, $rootScope, $stateParams, AlertService, previousState, entity, Restaurant, Location, Rating) {
-    	
-    	
+
+    	var vm = this;
+
+        vm.restaurant = entity;
+        vm.dishes = [];
+        vm.ratings = [];
+        vm.previousState = previousState.name;
+        
+        vm.rating={};
+        vm.rating.restaurant=entity;
+        vm.rating.rate=5;
+        vm.max = 10;
+        vm.isReadonly = false;
+        vm.rate = rate;
+        loadAllRatings();
+        loadAllDishes();
+
+        vm.hoveringOver = function(value) {
+          vm.overStar = value;
+          vm.percent = 100 * (value / vm.max);
+        };
+
+        vm.ratingStates = [
+          {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
+          {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+          {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
+          {stateOn: 'glyphicon-heart'},
+          {stateOff: 'glyphicon-off'}
+        ];
+        
     	angular.extend($scope, {
             center: {
-                lat: 41.327953,
-                lng: 19.819025,
+                lat: vm.restaurant.location.lat,
+                lng: vm.restaurant.location.lng,
                 zoom: 6
             },
             markers: {
                 taipei: {
-                    lat: 41.327953,
-                    lng: 19.819025,
+                    lat: vm.restaurant.location.lat,
+                    lng: vm.restaurant.location.lng,
                 }
             },
             layers: {
@@ -39,36 +67,8 @@
                 }
             }
         });
-    	
-    	
-    	var vm = this;
-
-        vm.restaurant = entity;
-        vm.dishes = [];
-        vm.ratings = [];
-        vm.previousState = previousState.name;
         
-        vm.rating={};
-        vm.rating.restaurant=entity;
-        vm.rating.rate=5;
-        vm.max = 10;
-        vm.isReadonly = false;
 
-        vm.hoveringOver = function(value) {
-          vm.overStar = value;
-          vm.percent = 100 * (value / vm.max);
-        };
-
-        vm.ratingStates = [
-          {stateOn: 'glyphicon-ok-sign', stateOff: 'glyphicon-ok-circle'},
-          {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-          {stateOn: 'glyphicon-heart', stateOff: 'glyphicon-ban-circle'},
-          {stateOn: 'glyphicon-heart'},
-          {stateOff: 'glyphicon-off'}
-        ];
-        
-        vm.rate = rate;
-        
         function rate () {
             vm.isSaving = true;
             if (vm.rating.id !== null) {
@@ -76,20 +76,19 @@
             } else {
                 Rating.save(vm.rating, onSaveSuccess, onSaveError);
             }
-        }
-        
-        function onSaveSuccess (result) {
-            $scope.$emit('gastronomeeApp:restaurantUpdate', result);
-            vm.ratings.push(result);
-            vm.isSaving = false;
-        }
+            
+            function onSaveSuccess (result) {
+                $scope.$emit('gastronomeeApp:restaurantUpdate', result);
+                vm.ratings.push(result);
+                vm.isSaving = false;
+            }
 
-        function onSaveError () {
-            vm.isSaving = false;
+            function onSaveError () {
+                vm.isSaving = false;
+            }
         }
         
-        loadAllRatings();
-        
+
         function loadAllRatings () {
         	Restaurant.rating({
         		id: vm.restaurant.id
@@ -104,7 +103,7 @@
             }
         }
         
-        loadAllDishes();
+        
         
         function loadAllDishes () {
         	Restaurant.dishes({
@@ -125,8 +124,7 @@
         });
         
         $scope.$on('$destroy', unsubscribe);
-        
-        
+
 
     }
 })();

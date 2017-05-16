@@ -1,10 +1,7 @@
 
 <div>
-    
-    <jhi-alert-error></jhi-alert-error>
-
 	 <h2>
-	 	<span class="glyphicon glyphicon-heart"></span>
+	 	<span class="glyphicon glyphicon-chevron-right"></span>
 		{{vm.restaurant.name}} 
 		<sup>
 			<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
@@ -82,19 +79,31 @@
 	<hr>
 	
 	<div>
-		
-		
 		<h4>
 			<span class="glyphicon glyphicon-comment"></span>
-			<span>Rating</span>
+			<span>Reviews</span>
 		</h4>
-		
-
-		<div  ng-repeat="rating in vm.ratings track by rating.id">
-			<span uib-rating ng-model="rating.rate" max="vm.max" read-only="true" aria-labelledby="default-rating"></span>
-			<span>{{rating.comment}}</span>
+		<div class="row">
+			<div  class="col-sm-8" ng-repeat="rating in vm.ratings track by rating.id">
+				<div class="panel panel-white post panel-shadow">
+	                <div class="post-heading">
+	                    <div class="pull-left image">
+	                        <img alt="user profile image" class="img-circle avatar" src="http://bootdey.com/img/Content/user_1.jpg">
+	                    </div>
+	                    <div class="pull-left meta">
+	                        <div class="title h5"><a href="#"><b>{{rating.user.login}}</b></a></div>
+	                        <div uib-rating ng-model="rating.rate" max="vm.max" read-only="true" aria-labelledby="default-rating"></div>
+	                        <div class="text-muted time">{{rating.created | date:'medium'}}</div>
+	                    </div>
+	                </div> 
+	                <div class="post-description"> 
+	                    <p>{{rating.comment}}</p>
+	                </div>
+	            </div>
+            </div>
 		</div>
 		
+		<hr>
 		
 		<form name="editForm" role="form" novalidate ng-submit="vm.rate()" show-validation>
 

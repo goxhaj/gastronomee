@@ -4,6 +4,7 @@ import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.Rating;
+import com.gastronomee.domain.User;
 import com.gastronomee.repository.RatingRepository;
 import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.RatingSearchRepository;
@@ -73,9 +75,17 @@ public class RatingResource {
     @Timed
     public ResponseEntity<Rating> createRating(@Valid @RequestBody Rating rating) throws URISyntaxException {
         log.debug("REST request to save Rating : {}", rating);
+        
         if (rating.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new rating cannot already have an ID")).body(null);
         }
+        User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
+        if (ratingRepository.findByRestaurantIdAndUserIsCurrentUser(rating.getRestaurant().getId(), user) != null && ratingRepository.findByRestaurantIdAndUserIsCurrentUser(rating.getRestaurant().getId(), user).size()>0) {
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "Already rated!")).body(null);
+        }
+        
+        //the time of creation of the rating
+        rating.setCreated(ZonedDateTime.now());
         
         //the current user that is creating this review
         rating.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
@@ -103,6 +113,11 @@ public class RatingResource {
         if (rating.getId() == null) {
             return createRating(rating);
         }
+        
+        //the time of update of the rating
+        rating.setUpdated(ZonedDateTime.now());
+        
+        
         Rating result = ratingRepository.save(rating);
         ratingSearchRepository.save(result);
         return ResponseEntity.ok()

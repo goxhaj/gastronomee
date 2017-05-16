@@ -36,10 +36,11 @@ public class Location implements Serializable {
     @Column(name = "state_province")
     private String stateProvince;
     
-    private long lat;
-    private long lon;
+    @Column(name = "lat")
+    private Double lat;
     
-    
+    @Column(name = "lng")
+    private Double lng;
 
     @OneToOne
     @JoinColumn(unique = true)
@@ -93,20 +94,20 @@ public class Location implements Serializable {
         this.country = country;
     }
 
-    public long getLat() {
+    public Double getLat() {
 		return lat;
 	}
 
-	public void setLat(long lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
 
-	public long getLon() {
-		return lon;
+	public Double getLng() {
+		return lng;
 	}
 
-	public void setLon(long lon) {
-		this.lon = lon;
+	public void setLng(Double lng) {
+		this.lng = lng;
 	}
 
 	@Override

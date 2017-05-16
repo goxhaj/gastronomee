@@ -385,6 +385,29 @@ h2 sup{
 	font-size:9px;
 	font-weight:bold;
 }
+
+.post .post-heading .avatar {
+    display: block;
+    height: 60px;
+    margin-right: 15px;
+    width: 60px;
+}
+
+.post .post-heading {
+    height: 95px;
+    padding: 20px 15px;
+}
+
+.post .post-description {
+    padding: 15px;
+}
+
+panel-white {
+    border: 1px solid #dddddd;
+}
+.panel-shadow {
+    box-shadow: 7px 7px 7px rgba(0, 0, 0, 0.3);
+}
 /* jhipster-needle-css-add-main JHipster will add new css style */
 
 

@@ -40,11 +40,11 @@
                 <constraints unique="true" nullable="true" />
             </column>
             
-            <column name="lat" type="bigint">
+            <column name="lat" type="double">
                 <constraints nullable="true" />
             </column>
             
-            <column name="lon" type="bigint">
+            <column name="lng" type="double">
                 <constraints nullable="true" />
             </column>
             

@@ -60,6 +60,14 @@
 	    </loadData>
     </changeSet>
     
+    <changeSet author="ardi" id="load_locations">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/locations.csv"
+	                  separator=";"
+	                  tableName="location">
+	    </loadData>
+    </changeSet>
+    
    <changeSet author="ardi" id="load_restaurants">
 		<loadData encoding="UTF-8"
 	                  file="config/liquibase/restaurants.csv"
@@ -73,6 +81,14 @@
 	                  file="config/liquibase/menus.csv"
 	                  separator=";"
 	                  tableName="menu">
+	    </loadData>
+    </changeSet>
+    
+    <changeSet author="ardi" id="load_dishes">
+		<loadData encoding="UTF-8"
+	                  file="config/liquibase/dishes.csv"
+	                  separator=";"
+	                  tableName="dish">
 	    </loadData>
     </changeSet>
     
