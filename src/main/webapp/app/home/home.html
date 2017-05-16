@@ -1,6 +1,6 @@
 <div ng-cloak>
 	<div class="page-header">
-		<h1 class="lead" translate="home.subtitle">Gastronomee</h1>
+		<h1 class="lead" translate="home.subtitle">gastronomee</h1>
 	</div>
 	<div class="page-header">
 		<div class="form-group">
@@ -12,7 +12,6 @@
 						ng-click="vm.search(vm.searchQuery)">Find</button>
 				</form>
 			</div>
-			<hr />
 			<div ng-if="vm.restaurants.length>0">
 				<div class="restaurant" ng-repeat="restaurant in vm.restaurants track by restaurant.id">
 					<h3><a ui-sref="restaurant-detail({id:restaurant.id})">{{restaurant.name}}</a></h3><p>{{restaurant.description}}</p>

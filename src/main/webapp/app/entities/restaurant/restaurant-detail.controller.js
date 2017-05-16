@@ -24,6 +24,15 @@
         vm.rate = rate;
         loadAllRatings();
         loadAllDishes();
+        
+        vm.lat=41.327953;
+        if(vm.restaurant.location!=null){
+        	vm.lat=vm.restaurant.location.lat;
+        }
+        vm.lng=19.819025;
+        if(vm.restaurant.location!=null){
+        	vm.lng=vm.restaurant.location.lng;
+        }
 
         vm.hoveringOver = function(value) {
           vm.overStar = value;
@@ -40,14 +49,14 @@
         
     	angular.extend($scope, {
             center: {
-                lat: vm.restaurant.location.lat,
-                lng: vm.restaurant.location.lng,
+                lat: vm.lat,
+                lng: vm.lng,
                 zoom: 6
             },
             markers: {
                 taipei: {
-                    lat: vm.restaurant.location.lat,
-                    lng: vm.restaurant.location.lng,
+                    lat: vm.lat,
+                    lng: vm.lng,
                 }
             },
             layers: {
@@ -90,7 +99,7 @@
         
 
         function loadAllRatings () {
-        	Restaurant.rating({
+        	Restaurant.ratings({
         		id: vm.restaurant.id
             }, onSuccess, onError);
             

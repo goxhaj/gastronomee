@@ -81,7 +81,7 @@ public class RatingResource {
         }
         User user = userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get();
         if (ratingRepository.findByRestaurantIdAndUserIsCurrentUser(rating.getRestaurant().getId(), user) != null && ratingRepository.findByRestaurantIdAndUserIsCurrentUser(rating.getRestaurant().getId(), user).size()>0) {
-            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "Already rated!")).body(null);
+            return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "ratingexists", "Already reviewed!")).body(null);
         }
         
         //the time of creation of the rating

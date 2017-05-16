@@ -69,5 +69,8 @@
   "scripts": {
     "test": "gulp test",
     "postinstall": "webdriver-manager update"
+  },
+  "dependencies": {
+    "generator-jhipster-leaflet": "^1.0.0"
   }
 }

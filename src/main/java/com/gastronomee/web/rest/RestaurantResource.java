@@ -197,13 +197,7 @@ public class RestaurantResource {
     public ResponseEntity<List<Restaurant>> getAllRestaurants(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Restaurants");
        
-        Page<Restaurant> page = restaurantRepository.findAll(pageable);//admin sees all restaurants
-        /*if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
-        	page = restaurantRepository.findAll(pageable);//admin sees all restaurants
-        } else if(SecurityUtils.) {
-        	page = restaurantRepository.findAllByManagerLogin(SecurityUtils.getCurrentUserLogin(), pageable);
-        }*/
-        
+        Page<Restaurant> page = restaurantRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -224,17 +218,17 @@ public class RestaurantResource {
     }
     
     /**
-     * GET  /restaurant/:id/rating : get the ratings of the restaurant with "id" .
+     * GET  /restaurant/:id/ratings : get the ratings of the restaurant with "id" .
      *
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and the list of menus in body
      */
-    @GetMapping("/restaurants/{id}/rating")
+    @GetMapping("/restaurants/{id}/ratings")
     @Timed
     public ResponseEntity<List<Rating>> getAllRatingsByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Menus");
         Page<Rating> page = ratingRepository.findAllByRestaurantId(id, pageable);
-        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants/{id}/rating");
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants/{id}/ratings");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     

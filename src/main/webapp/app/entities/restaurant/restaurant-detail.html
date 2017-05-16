@@ -10,8 +10,7 @@
 	</h2>
 
     <div class="info">
-    	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: <span class="label label-success">{{vm.restaurant.open}}</span> - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: <span class="label label-danger">{{vm.restaurant.close}}</span>  
-    	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: {{vm.restaurant.manager.login}}  
+    	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: <span class="label label-success">{{vm.restaurant.open}}</span> - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: <span class="label label-danger">{{vm.restaurant.close}}</span>    
     	<label data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</label>: <span data-translate="{{'gastronomeeApp.DayOfWeek.' + vm.restaurant.dayOfWeekClosed}}">{{vm.restaurant.dayOfWeekClosed}}</span>  
     	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: {{vm.restaurant.tables}}  <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: {{vm.restaurant.chairs}}
     </div>
@@ -91,7 +90,7 @@
 	                        <img alt="user profile image" class="img-circle avatar" src="http://bootdey.com/img/Content/user_1.jpg">
 	                    </div>
 	                    <div class="pull-left meta">
-	                        <div class="title h5"><a href="#"><b>{{rating.user.login}}</b></a></div>
+	                        <div class="title h5"><b>{{rating.user.login}}</b></div>
 	                        <div uib-rating ng-model="rating.rate" max="vm.max" read-only="true" aria-labelledby="default-rating"></div>
 	                        <div class="text-muted time">{{rating.created | date:'medium'}}</div>
 	                    </div>
@@ -109,11 +108,11 @@
 
 		    <div class="modal-body">
 		        <jhi-alert-error></jhi-alert-error>
-		        <div class="form-group">
-		            <label class="control-label" data-translate="gastronomeeApp.rating.rate" for="field_rate">Rate</label>		                   
-		            <span uib-rating ng-model="vm.rating.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="vm.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-		            <span class="label" ng-class="{'label-warning': vm.percent<30, 'label-info': vm.percent>=30 && vm.percent<70, 'label-success': vm.percent>=70}" ng-show="vm.overStar && !vm.isReadonly">{{vm.percent}}%</span>
-		        </div>
+		        
+		        <label class="control-label" data-translate="gastronomeeApp.rating.rate" for="field_rate">Rate</label>		                   
+		        <span uib-rating ng-model="vm.rating.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="vm.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+		        <span class="label" ng-class="{'label-warning': vm.percent<30, 'label-info': vm.percent>=30 && vm.percent<70, 'label-success': vm.percent>=70}" ng-show="vm.overStar && !vm.isReadonly">{{vm.percent}}%</span>
+		        
 		        <div class="form-group">
 		            <label class="control-label" data-translate="gastronomeeApp.rating.comment" for="field_comment">Comment</label>
 		            <textarea rows="2" type="text" class="form-control" name="comment" id="field_comment"

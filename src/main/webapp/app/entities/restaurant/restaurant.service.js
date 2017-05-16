@@ -14,7 +14,7 @@
             'dishes': { method: 'GET', isArray: true, params: {action: 'dishes'}},
             'my': { method: 'GET', isArray: true, params: {action: 'my'}},
             'menus': { method: 'GET', isArray: true, params: {action: 'menus'}},
-            'rating': { method: 'GET', isArray: true, params: {action: 'rating'}},
+            'ratings': { method: 'GET', isArray: true, params: {action: 'ratings'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

@@ -22,14 +22,9 @@
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
     
-    <!-- ui-select files -->
+    <!-- ui-select css -->
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
-    
-    <script src="bower_components/leaflet/dist/leaflet.js"></script>
-    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
-    
-    <script src="bower_components/ui-leaflet/dist/ui-leaflet.min.js"></script>
-    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+   
     
 </head>
 <body ng-app="gastronomeeApp" ng-strict-di>
@@ -44,7 +39,7 @@
         </div>
 
         <div class="footer" ng-cloak>
-            <p data-translate="footer">This is your footer</p>
+            <p data-translate="footer">Gastronomee</p>
         </div>
     </div>
 
@@ -93,7 +88,7 @@
     <!-- endbuild -->
     
     <!-- ui-select -->
-    <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>	
 
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
@@ -184,6 +179,8 @@
     <script src="app/entities/country/country.service.js"></script>
     <script src="app/entities/country/country.search.service.js"></script>
     <script src="app/entities/country/country.controller.js"></script>
+    <script src="app/dashboard/dashboard.state.js"></script>
+    <script src="app/dashboard/dashboard.controller.js"></script>
     <script src="app/components/util/truncate-words.filter.js"></script>
     <script src="app/components/util/truncate-characters.filter.js"></script>
     <script src="app/components/util/sort-by.directive.js"></script>
