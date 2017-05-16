@@ -26,14 +26,14 @@
 
         function loadAll () {
             if (pagingParams.search) {
-                RestaurantSearch.myRestaurants({
+                RestaurantSearch.my({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                Restaurant.myRestaurants({
+                Restaurant.my({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()

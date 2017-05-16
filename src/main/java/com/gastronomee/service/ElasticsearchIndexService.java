@@ -47,6 +47,10 @@ public class ElasticsearchIndexService {
 
     private final MenuSearchRepository menuSearchRepository;
 
+    private final RatingRepository ratingRepository;
+
+    private final RatingSearchRepository ratingSearchRepository;
+
     private final RegionRepository regionRepository;
 
     private final RegionSearchRepository regionSearchRepository;
@@ -76,6 +80,8 @@ public class ElasticsearchIndexService {
         LocationSearchRepository locationSearchRepository,
         MenuRepository menuRepository,
         MenuSearchRepository menuSearchRepository,
+        RatingRepository ratingRepository,
+        RatingSearchRepository ratingSearchRepository,
         RegionRepository regionRepository,
         RegionSearchRepository regionSearchRepository,
         RestaurantRepository restaurantRepository,
@@ -95,6 +101,8 @@ public class ElasticsearchIndexService {
         this.locationSearchRepository = locationSearchRepository;
         this.menuRepository = menuRepository;
         this.menuSearchRepository = menuSearchRepository;
+        this.ratingRepository = ratingRepository;
+        this.ratingSearchRepository = ratingSearchRepository;
         this.regionRepository = regionRepository;
         this.regionSearchRepository = regionSearchRepository;
         this.restaurantRepository = restaurantRepository;
@@ -111,6 +119,7 @@ public class ElasticsearchIndexService {
         reindexForClass(Ingredient.class, ingredientRepository, ingredientSearchRepository);
         reindexForClass(Location.class, locationRepository, locationSearchRepository);
         reindexForClass(Menu.class, menuRepository, menuSearchRepository);
+        reindexForClass(Rating.class, ratingRepository, ratingSearchRepository);
         reindexForClass(Region.class, regionRepository, regionSearchRepository);
         reindexForClass(Restaurant.class, restaurantRepository, restaurantSearchRepository);
         reindexForClass(User.class, userRepository, userSearchRepository);

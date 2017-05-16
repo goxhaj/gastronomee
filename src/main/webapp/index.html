@@ -11,6 +11,8 @@
     <!-- build:css content/css/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css">
+    <link rel="stylesheet" href="bower_components/leaflet-search/dist/leaflet-search.src.css">
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css">
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
     <!-- endinject -->
@@ -20,9 +22,14 @@
     <link rel="stylesheet" href="content/css/main.css">
     <!-- endbuild -->
     
-    <!-- ui-select css -->
+    <!-- ui-select files -->
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css">
-   
+    
+    <script src="bower_components/leaflet/dist/leaflet.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    
+    <script src="bower_components/ui-leaflet/dist/ui-leaflet.min.js"></script>
+    <link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
     
 </head>
 <body ng-app="gastronomeeApp" ng-strict-di>
@@ -58,6 +65,8 @@
     <script src="bower_components/json3/lib/json3.js"></script>
     <script src="bower_components/sockjs-client/dist/sockjs.js"></script>
     <script src="bower_components/stomp-websocket/lib/stomp.min.js"></script>
+    <script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+    <script src="bower_components/leaflet-search/dist/leaflet-search.src.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-aria/angular-aria.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
@@ -78,11 +87,13 @@
     <script src="bower_components/bootstrap-ui-datetime-picker/dist/datetime-picker.js"></script>
     <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
     <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+    <script src="bower_components/angular-simple-logger/dist/angular-simple-logger.js"></script>
+    <script src="bower_components/ui-leaflet/dist/ui-leaflet.js"></script>
     <!-- endinject -->
     <!-- endbuild -->
     
     <!-- ui-select -->
-    <script src="bower_components/angular-ui-select/dist/select.js"></script>	
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
 
     <!-- build:js app/app.js  -->
     <!-- inject:js -->
@@ -102,6 +113,8 @@
     <script src="app/services/auth/auth.service.js"></script>
     <script src="app/services/auth/activate.service.js"></script>
     <script src="app/services/auth/account.service.js"></script>
+    <script src="app/leaflet-maps/leaflet-maps.state.js"></script>
+    <script src="app/leaflet-maps/leaflet-maps.controller.js"></script>
     <script src="app/layouts/navbar/navbar.controller.js"></script>
     <script src="app/layouts/navbar/active-menu.directive.js"></script>
     <script src="app/layouts/error/error.state.js"></script>
@@ -121,6 +134,13 @@
     <script src="app/entities/region/region.service.js"></script>
     <script src="app/entities/region/region.search.service.js"></script>
     <script src="app/entities/region/region.controller.js"></script>
+    <script src="app/entities/rating/rating-dialog.controller.js"></script>
+    <script src="app/entities/rating/rating-detail.controller.js"></script>
+    <script src="app/entities/rating/rating-delete-dialog.controller.js"></script>
+    <script src="app/entities/rating/rating.state.js"></script>
+    <script src="app/entities/rating/rating.service.js"></script>
+    <script src="app/entities/rating/rating.search.service.js"></script>
+    <script src="app/entities/rating/rating.controller.js"></script>
     <script src="app/entities/menu/menu-dialog.controller.js"></script>
     <script src="app/entities/menu/menu-detail.controller.js"></script>
     <script src="app/entities/menu/menu-delete-dialog.controller.js"></script>

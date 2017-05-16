@@ -3,13 +3,15 @@
     
     <jhi-alert-error></jhi-alert-error>
 
-    <h2>{{vm.restaurant.name}} <sup>
-    	<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
-    	<span ng-if="vm.restaurant.opened==false" class="label label-danger">CLOSED</span>
-    </sup></h2>
-	
-	   
-    
+	 <h2>
+	 	<span class="glyphicon glyphicon-heart"></span>
+		{{vm.restaurant.name}} 
+		<sup>
+			<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
+			<span ng-if="vm.restaurant.opened==false" class="label label-danger">CLOSED</span>
+		</sup>
+	</h2>
+
     <div class="info">
     	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: <span class="label label-success">{{vm.restaurant.open}}</span> - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: <span class="label label-danger">{{vm.restaurant.close}}</span>  
     	<label data-translate="gastronomeeApp.restaurant.manager">Manager</label>: {{vm.restaurant.manager.login}}  
@@ -19,7 +21,10 @@
     
     <div class="row">
 	    <div class="col-md-8">
-	        <h3 data-translate="gastronomeeApp.restaurant.description">Description</h3>
+	        <h3>
+			    <span class="glyphicon glyphicon-asterisk"></span>
+			    <span data-translate="gastronomeeApp.restaurant.description">Description</span>
+		    </h3>
 			{{vm.restaurant.description}}
 			
 			<div ng-if="vm.dishes.length>0">
@@ -41,7 +46,10 @@
 		
 		</div>
     	<div ng-if="vm.restaurant.location!=null" class="col-md-4">
-		    <h3 data-translate="gastronomeeApp.restaurant.location">Location</h3>
+		    <h3>
+			    <span class="glyphicon glyphicon-map-marker"></span>
+			    <span data-translate="gastronomeeApp.restaurant.location">Location</span>
+		    </h3>
 		    <div>
 	        	<div class="row">
 			     	<label class="col-md-6 control-label" data-translate="gastronomeeApp.location.streetAddress">Street Address</label>		      
@@ -65,19 +73,58 @@
 					<span class="col-md-6">{{vm.restaurant.location.country.name}}</span>
 	        	</div>
 	        </div>
+	        <div>
+	        	<leaflet lf-center="center" markers="markers"  width="100%" height="280px"></leaflet>
+	        </div>
 		</div>
    	</div>
    	
 	<hr>
+	
+	<div>
+		
+		
+		<h4>
+			<span class="glyphicon glyphicon-comment"></span>
+			<span>Rating</span>
+		</h4>
+		
+
+		<div  ng-repeat="rating in vm.ratings track by rating.id">
+			<span uib-rating ng-model="rating.rate" max="vm.max" read-only="true" aria-labelledby="default-rating"></span>
+			<span>{{rating.comment}}</span>
+		</div>
+		
+		
+		<form name="editForm" role="form" novalidate ng-submit="vm.rate()" show-validation>
+
+		    <div class="modal-body">
+		        <jhi-alert-error></jhi-alert-error>
+		        <div class="form-group">
+		            <label class="control-label" data-translate="gastronomeeApp.rating.rate" for="field_rate">Rate</label>		                   
+		            <span uib-rating ng-model="vm.rating.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="vm.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+		            <span class="label" ng-class="{'label-warning': vm.percent<30, 'label-info': vm.percent>=30 && vm.percent<70, 'label-success': vm.percent>=70}" ng-show="vm.overStar && !vm.isReadonly">{{vm.percent}}%</span>
+		        </div>
+		        <div class="form-group">
+		            <label class="control-label" data-translate="gastronomeeApp.rating.comment" for="field_comment">Comment</label>
+		            <textarea rows="2" type="text" class="form-control" name="comment" id="field_comment"
+		                    ng-model="vm.rating.comment"
+		                    ></textarea>
+		        </div>
+		        
+		    </div>
+		    <div class="modal-footer">
+		        <button type="submit" ng-disabled="vm.isSaving" class="btn btn-primary">
+		            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+		        </button>
+		    </div>
+		</form>
+	</div>
 	
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">
         <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
     </button>
-
-    <button type="button" ui-sref="restaurant-detail.edit({id:vm.restaurant.id})" class="btn btn-primary">
-        <span class="glyphicon glyphicon-pencil"></span>
-        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
-    </button>
+    
 </div>

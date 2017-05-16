@@ -34,6 +34,7 @@ import com.gastronomee.domain.enumeration.DayOfWeek;
 import com.gastronomee.repository.DishRepository;
 import com.gastronomee.repository.LocationRepository;
 import com.gastronomee.repository.MenuRepository;
+import com.gastronomee.repository.RatingRepository;
 import com.gastronomee.repository.RestaurantRepository;
 import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.LocationSearchRepository;
@@ -92,6 +93,9 @@ public class RestaurantResourceIntTest {
     
     @Autowired
     private DishRepository dishRepository;
+    
+    @Autowired
+    private RatingRepository ratingRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -113,7 +117,7 @@ public class RestaurantResourceIntTest {
     public void setup() {
         MockitoAnnotations.initMocks(this);
         RestaurantResource restaurantResource = new RestaurantResource(restaurantRepository, restaurantSearchRepository, 
-        		locationRepository, locationSearchRepository, menuRepository, userRepository, dishRepository);
+        		locationRepository, locationSearchRepository, menuRepository, userRepository, dishRepository, ratingRepository);
         this.restRestaurantMockMvc = MockMvcBuilders.standaloneSetup(restaurantResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

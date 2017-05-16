@@ -31,10 +31,12 @@ import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.Dish;
 import com.gastronomee.domain.Location;
 import com.gastronomee.domain.Menu;
+import com.gastronomee.domain.Rating;
 import com.gastronomee.domain.Restaurant;
 import com.gastronomee.repository.DishRepository;
 import com.gastronomee.repository.LocationRepository;
 import com.gastronomee.repository.MenuRepository;
+import com.gastronomee.repository.RatingRepository;
 import com.gastronomee.repository.RestaurantRepository;
 import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.LocationSearchRepository;
@@ -71,6 +73,8 @@ public class RestaurantResource {
     private final UserRepository userRepository;
     
     private final DishRepository dishRepository;
+    
+    private final RatingRepository ratingRepository;
 
     public RestaurantResource(RestaurantRepository restaurantRepository, 
     		RestaurantSearchRepository restaurantSearchRepository,
@@ -78,7 +82,8 @@ public class RestaurantResource {
     		LocationSearchRepository locationSearchRepository,
     		MenuRepository menuRepository,
     		UserRepository userRepository,
-    	    DishRepository dishRepository) {
+    	    DishRepository dishRepository,
+    	    RatingRepository ratingRepository) {
         this.restaurantRepository = restaurantRepository;
         this.restaurantSearchRepository = restaurantSearchRepository;
         this.locationRepository = locationRepository;
@@ -86,6 +91,7 @@ public class RestaurantResource {
         this.menuRepository = menuRepository;
         this.userRepository = userRepository;
         this.dishRepository = dishRepository;
+        this.ratingRepository = ratingRepository;
     }
 
     /**
@@ -214,6 +220,21 @@ public class RestaurantResource {
         log.debug("REST request to get a page of Menus");
         Page<Menu> page = menuRepository.findAllByRestaurantId(id, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants/{id}/menus");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /restaurant/:id/rating : get the ratings of the restaurant with "id" .
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of menus in body
+     */
+    @GetMapping("/restaurants/{id}/rating")
+    @Timed
+    public ResponseEntity<List<Rating>> getAllRatingsByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of Menus");
+        Page<Rating> page = ratingRepository.findAllByRestaurantId(id, pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants/{id}/rating");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     

@@ -1,0 +1,35 @@
+
+<div>
+    <h2><span data-translate="gastronomeeApp.rating.detail.title">Rating</span> {{vm.rating.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="gastronomeeApp.rating.rate">Rate</span></dt>
+        <dd>
+            <span>{{vm.rating.rate}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.rating.comment">Comment</span></dt>
+        <dd>
+            <span>{{vm.rating.comment}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.rating.user">User</span></dt>
+        <dd>
+            {{vm.rating.user.login}}
+        </dd>
+        <dt><span data-translate="gastronomeeApp.rating.restaurant">Restaurant</span></dt>
+        <dd>
+            <a ui-sref="restaurant-detail({id:vm.rating.restaurant.id})">{{vm.rating.restaurant.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="rating-detail.edit({id:vm.rating.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

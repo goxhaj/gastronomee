@@ -45,10 +45,7 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('restaurant');
-                    $translatePartialLoader.addPart('location');
-                    $translatePartialLoader.addPart('country');
-                    $translatePartialLoader.addPart('dayOfWeek');
+                    $translatePartialLoader.addPart('restaurant');               
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
@@ -72,6 +69,8 @@
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('restaurant');
                     $translatePartialLoader.addPart('menu');
+                    $translatePartialLoader.addPart('rating');
+                    $translatePartialLoader.addPart('location');
                     $translatePartialLoader.addPart('dayOfWeek');
                     return $translate.refresh();
                 }],
