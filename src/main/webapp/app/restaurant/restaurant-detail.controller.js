@@ -128,11 +128,6 @@
             }
         }
         
-        var unsubscribe = $rootScope.$on('gastronomeeApp:restaurantUpdate', function(event, result) {
-            vm.restaurant = result;
-        });
-        
-        $scope.$on('$destroy', unsubscribe);
 
 
     }

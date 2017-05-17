@@ -5,9 +5,9 @@
         .module('gastronomeeApp')
         .controller('RestaurantDialogController', RestaurantDialogController);
 
-    RestaurantDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Restaurant', 'Location', 'Country', 'User'];
+    RestaurantDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Restaurant', 'Location', 'Country'];
 
-    function RestaurantDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Restaurant, Location, Country, User) {
+    function RestaurantDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Restaurant, Location, Country) {
         var vm = this;
 
         vm.restaurant = entity;
@@ -26,7 +26,6 @@
         }).then(function(location) {
             vm.locations.push(location);
         });
-        vm.users = User.query();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -43,28 +42,26 @@
             } else {
                 Restaurant.save(vm.restaurant, onSaveSuccess, onSaveError);
             }
+            
+            function onSaveSuccess (result) {
+                $scope.$emit('gastronomeeApp:restaurantUpdate', result);
+                $uibModalInstance.close(result);
+                vm.isSaving = false;
+            }
+
+            function onSaveError () {
+                vm.isSaving = false;
+            }
+            
         }
 
-        function onSaveSuccess (result) {
-            $scope.$emit('gastronomeeApp:restaurantUpdate', result);
-            $uibModalInstance.close(result);
-            vm.isSaving = false;
-        }
-
-        function onSaveError () {
-            vm.isSaving = false;
-        }
+        
         
         vm.loadCountries = function(location) {  
-        	
-        	if(location!=null && location.country!=null){
-        		
+        	if(location!=null && location.country!=null){      		
         		vm.refreshCountries(location.country.name);       		
-
         	} else {
-
-        		vm.countries = Country.query({filter: 'location-is-null'});
-                
+        		vm.countries = Country.query({filter: 'location-is-null'});               
         	}
             
         };

@@ -2,12 +2,15 @@ package com.gastronomee.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 import com.gastronomee.domain.enumeration.DayOfWeek;
 
@@ -56,12 +59,15 @@ public class Restaurant implements Serializable {
     @Column(name = "opened")
     private Boolean opened;
 
-    @OneToOne
+    @OneToOne(orphanRemoval=true)
     @JoinColumn(unique = true)
     private Location location;
 
     @ManyToOne
     private User manager;
+    
+    @OneToMany(mappedBy = "restaurant", cascade = CascadeType.REMOVE)
+    private Set<Menu> menu;
 
     public Long getId() {
         return id;

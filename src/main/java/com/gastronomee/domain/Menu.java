@@ -2,12 +2,15 @@ package com.gastronomee.domain;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * A Menu.
@@ -36,8 +39,12 @@ public class Menu implements Serializable {
     private Integer priority;
 
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
     private Restaurant restaurant;
+    
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.REMOVE)
+    private Set<Dish> dish;
 
     public Long getId() {
         return id;

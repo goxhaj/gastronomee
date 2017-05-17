@@ -394,12 +394,12 @@ h2 sup{
 }
 
 .post .post-heading {
-    height: 95px;
     padding: 20px 15px;
 }
 
 .post .post-description {
     padding: 15px;
+    clear:both;
 }
 
 panel-white {

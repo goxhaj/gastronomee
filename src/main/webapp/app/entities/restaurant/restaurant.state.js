@@ -117,7 +117,7 @@
         })
         .state('restaurant.new', {
             parent: 'restaurant',
-            url: '/new',
+            url: '/restaurant/new',
             data: {
                 authorities: ['ROLE_MANAGER']
             },

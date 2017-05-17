@@ -104,31 +104,36 @@
 		
 		<hr>
 		
-		<form name="editForm" role="form" novalidate ng-submit="vm.rate()" show-validation>
-
-		    <div class="modal-body">
-		        <jhi-alert-error></jhi-alert-error>
-		        
-		        <label class="control-label" data-translate="gastronomeeApp.rating.rate" for="field_rate">Rate</label>		                   
-		        <span uib-rating ng-model="vm.rating.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="vm.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
-		        <span class="label" ng-class="{'label-warning': vm.percent<30, 'label-info': vm.percent>=30 && vm.percent<70, 'label-success': vm.percent>=70}" ng-show="vm.overStar && !vm.isReadonly">{{vm.percent}}%</span>
-		        
-		        <div class="form-group">
-		            <label class="control-label" data-translate="gastronomeeApp.rating.comment" for="field_comment">Comment</label>
-		            <textarea rows="2" type="text" class="form-control" name="comment" id="field_comment"
-		                    ng-model="vm.rating.comment"
-		                    ></textarea>
-		        </div>
-		        
-		    </div>
-		    <div class="modal-footer">
-		        <button type="submit" ng-disabled="vm.isSaving" class="btn btn-primary">
-		            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
-		        </button>
-		    </div>
-		</form>
-	</div>
-	
+		<div class="row">
+			<div  class="col-sm-8">
+				<div class="panel panel-white post panel-shadow">
+	                <div class="post-heading">
+						<form name="editForm" role="form" novalidate ng-submit="vm.rate()" show-validation>		
+						    <div class="modal-body">
+						        <jhi-alert-error></jhi-alert-error>						        
+						        <label class="control-label" data-translate="gastronomeeApp.rating.rate" for="field_rate">Rate</label>		                   
+						        <span uib-rating ng-model="vm.rating.rate" max="vm.max" read-only="vm.isReadonly" on-hover="vm.hoveringOver(value)" on-leave="vm.overStar = null" titles="['one','two','three']" aria-labelledby="default-rating"></span>
+						        <span class="label" ng-class="{'label-warning': vm.percent<30, 'label-info': vm.percent>=30 && vm.percent<70, 'label-success': vm.percent>=70}" ng-show="vm.overStar && !vm.isReadonly">{{vm.percent}}%</span>
+						        
+						        <div class="form-group">
+						            <label class="control-label" data-translate="gastronomeeApp.rating.comment" for="field_comment">Comment</label>
+						            <textarea rows="2" type="text" class="form-control" name="comment" id="field_comment"
+						                    ng-model="vm.rating.comment"
+						                    ></textarea>
+						        </div>
+						        
+						    </div>
+						    <div class="modal-footer">
+						        <button type="submit" ng-disabled="vm.isSaving" class="btn btn-primary">
+						            <span class="glyphicon glyphicon-save"></span>&nbsp;<span data-translate="entity.action.save">Save</span>
+						        </button>
+						    </div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		
     <button type="submit"
             ui-sref="{{ vm.previousState }}"
             class="btn btn-info">

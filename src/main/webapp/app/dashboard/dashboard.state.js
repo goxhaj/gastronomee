@@ -10,7 +10,7 @@
     function stateConfig($stateProvider) {
         $stateProvider
         .state('dashboard', {
-            parent: 'app',
+        	parent: 'app',
             url: '/dashboard',
             data: {
                 authorities: ['ROLE_USER','ROLE_MANAGER', 'ROLE_ADMIN']
