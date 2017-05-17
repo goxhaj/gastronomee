@@ -13,7 +13,7 @@
         vm.menu = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.restaurants = Restaurant.myRestaurants();
+        vm.restaurants = Restaurant.my();
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();

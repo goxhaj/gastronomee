@@ -8,11 +8,12 @@
     stateConfig.$inject = ['$stateProvider'];
 
     function stateConfig($stateProvider) {
-        $stateProvider.state('dashboard', {
+        $stateProvider
+        .state('dashboard', {
             parent: 'app',
-            url: '/dashboard?page&sort&search',
+            url: '/dashboard',
             data: {
-                authorities: ["ROLE_USER","ROLE_MANAGER","ROLE_ADMIN"]
+                authorities: ['ROLE_USER','ROLE_MANAGER', 'ROLE_ADMIN']
             },
             views: {
                 'content@': {
@@ -33,7 +34,7 @@
                 search: null
             },
             resolve: {
-            	pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
+                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
                     return {
                         page: PaginationUtil.parsePage($stateParams.page),
                         sort: $stateParams.sort,
@@ -42,8 +43,10 @@
                         search: $stateParams.search
                     };
                 }],
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-                    $translatePartialLoader.addPart('dashboard');
+                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+                    $translatePartialLoader.addPart('restaurant');
+                    $translatePartialLoader.addPart('rating');
+                    $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }

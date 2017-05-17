@@ -3,11 +3,11 @@
 
     angular
         .module('gastronomeeApp')
-        .controller('RestaurantDetailController', RestaurantDetailController);
+        .controller('RestaurantAppDetailController', RestaurantAppDetailController);
 
-    RestaurantDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'AlertService', 'previousState', 'entity', 'Restaurant', 'Location', 'Rating'];
+    RestaurantAppDetailController.$inject = ['$scope', '$rootScope', '$stateParams', 'AlertService', 'previousState', 'entity', 'Restaurant', 'Location', 'Rating'];
 
-    function RestaurantDetailController($scope, $rootScope, $stateParams, AlertService, previousState, entity, Restaurant, Location, Rating) {
+    function RestaurantAppDetailController($scope, $rootScope, $stateParams, AlertService, previousState, entity, Restaurant, Location, Rating) {
 
     	var vm = this;
 

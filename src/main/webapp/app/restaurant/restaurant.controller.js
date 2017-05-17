@@ -3,17 +3,14 @@
 
     angular
         .module('gastronomeeApp')
-        .controller('DashboardController', DashboardController);
+        .controller('RestaurantAppController', RestaurantAppController);
 
-    DashboardController.$inject = ['$scope', 'AlertService', 'Restaurant', 'RestaurantSearch', 'Rating', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
+    RestaurantAppController.$inject = ['$state', 'Restaurant', 'RestaurantSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function DashboardController ($scope, AlertService, Restaurant, RestaurantSearch, Rating, $state, ParseLinks, paginationConstants, pagingParams) {
+    function RestaurantAppController($state, Restaurant, RestaurantSearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
+
         var vm = this;
-        
-        vm.account = null;
-        
-        vm.restaurants = [];
-        
+
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
         vm.reverse = pagingParams.ascending;
@@ -21,18 +18,13 @@
         vm.itemsPerPage = paginationConstants.itemsPerPage;
         vm.clear = clear;
         vm.search = search;
-        
-        vm.loadMyRestaurants = loadMyRestaurants;
-        vm.loadMyRatings = loadMyRatings;
-        
+        vm.loadAll = loadAll;
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
 
-        loadMyRestaurants();
-        loadMyRatings();
-        
+        loadAll();
 
-        function loadMyRestaurants () {
+        function loadAll () {
             if (pagingParams.search) {
                 RestaurantSearch.my({
                     query: pagingParams.search,
@@ -61,16 +53,6 @@
                 vm.restaurants = data;
                 vm.page = pagingParams.page;
             }
-            function onError(error) {
-                AlertService.error(error.data.message);
-            }
-        }
-        
-        function loadMyRatings () {
-        	Rating.my(onSuccess, onError);        
-            function onSuccess(data, headers) {
-                vm.ratings = data;
-            }     
             function onError(error) {
                 AlertService.error(error.data.message);
             }
@@ -109,6 +91,5 @@
             vm.currentSearch = null;
             vm.transition();
         }
-        
     }
 })();

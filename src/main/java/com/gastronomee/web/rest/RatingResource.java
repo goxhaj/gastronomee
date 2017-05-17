@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.Rating;
+import com.gastronomee.domain.Restaurant;
 import com.gastronomee.domain.User;
 import com.gastronomee.repository.RatingRepository;
 import com.gastronomee.repository.UserRepository;
@@ -123,6 +124,21 @@ public class RatingResource {
         return ResponseEntity.ok()
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, rating.getId().toString()))
             .body(result);
+    }
+    
+    /**
+     * GET  /ratings/my : get all my ratings.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
+     */
+    @GetMapping("/ratings/my")
+    @Timed
+    public ResponseEntity<List<Rating>> getMyRestaurants(@ApiParam Pageable pageable) {
+        log.debug("REST request to get my Restaurants");
+        Page<Rating> page = ratingRepository.findAllByUserLogin(SecurityUtils.getCurrentUserLogin(), pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ratings/my");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

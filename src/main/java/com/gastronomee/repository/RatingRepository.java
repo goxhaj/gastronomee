@@ -23,4 +23,6 @@ public interface RatingRepository extends JpaRepository<Rating,Long> {
 	@Query("select rating from Rating rating where rating.restaurant.id= ?1 and rating.user = ?2")
 	List<Rating> findByRestaurantIdAndUserIsCurrentUser(Long restaurantId, User user);
 
+	Page<Rating> findAllByUserLogin(String currentUserLogin, Pageable pageable);
+
 }

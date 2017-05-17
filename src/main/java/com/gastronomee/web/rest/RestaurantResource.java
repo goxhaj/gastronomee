@@ -312,6 +312,7 @@ public class RestaurantResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     
+    
     private boolean hasPermission(Long id){
     	if(restaurantRepository.findOneByManagerLoginAndId(SecurityUtils.getCurrentUserLogin(), id) !=null || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
     		return true;
