@@ -7,10 +7,13 @@
     Ingredient.$inject = ['$resource'];
 
     function Ingredient ($resource) {
-        var resourceUrl =  'api/ingredients/:id';
+        var resourceUrl =  'api/ingredients/:id/:action';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'getIngredients': { 
+            	method: 'GET', isArray: true, params:{ action : 'name' }
+            },
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

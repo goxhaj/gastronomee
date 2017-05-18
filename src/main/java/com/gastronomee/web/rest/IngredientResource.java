@@ -62,6 +62,19 @@ public class IngredientResource {
         this.ingredientSearchRepository = ingredientSearchRepository;
         this.userRepository = userRepository;
     }
+    
+    /**
+     * GET  /ingredients/name -> get all ingredients by the "name" partial .
+     */
+    @GetMapping("/ingredients/name")
+    @Timed
+    public ResponseEntity<List<Ingredient>> getCountriesByName(@RequestParam(value = "name" , required = false) String name)
+        throws URISyntaxException {
+    	
+		List<Ingredient> ingredients = ingredientRepository.findByNameIgnoreCaseContaining(name);
+		return new ResponseEntity<List<Ingredient>>(ingredients, HttpStatus.OK);
+		
+    }
 
     /**
      * POST  /ingredients : Create a new ingredient.

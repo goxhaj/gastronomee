@@ -46,6 +46,7 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('dish');
+                    $translatePartialLoader.addPart('ingredient');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]

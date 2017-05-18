@@ -14,8 +14,11 @@
         vm.clear = clear;
         vm.save = save;
         vm.menus = Menu.myMenus();
-        vm.ingredients = Ingredient.query();
+
         vm.dishcategories = DishCategory.query();
+        
+		vm.searchIngredients=[];
+		vm.ingredients=[];
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -43,6 +46,24 @@
         function onSaveError () {
             vm.isSaving = false;
         }
+        
+        vm.loadIngredients = function(ingredient) {  
+        	if(ingredient!=null && ingredient.name!=null){      		
+        		vm.refreshIngredients(ingredient.name);       		
+        	} else {
+        		vm.ingredients = Ingredient.query({filter: 'ingredient-is-null'});               
+        	}
+            
+        };
+        
+        vm.refreshIngredients = function(name) {
+        	if(name!=null && name!=''){
+	        	Ingredient.getIngredients({name: name}, function(result) {
+	        		vm.searchIngredients=result;
+	        		vm.ingredients=result;
+	            });
+        	}
+        };
 
 
     }

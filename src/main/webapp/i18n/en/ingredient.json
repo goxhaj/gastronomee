@@ -17,6 +17,7 @@
                 "title": "Ingredient"
             },
             "name": "Name",
+            "search": "Search ingredients...",
             "description": "Description",
             "active": "Active",
             "priority": "Priority",

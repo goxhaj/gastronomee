@@ -22,6 +22,8 @@
         vm.loadAll = loadAll;
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
+        
+
 
         loadAll();
         
@@ -96,5 +98,6 @@
             vm.currentSearch = null;
             vm.transition();
         }
+        
     }
 })();

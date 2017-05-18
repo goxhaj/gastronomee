@@ -12,7 +12,7 @@
 						ng-click="vm.search(vm.searchQuery)">Find</button>
 				</form>
 			</div>
-			<div>
+			<p>
 				<div ng-if="vm.restaurants.length>0">
 					<div class="restaurant" ng-repeat="restaurant in vm.restaurants track by restaurant.id">
 						<h3><a ui-sref="restaurant-app-detail({id:restaurant.id})">{{restaurant.name}}</a></h3><p>{{restaurant.description}}</p>
@@ -23,7 +23,7 @@
 				    <uib-pager total-items="vm.totalItems" ng-model="vm.page" ng-change="vm.transition()"></uib-pager>
 				</div>
 				<div ng-if="vm.restaurants.length==0" translate="home.noRestaurantFound" class="alert alert-warning" role="alert">No restaurant found!</div>
-			</div>
+			</p>
 		</div>
 	</div>
 </div>

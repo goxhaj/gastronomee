@@ -1,7 +1,7 @@
 {
     "home": {
         "title": "Welcome, gastronomee!",
-        "subtitle": "gastronomee is the space that provides people that enjoy delicious food with a unique place.",
+        "subtitle": "Gastronomee is the space that provides people that enjoy delicious food with a unique place.",
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
         },
