@@ -240,10 +240,6 @@ public class RestaurantResource {
      */
     @GetMapping("/restaurants/{id}/dishes")
     @Timed
-    @Secured({
-    	AuthoritiesConstants.ADMIN,
-    	AuthoritiesConstants.MANAGER,
-    })
     public ResponseEntity<List<Dish>> getAllDishesByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
         log.debug("REST request to get restaurant Dishes");
         
