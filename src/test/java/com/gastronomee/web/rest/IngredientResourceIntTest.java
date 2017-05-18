@@ -4,6 +4,7 @@ import com.gastronomee.GastronomeeApp;
 
 import com.gastronomee.domain.Ingredient;
 import com.gastronomee.repository.IngredientRepository;
+import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.IngredientSearchRepository;
 import com.gastronomee.web.rest.errors.ExceptionTranslator;
 
@@ -55,6 +56,9 @@ public class IngredientResourceIntTest {
 
     @Autowired
     private IngredientSearchRepository ingredientSearchRepository;
+    
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private MappingJackson2HttpMessageConverter jacksonMessageConverter;
@@ -75,7 +79,7 @@ public class IngredientResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        IngredientResource ingredientResource = new IngredientResource(ingredientRepository, ingredientSearchRepository);
+        IngredientResource ingredientResource = new IngredientResource(ingredientRepository, ingredientSearchRepository, userRepository);
         this.restIngredientMockMvc = MockMvcBuilders.standaloneSetup(ingredientResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

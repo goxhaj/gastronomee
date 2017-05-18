@@ -30,8 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.Ingredient;
 import com.gastronomee.repository.IngredientRepository;
+import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.IngredientSearchRepository;
 import com.gastronomee.security.AuthoritiesConstants;
+import com.gastronomee.security.SecurityUtils;
 import com.gastronomee.web.rest.util.HeaderUtil;
 import com.gastronomee.web.rest.util.PaginationUtil;
 
@@ -52,10 +54,13 @@ public class IngredientResource {
     private final IngredientRepository ingredientRepository;
 
     private final IngredientSearchRepository ingredientSearchRepository;
+    
+    private final UserRepository userRepository;
 
-    public IngredientResource(IngredientRepository ingredientRepository, IngredientSearchRepository ingredientSearchRepository) {
+    public IngredientResource(IngredientRepository ingredientRepository, IngredientSearchRepository ingredientSearchRepository, UserRepository userRepository) {
         this.ingredientRepository = ingredientRepository;
         this.ingredientSearchRepository = ingredientSearchRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -68,6 +73,7 @@ public class IngredientResource {
     @PostMapping("/ingredients")
     @Timed
     @Secured({
+    	AuthoritiesConstants.MANAGER,
     	AuthoritiesConstants.ADMIN,
     })
     public ResponseEntity<Ingredient> createIngredient(@Valid @RequestBody Ingredient ingredient) throws URISyntaxException {
@@ -75,6 +81,10 @@ public class IngredientResource {
         if (ingredient.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new ingredient cannot already have an ID")).body(null);
         }
+        
+        //the current user that is creating this dish ingredient
+        ingredient.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
+        
         Ingredient result = ingredientRepository.save(ingredient);
         ingredientSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/ingredients/" + result.getId()))
@@ -94,6 +104,7 @@ public class IngredientResource {
     @PutMapping("/ingredients")
     @Timed
     @Secured({
+    	AuthoritiesConstants.MANAGER,
     	AuthoritiesConstants.ADMIN,
     })
     public ResponseEntity<Ingredient> updateIngredient(@Valid @RequestBody Ingredient ingredient) throws URISyntaxException {
@@ -101,6 +112,12 @@ public class IngredientResource {
         if (ingredient.getId() == null) {
             return createIngredient(ingredient);
         }
+        
+        if (!hasPermission(ingredient.getId())) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, ingredient.getId().toString())).build();
+        } 
+        
         Ingredient result = ingredientRepository.save(ingredient);
         ingredientSearchRepository.save(result);
         return ResponseEntity.ok()
@@ -146,10 +163,17 @@ public class IngredientResource {
     @DeleteMapping("/ingredients/{id}")
     @Timed
     @Secured({
+    	AuthoritiesConstants.MANAGER,
     	AuthoritiesConstants.ADMIN,
     })
     public ResponseEntity<Void> deleteIngredient(@PathVariable Long id) {
         log.debug("REST request to delete Ingredient : {}", id);
+        
+        if (!hasPermission(id)) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        } 
+        
         ingredientRepository.delete(id);
         ingredientSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
@@ -170,6 +194,15 @@ public class IngredientResource {
         Page<Ingredient> page = ingredientSearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/ingredients");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    private boolean hasPermission(Long id){
+    	if(ingredientRepository.findOneByUserLoginAndId(SecurityUtils.getCurrentUserLogin(), id) !=null || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
+    		return true;
+    	} else {
+    		log.warn("Permission denied of User with ID: {}", id);
+    		return false;
+    	}
     }
 
 

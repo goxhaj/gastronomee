@@ -5,9 +5,9 @@
         .module('gastronomeeApp')
         .controller('IngredientController', IngredientController);
 
-    IngredientController.$inject = ['$state', 'Ingredient', 'IngredientSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    IngredientController.$inject = ['$state', 'Principal', 'Ingredient', 'IngredientSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function IngredientController($state, Ingredient, IngredientSearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function IngredientController($state, Principal, Ingredient, IngredientSearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
 
@@ -21,6 +21,10 @@
         vm.loadAll = loadAll;
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
+        
+        Principal.identity().then(function(account) {
+            vm.account = account;
+        });
 
         loadAll();
 

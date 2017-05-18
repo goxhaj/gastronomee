@@ -11,7 +11,7 @@
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
-            'myDishes': { method: 'GET', isArray: true, params: {action: 'my'}},
+            'my': { method: 'GET', isArray: true, params: {action: 'my'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

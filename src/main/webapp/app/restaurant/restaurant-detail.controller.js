@@ -18,7 +18,7 @@
         
         vm.rating={};
         vm.rating.restaurant=entity;
-        vm.rating.rate=5;
+        vm.rating.rate=0;
         vm.max = 10;
         vm.isReadonly = false;
         vm.rate = rate;
@@ -90,6 +90,7 @@
                 $scope.$emit('gastronomeeApp:restaurantUpdate', vm.restaurant);
                 vm.ratings.push(result);
                 vm.isSaving = false;
+                vm.rating={};
             }
 
             function onSaveError () {

@@ -29,13 +29,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.Dish;
-import com.gastronomee.domain.Menu;
-import com.gastronomee.domain.Restaurant;
 import com.gastronomee.repository.DishRepository;
-import com.gastronomee.repository.MenuRepository;
-import com.gastronomee.repository.RestaurantRepository;
+import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.DishSearchRepository;
 import com.gastronomee.security.AuthoritiesConstants;
+import com.gastronomee.security.SecurityUtils;
 import com.gastronomee.web.rest.util.HeaderUtil;
 import com.gastronomee.web.rest.util.PaginationUtil;
 
@@ -57,16 +55,12 @@ public class DishResource {
 
     private final DishSearchRepository dishSearchRepository;
     
-    private final MenuRepository menuRepository;
-    
-    private final RestaurantRepository restaurantRepository;
+    private final UserRepository userRepository;
 
-    public DishResource(DishRepository dishRepository, DishSearchRepository dishSearchRepository, 
-    		MenuRepository menuRepository, RestaurantRepository restaurantRepository) {
+    public DishResource(DishRepository dishRepository, DishSearchRepository dishSearchRepository,  UserRepository userRepository) {
         this.dishRepository = dishRepository;
         this.dishSearchRepository = dishSearchRepository;
-        this.menuRepository = menuRepository;
-        this.restaurantRepository = restaurantRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -90,7 +84,12 @@ public class DishResource {
         if (dish.getMenu() == null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "menurequired", "A menu is required to create a dish")).body(null);
         }
+        
+        //the current user that is creating this dish
+        dish.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
+        
         Dish result = dishRepository.save(dish);
+        
         dishSearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/dishes/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -120,6 +119,12 @@ public class DishResource {
         if (dish.getMenu() == null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "menurequired", "A menu is required to update a dish")).body(null);
         }
+        
+        if (!hasPermission(dish.getId())) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, dish.getId().toString())).build();
+        } 
+        
         Dish result = dishRepository.save(dish);
         dishSearchRepository.save(result);
         return ResponseEntity.ok()
@@ -143,10 +148,10 @@ public class DishResource {
     public ResponseEntity<List<Dish>> getMyDishes(@ApiParam Pageable pageable) {
         log.debug("REST request to get my Dishes");
         
-        List<Restaurant> restaurants = restaurantRepository.findByManagerIsCurrentUser();
-        List<Menu> menus = menuRepository.findAllByRestaurantIn(restaurants);
+        Page<Dish> page = dishRepository.findByUserIsCurrentUser(pageable);
+        //List<Menu> menus = menuRepository.findAllByRestaurantIn(restaurants);
 
-        Page<Dish> page = dishRepository.findAllByMenuIn(menus, pageable);
+        //Page<Dish> page = dishRepository.findAllByMenuIn(menus, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dishes/my");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -196,6 +201,12 @@ public class DishResource {
     })
     public ResponseEntity<Void> deleteDish(@PathVariable Long id) {
         log.debug("REST request to delete Dish : {}", id);
+        
+        if (!hasPermission(id)) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        } 
+        
         dishRepository.delete(id);
         dishSearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
@@ -216,6 +227,15 @@ public class DishResource {
         Page<Dish> page = dishSearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/dishes");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    private boolean hasPermission(Long id){
+    	if(dishRepository.findOneByUserLoginAndId(SecurityUtils.getCurrentUserLogin(), id) !=null || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
+    		return true;
+    	} else {
+    		log.warn("Permission denied of User with ID: {}", id);
+    		return false;
+    	}
     }
 
 

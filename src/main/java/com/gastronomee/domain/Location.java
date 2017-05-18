@@ -42,8 +42,7 @@ public class Location implements Serializable {
     @Column(name = "lng")
     private Double lng;
 
-    @OneToOne
-    @JoinColumn(unique = true)
+    @ManyToOne
     private Country country;
 
     public Long getId() {

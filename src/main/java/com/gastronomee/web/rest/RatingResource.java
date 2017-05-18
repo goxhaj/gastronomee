@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.Rating;
-import com.gastronomee.domain.Restaurant;
 import com.gastronomee.domain.User;
 import com.gastronomee.repository.RatingRepository;
 import com.gastronomee.repository.UserRepository;

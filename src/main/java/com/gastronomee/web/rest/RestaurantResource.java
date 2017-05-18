@@ -149,11 +149,6 @@ public class RestaurantResource {
     public ResponseEntity<Restaurant> updateRestaurant(@Valid @RequestBody Restaurant restaurant) throws URISyntaxException {
         log.debug("REST request to update Restaurant : {}", restaurant);
         
-        if (restaurant!=null &&  !hasPermission(restaurant.getId())) {
-        	return ResponseEntity.status(401)//access denied
-        			.headers(HeaderUtil.createFailureAlert(ENTITY_NAME, restaurant.getId().toString(), "Permission denied!")).build();
-        }
-        
         if (restaurant.getId() == null) {
             return createRestaurant(restaurant);
         }
@@ -161,6 +156,11 @@ public class RestaurantResource {
         if(restaurant.getLocation()!=null){
         	Location location = locationRepository.save(restaurant.getLocation());
         	locationSearchRepository.save(location);
+        }
+        
+        if (restaurant!=null &&  !hasPermission(restaurant.getId())) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createFailureAlert(ENTITY_NAME, restaurant.getId().toString(), "Permission denied!")).build();
         }
         
         Restaurant result = restaurantRepository.save(restaurant);

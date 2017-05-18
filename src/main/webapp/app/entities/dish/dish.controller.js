@@ -5,11 +5,12 @@
         .module('gastronomeeApp')
         .controller('DishController', DishController);
 
-    DishController.$inject = ['$state', 'Dish', 'DishSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    DishController.$inject = ['$state', 'Principal','Dish', 'DishSearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function DishController($state, Dish, DishSearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function DishController($state, Principal, Dish, DishSearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
+        vm.account = null;
 
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
@@ -23,17 +24,21 @@
         vm.currentSearch = pagingParams.search;
 
         loadAll();
+        
+        Principal.identity().then(function(account) {
+            vm.account = account;
+        });
 
         function loadAll () {
             if (pagingParams.search) {
-                DishSearch.myDishes({
+                DishSearch.my({
                     query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
                 }, onSuccess, onError);
             } else {
-                Dish.myDishes({
+                Dish.my({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()

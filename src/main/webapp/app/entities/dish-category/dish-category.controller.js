@@ -5,11 +5,12 @@
         .module('gastronomeeApp')
         .controller('DishCategoryController', DishCategoryController);
 
-    DishCategoryController.$inject = ['$state', 'DishCategory', 'DishCategorySearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
+    DishCategoryController.$inject = ['$state', 'Principal', 'DishCategory', 'DishCategorySearch', 'ParseLinks', 'AlertService', 'paginationConstants', 'pagingParams'];
 
-    function DishCategoryController($state, DishCategory, DishCategorySearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
+    function DishCategoryController($state, Principal, DishCategory, DishCategorySearch, ParseLinks, AlertService, paginationConstants, pagingParams) {
 
         var vm = this;
+        vm.account =null;
 
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
@@ -21,8 +22,14 @@
         vm.loadAll = loadAll;
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
+        
+        Principal.identity().then(function(account) {
+            vm.account = account;
+        });
 
         loadAll();
+        
+        
 
         function loadAll () {
             if (pagingParams.search) {

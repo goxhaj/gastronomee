@@ -5,9 +5,9 @@
         .module('gastronomeeApp')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', 'AlertService', 'Restaurant', 'RestaurantSearch', 'Rating', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
+    DashboardController.$inject = ['$scope', 'Principal','AlertService', 'Restaurant', 'RestaurantSearch', 'Rating', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
 
-    function DashboardController ($scope, AlertService, Restaurant, RestaurantSearch, Rating, $state, ParseLinks, paginationConstants, pagingParams) {
+    function DashboardController ($scope, Principal, AlertService, Restaurant, RestaurantSearch, Rating, $state, ParseLinks, paginationConstants, pagingParams) {
         var vm = this;
         
         vm.account = null;
@@ -27,6 +27,10 @@
         
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
+        
+        Principal.identity().then(function(account) {
+            vm.account = account;
+        });
 
         loadMyRestaurants();
         loadMyRatings();

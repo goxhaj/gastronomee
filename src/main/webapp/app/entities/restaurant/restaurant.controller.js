@@ -27,7 +27,6 @@
         function loadAll () {
             if (pagingParams.search) {
                 RestaurantSearch.my({
-                    query: pagingParams.search,
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()

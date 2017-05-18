@@ -47,6 +47,7 @@
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('restaurant'); 
                     $translatePartialLoader.addPart('country');
+                    $translatePartialLoader.addPart('location');
                     $translatePartialLoader.addPart('dayOfWeek');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
@@ -57,7 +58,7 @@
             parent: 'restaurant',
             url: '/restaurant/{id}',
             data: {
-                authorities: [],
+                authorities: ['ROLE_MANAGER','ROLE_ADMIN'],
                 pageTitle: 'gastronomeeApp.restaurant.detail.title'
             },
             views: {
@@ -94,7 +95,7 @@
             parent: 'restaurant-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_MANAGER']
+                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -117,9 +118,9 @@
         })
         .state('restaurant.new', {
             parent: 'restaurant',
-            url: '/restaurant/new',
+            url: '/new',
             data: {
-                authorities: ['ROLE_MANAGER']
+                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -144,9 +145,9 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('dashboard', null, { reload: 'dashboard' });
+                    $state.go('restaurant', null, { reload: 'restaurant' });
                 }, function() {
-                    $state.go('dashboard');
+                    $state.go('restaurant');
                 });
             }]
         })
@@ -154,7 +155,7 @@
             parent: 'restaurant',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_MANAGER']
+                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -169,7 +170,7 @@
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('dashboard', null, { reload: 'dashboard' });
+                    $state.go('restaurant', null, { reload: 'restaurant' });
                 }, function() {
                     $state.go('^');
                 });
@@ -179,7 +180,7 @@
             parent: 'restaurant',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_MANAGER']
+                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -193,7 +194,7 @@
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('dashboard', null, { reload: 'dashboard' });
+                    $state.go('restaurant', null, { reload: 'restaurant' });
                 }, function() {
                     $state.go('^');
                 });

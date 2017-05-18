@@ -1,13 +1,18 @@
 package com.gastronomee.web.rest;
 
-import com.gastronomee.GastronomeeApp;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.hasItem;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.gastronomee.domain.Dish;
-import com.gastronomee.repository.DishRepository;
-import com.gastronomee.repository.MenuRepository;
-import com.gastronomee.repository.RestaurantRepository;
-import com.gastronomee.repository.search.DishSearchRepository;
-import com.gastronomee.web.rest.errors.ExceptionTranslator;
+import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,13 +28,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import java.util.List;
-
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.hamcrest.Matchers.hasItem;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import com.gastronomee.GastronomeeApp;
+import com.gastronomee.domain.Dish;
+import com.gastronomee.repository.DishRepository;
+import com.gastronomee.repository.UserRepository;
+import com.gastronomee.repository.search.DishSearchRepository;
+import com.gastronomee.web.rest.errors.ExceptionTranslator;
 
 /**
  * Test class for the DishResource REST controller.
@@ -59,10 +63,7 @@ public class DishResourceIntTest {
     private DishSearchRepository dishSearchRepository;
     
     @Autowired
-    private MenuRepository menuRepository;
-    
-    @Autowired
-    private RestaurantRepository restaurantRepository;
+    private UserRepository userRepository;
     
 
     @Autowired
@@ -84,7 +85,7 @@ public class DishResourceIntTest {
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
-        DishResource dishResource = new DishResource(dishRepository, dishSearchRepository, menuRepository, restaurantRepository);
+        DishResource dishResource = new DishResource(dishRepository, dishSearchRepository, userRepository);
         this.restDishMockMvc = MockMvcBuilders.standaloneSetup(dishResource)
             .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)

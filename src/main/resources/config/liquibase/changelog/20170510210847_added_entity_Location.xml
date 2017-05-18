@@ -37,7 +37,7 @@
                 <constraints nullable="true" />
             </column>
             <column name="country_id" type="bigint">
-                <constraints unique="true" nullable="true" />
+                <constraints nullable="true" />
             </column>
             
             <column name="lat" type="double">

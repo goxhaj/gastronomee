@@ -1,16 +1,29 @@
 package com.gastronomee.domain;
 
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-import org.springframework.data.elasticsearch.annotations.Document;
-
-import javax.persistence.*;
-import javax.validation.constraints.*;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.data.elasticsearch.annotations.Document;
 
 import com.gastronomee.domain.enumeration.DayOfWeek;
 
@@ -57,7 +70,7 @@ public class Restaurant implements Serializable {
     private DayOfWeek dayOfWeekClosed;
 
     @Column(name = "opened")
-    private Boolean opened;
+    private boolean opened;
 
     @OneToOne(orphanRemoval=true)
     @JoinColumn(unique = true)
@@ -133,11 +146,11 @@ public class Restaurant implements Serializable {
         this.dayOfWeekClosed = dayOfWeekClosed;
     }
 
-    public Boolean isOpened() {
+    public boolean isOpened() {
         return opened;
     }
 
-    public void setOpened(Boolean opened) {
+    public void setOpened(boolean opened) {
         this.opened = opened;
     }
 

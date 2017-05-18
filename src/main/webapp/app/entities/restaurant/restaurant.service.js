@@ -8,7 +8,6 @@
 
     function Restaurant ($resource) {
         var resourceUrl =  'api/restaurants/:id/:action';
-
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
             'dishes': { method: 'GET', isArray: true, params: {action: 'dishes'}},
@@ -27,4 +26,5 @@
             'update': { method:'PUT' }
         });
     }
+    
 })();

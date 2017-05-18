@@ -5,27 +5,17 @@
         .module('gastronomeeApp')
         .controller('RestaurantDialogController', RestaurantDialogController);
 
-    RestaurantDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Restaurant', 'Location', 'Country'];
+    RestaurantDialogController.$inject = ['$timeout', '$scope', '$stateParams', '$uibModalInstance', '$q', 'entity', 'Restaurant', 'Country'];
 
-    function RestaurantDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Restaurant, Location, Country) {
+    function RestaurantDialogController ($timeout, $scope, $stateParams, $uibModalInstance, $q, entity, Restaurant, Country) {
         var vm = this;
 
         vm.restaurant = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.locations = Location.query({filter: 'restaurant-is-null'});
         
         vm.countries = null;
     	vm.searchCountries = [];
-    	
-        $q.all([vm.restaurant.$promise, vm.locations.$promise]).then(function() {
-            if (!vm.restaurant.location || !vm.restaurant.location.id) {
-                return $q.reject();
-            }
-            return Location.get({id : vm.restaurant.location.id}).$promise;
-        }).then(function(location) {
-            vm.locations.push(location);
-        });
 
         $timeout(function (){
             angular.element('.form-group:eq(1)>input').focus();
@@ -55,8 +45,6 @@
             
         }
 
-        
-        
         vm.loadCountries = function(location) {  
         	if(location!=null && location.country!=null){      		
         		vm.refreshCountries(location.country.name);       		

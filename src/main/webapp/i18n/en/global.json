@@ -5,7 +5,8 @@
         "menu": {
             "home": "Home",
             "dashboard": "Dashboard",
-            "configure": "Configure",
+            "configuration": "Configuration",
+            "restaurant":"Restaurant",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
                 "main": "Entities",

@@ -11,8 +11,6 @@
         var vm = this;
         
         vm.account = null;
-        vm.isAuthenticated = null;
-        vm.register = register;
         
         vm.restaurants = [];
         
@@ -34,15 +32,10 @@
             $state.go("dashboard");
         });
 
-        function getAccount() {
-            Principal.identity().then(function(account) {
-                vm.account = account;
-                vm.isAuthenticated = Principal.isAuthenticated;
-            });
-        }
-        function register () {
-            $state.go('register');
-        }        
+        Principal.identity().then(function(account) {
+        	vm.account = account;
+            vm.isAuthenticated = Principal.isAuthenticated;
+        });
 
         function loadAll () {
             if (pagingParams.search) {

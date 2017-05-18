@@ -30,8 +30,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 import com.gastronomee.domain.DishCategory;
 import com.gastronomee.repository.DishCategoryRepository;
+import com.gastronomee.repository.UserRepository;
 import com.gastronomee.repository.search.DishCategorySearchRepository;
 import com.gastronomee.security.AuthoritiesConstants;
+import com.gastronomee.security.SecurityUtils;
 import com.gastronomee.web.rest.util.HeaderUtil;
 import com.gastronomee.web.rest.util.PaginationUtil;
 
@@ -52,10 +54,13 @@ public class DishCategoryResource {
     private final DishCategoryRepository dishCategoryRepository;
 
     private final DishCategorySearchRepository dishCategorySearchRepository;
+    
+    private final UserRepository userRepository;
 
-    public DishCategoryResource(DishCategoryRepository dishCategoryRepository, DishCategorySearchRepository dishCategorySearchRepository) {
+    public DishCategoryResource(DishCategoryRepository dishCategoryRepository, DishCategorySearchRepository dishCategorySearchRepository, UserRepository userRepository) {
         this.dishCategoryRepository = dishCategoryRepository;
         this.dishCategorySearchRepository = dishCategorySearchRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -68,6 +73,7 @@ public class DishCategoryResource {
     @PostMapping("/dish-categories")
     @Timed
     @Secured({
+    	AuthoritiesConstants.MANAGER,
     	AuthoritiesConstants.ADMIN,
     })
     public ResponseEntity<DishCategory> createDishCategory(@Valid @RequestBody DishCategory dishCategory) throws URISyntaxException {
@@ -75,6 +81,11 @@ public class DishCategoryResource {
         if (dishCategory.getId() != null) {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert(ENTITY_NAME, "idexists", "A new dishCategory cannot already have an ID")).body(null);
         }
+        
+        
+        //the current user that is creating this dish category
+        dishCategory.setUser(userRepository.findOneByLogin(SecurityUtils.getCurrentUserLogin()).get());
+        
         DishCategory result = dishCategoryRepository.save(dishCategory);
         dishCategorySearchRepository.save(result);
         return ResponseEntity.created(new URI("/api/dish-categories/" + result.getId()))
@@ -94,6 +105,7 @@ public class DishCategoryResource {
     @PutMapping("/dish-categories")
     @Timed
     @Secured({
+    	AuthoritiesConstants.MANAGER,
     	AuthoritiesConstants.ADMIN,
     })
     public ResponseEntity<DishCategory> updateDishCategory(@Valid @RequestBody DishCategory dishCategory) throws URISyntaxException {
@@ -101,6 +113,11 @@ public class DishCategoryResource {
         if (dishCategory.getId() == null) {
             return createDishCategory(dishCategory);
         }
+        if (!hasPermission(dishCategory.getId())) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, dishCategory.getId().toString())).build();
+        } 
+        
         DishCategory result = dishCategoryRepository.save(dishCategory);
         dishCategorySearchRepository.save(result);
         return ResponseEntity.ok()
@@ -147,9 +164,16 @@ public class DishCategoryResource {
     @Timed
     @Secured({
     	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
     })
     public ResponseEntity<Void> deleteDishCategory(@PathVariable Long id) {
         log.debug("REST request to delete DishCategory : {}", id);
+        
+        if (!hasPermission(id)) {
+        	return ResponseEntity.status(401)//access denied
+        			.headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
+        } 
+        
         dishCategoryRepository.delete(id);
         dishCategorySearchRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert(ENTITY_NAME, id.toString())).build();
@@ -170,6 +194,15 @@ public class DishCategoryResource {
         Page<DishCategory> page = dishCategorySearchRepository.search(queryStringQuery(query), pageable);
         HttpHeaders headers = PaginationUtil.generateSearchPaginationHttpHeaders(query, page, "/api/_search/dish-categories");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    private boolean hasPermission(Long id){
+    	if(dishCategoryRepository.findOneByUserLoginAndId(SecurityUtils.getCurrentUserLogin(), id) !=null || SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)){
+    		return true;
+    	} else {
+    		log.warn("Permission denied of User with ID: {}", id);
+    		return false;
+    	}
     }
 
 

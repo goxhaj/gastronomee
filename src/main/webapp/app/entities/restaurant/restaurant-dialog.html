@@ -105,7 +105,7 @@
         </div>
         
         <div class="row">
-        	<div class="col-md-6">
+        	<div class="col-md-4">
 		        <div class="form-group">
 		            <label class="control-label" data-translate="gastronomeeApp.location.streetAddress" for="field_streetAddress">Street Address</label>
 		            <input type="text" class="form-control" name="streetAddress" id="field_streetAddress"
@@ -113,7 +113,7 @@
 		                    />
 		        </div>
 	        </div>
-	        <div class="col-md-6">
+	        <div class="col-md-4">
 		        <div class="form-group">
 		            <label class="control-label" data-translate="gastronomeeApp.location.postalCode" for="field_postalCode">Postal Code</label>
 		            <input type="text" class="form-control" name="postalCode" id="field_postalCode"
@@ -121,6 +121,24 @@
 		                    />
 		        </div>
 	        </div>
+	        <div class="col-md-4">
+		    	<div class="row">
+        			<div class="col-md-6">  
+				        <div class="form-group">
+				            <label class="control-label" data-translate="gastronomeeApp.location.lat" for="field_lat">Latitude</label>
+				            <input type="number" class="form-control" name="latitude" id="field_tables"
+				                    ng-model="vm.restaurant.location.lat"/>
+				        </div>
+				     </div>
+				    <div class="col-md-6">
+				        <div class="form-group">
+				            <label class="control-label" data-translate="gastronomeeApp.location.lng" for="field_lng">Longitude</label>
+				            <input type="number" class="form-control" name="longitude" id="field_lng"
+				                    ng-model="vm.restaurant.location.lng"/>
+				        </div>
+		        	</div>
+		        </div>
+			</div>
         </div>
         
         <div class="row">

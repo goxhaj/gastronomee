@@ -11,7 +11,7 @@
         $stateProvider     
         .state('restaurant-app-detail', {
             parent: 'app',
-            url: '/restaurant/{id}',
+            url: '/restaurant-detail/{id}',
             data: {
                 authorities: [],
                 pageTitle: 'gastronomeeApp.restaurant.detail.title'

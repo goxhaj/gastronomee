@@ -30,9 +30,9 @@
                 <li has-any-authority="ROLE_MANAGER,ROLE_ADMIN"  ng-class="{active: vm.$state.includes('entity')}" ng-switch-when="true" uib-dropdown class="dropdown pointer">
                     <a class="dropdown-toggle" uib-dropdown-toggle href="" id="entity-menu">
                         <span>
-                            <span class="glyphicon glyphicon glyphicon-cog"></span>
-                            <span class="hidden-sm" data-translate="global.menu.configure">
-                                Configure
+                            <span class="glyphicon glyphicon-cutlery"></span>
+                            <span class="hidden-sm" data-translate="global.menu.configuration">
+                                Configuration
                             </span>
                             <b class="caret"></b>
                         </span>
@@ -57,18 +57,6 @@
                                 </a>
                         </li>
                         <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
-                                <a ui-sref="ingredient" ng-click="vm.collapseNavbar()">
-                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                    <span data-translate="global.menu.entities.ingredient">Ingredient</span>
-                                </a>
-                            </li>
-                        <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
-                                <a ui-sref="dish-category" ng-click="vm.collapseNavbar()">
-                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
-                                    <span data-translate="global.menu.entities.dishCategory">Dish Category</span>
-                                </a>
-                            </li>
-                        <li has-any-authority="ROLE_ADMIN" ui-sref-active="active">
                                 <a ui-sref="restaurant" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span data-translate="global.menu.entities.restaurant">Restaurant</span>
@@ -86,7 +74,20 @@
                                     <span data-translate="global.menu.entities.dish">Dish</span>
                                 </a>
                             </li>
-                        <li has-any-authority="ROLE_ADMIN" ui-sref-active="active">
+                        <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
+                                <a ui-sref="ingredient" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.ingredient">Ingredient</span>
+                                </a>
+                            </li>
+                        <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
+                                <a ui-sref="dish-category" ng-click="vm.collapseNavbar()">
+                                    <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
+                                    <span data-translate="global.menu.entities.dishCategory">Dish Category</span>
+                                </a>
+                            </li>
+
+                        <li has-any-authority="ROLE_MANAGER, ROLE_ADMIN" ui-sref-active="active">
                                 <a ui-sref="rating" ng-click="vm.collapseNavbar()">
                                     <span class="glyphicon glyphicon-asterisk"></span>&nbsp;
                                     <span data-translate="global.menu.entities.rating">Rating</span>
