@@ -46,7 +46,7 @@
 
 ## Step 2 - Adding a new role 
 
-### Step 2.1 - Create a file on: src/main/resources/config/liquibase/changelog/loadData.xml with contents:
+### Step 2.1 - Create a file on: src/main/resources/config/liquibase/changelog/load_data.xml with contents:
 
 <?xml version="1.0" encoding="utf-8"?>
 <databaseChangeLog
