@@ -67,7 +67,7 @@
             lng: vm.lng,
             focus: true,
             message: vm.adr,
-            draggable: true
+            draggable: false
         };
         
     	angular.extend($scope, {

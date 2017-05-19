@@ -47,7 +47,6 @@ public class Ingredient implements Serializable {
     private Set<Dish> dishes = new HashSet<>();
     
     @ManyToOne
-    @JsonIgnore
     private User user;
 
     public Long getId() {

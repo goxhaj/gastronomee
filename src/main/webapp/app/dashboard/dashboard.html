@@ -1,91 +1,289 @@
 <div ng-cloak>
-    <div class="row">
-        <div class="col-md-8">
-            <div ng-switch="vm.isAuthenticated()">
-                <div>
-				    <h2 data-translate="gastronomeeApp.restaurant.home.title">Restaurants</h2>
-				    <jhi-alert></jhi-alert>
-				    <div class="table-responsive">
-				        <table class="jh-table table table-striped">
-				            <thead>
-				                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
-				                    <th jh-sort-by="name"><span data-translate="gastronomeeApp.restaurant.name">Name</span> <span class="glyphicon glyphicon-sort"></span></th>
-				                    <th jh-sort-by="open"><span data-translate="gastronomeeApp.restaurant.open">Open</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    				<th jh-sort-by="close"><span data-translate="gastronomeeApp.restaurant.close">Close</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    				<th jh-sort-by="tables"><span data-translate="gastronomeeApp.restaurant.tables">Tables</span> <span class="glyphicon glyphicon-sort"></span></th>
-                   			 		<th jh-sort-by="chairs"><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    				<th jh-sort-by="dayOfWeekClosed"><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</span> <span class="glyphicon glyphicon-sort"></span></th>
-				                    <th></th>
-				                </tr>
-				            </thead> 
-				            <tbody>
-				                <tr ng-repeat="restaurant in vm.restaurants track by restaurant.id">
-				                    <td><a ui-sref="restaurant-app-detail({id:restaurant.id})">{{restaurant.name}}</a></td>
-				                    <td>{{restaurant.open}}</td>
-				                    <td>{{restaurant.close}}</td>
-				                    <td>{{restaurant.tables}}</td>
-				                    <td>{{restaurant.chairs}}</td>
-				                    <td>{{restaurant.dayOfWeekClosed}}</td>
-				                    <td class="text-right">
-                        				<div class="btn-group flex-btn-group-container">
-						                    <button type="submit" ui-sref="restaurant.edit({id:restaurant.id})"
-		                                    class="btn btn-primary btn-sm">
-		                                		<span class="glyphicon glyphicon-pencil"></span>
-		                                		<span class="hidden-sm-down" data-translate="entity.action.edit"></span>
-		                            		</button>
-				                            <button type="submit" ui-sref="restaurant.delete({id:restaurant.id})"
-				                                    class="btn btn-danger btn-sm">
-				                                <span class="glyphicon glyphicon-remove-circle"></span>
-				                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
-				                            </button>
-		                            	</div>
-                            		</td>
-				                </tr>
-				            </tbody>
-				        </table>
-				    </div>
-				</div>
-            </div>
-        </div>
-        <div class="col-md-4">
-	    	<div>
-			    <h2 data-translate="gastronomeeApp.rating.home.title">Ratings</h2>
-			    <div class="table-responsive">
-			        <table class="jh-table table table-striped">
-			            <thead>
-			                <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.reset()">
-			                    <th jh-sort-by="rate"><span data-translate="gastronomeeApp.rating.rate">Rate</span> <span class="glyphicon glyphicon-sort"></span></th>
-			                    <th jh-sort-by="restaurant.name"><span data-translate="gastronomeeApp.rating.restaurant">Restaurant</span> <span class="glyphicon glyphicon-sort"></span></th>
-			                    <th></th>
-			                </tr>
-			            </thead>
-			            <tbody infinite-scroll="vm.loadPage(vm.page + 1)" infinite-scroll-disabled="vm.page >= vm.links['last']">
-			                <tr ng-repeat="rating in vm.ratings track by rating.id">
-			                    <td>{{rating.rate}}</td>
-			                    <td>
-			                        <a ui-sref="restaurant-detail({id:rating.restaurant.id})">{{rating.restaurant.name}}</a>
-			                    </td>
-			                    <td class="text-right">
-			                        <div class="btn-group flex-btn-group-container">
-			                            <button type="submit"
-			                                    ui-sref="rating.edit({id:rating.id})"
-			                                    class="btn btn-primary btn-sm">
-			                                <span class="glyphicon glyphicon-pencil"></span>
-			                                <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
-			                            </button>
-			                            <button type="submit"
-			                                    ui-sref="rating.delete({id:rating.id})"
-			                                    class="btn btn-danger btn-sm">
-			                                <span class="glyphicon glyphicon-remove-circle"></span>
-			                                <span class="hidden-sm-down" data-translate="entity.action.delete"></span>
-			                            </button>
-			                        </div>
-			                    </td>
-			                </tr>
-			            </tbody>
-			        </table>
-			    </div>
-			</div>	    	
-	    </div>
-    </div>
+	<div class="row">
+		<div class="col-md-8">
+
+			<h2 data-translate="gastronomeeApp.restaurant.home.title">Restaurants</h2>
+			<jhi-alert></jhi-alert>
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+						<tr jh-sort="vm.predicate" ascending="vm.reverse"
+							callback="vm.transition()">
+							<th jh-sort-by="name"><span
+								data-translate="gastronomeeApp.restaurant.name">Name</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="open"><span
+								data-translate="gastronomeeApp.restaurant.open">Open</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="close"><span
+								data-translate="gastronomeeApp.restaurant.close">Close</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="tables"><span
+								data-translate="gastronomeeApp.restaurant.tables">Tables</span>
+								<span class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="chairs"><span
+								data-translate="gastronomeeApp.restaurant.chairs">Chairs</span>
+								<span class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="dayOfWeekClosed"><span
+								data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day
+									Of Week Closed</span> <span class="glyphicon glyphicon-sort"></span></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr
+							ng-repeat="restaurant in vm.restaurants track by restaurant.id">
+							<td><a ui-sref="restaurant-app-detail({id:restaurant.id})">{{restaurant.name}}</a></td>
+							<td>{{restaurant.open}}</td>
+							<td>{{restaurant.close}}</td>
+							<td>{{restaurant.tables}}</td>
+							<td>{{restaurant.chairs}}</td>
+							<td>{{restaurant.dayOfWeekClosed}}</td>
+							<td class="text-right">
+								<div class="btn-group flex-btn-group-container">
+									<button type="submit"
+										ui-sref="restaurant.edit({id:restaurant.id})"
+										class="btn btn-primary btn-sm">
+										<span class="glyphicon glyphicon-pencil"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+									</button>
+									<button type="submit"
+										ui-sref="restaurant.delete({id:restaurant.id})"
+										class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-remove-circle"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h2 data-translate="gastronomeeApp.menu.home.title">Menus</h2>
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+						<tr jh-sort="vm.predicate" ascending="vm.reverse"
+							callback="vm.transition()">
+							<th jh-sort-by="name"><span
+								data-translate="gastronomeeApp.menu.name">Name</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="restaurant.name"><span
+								data-translate="gastronomeeApp.menu.restaurant">Restaurant</span>
+								<span class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="priority"><span
+								data-translate="gastronomeeApp.menu.priority">Priority</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="active"><span
+								data-translate="gastronomeeApp.menu.active">Active</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="menu in vm.menus track by menu.id">
+							<td><a ui-sref="menu-detail({id:menu.id})">{{menu.name}}</a></td>
+							<td>{{menu.restaurant.name}}
+							</td>
+							<td>{{menu.priority}}</td>
+							<td><span ng-if="menu.active==true"
+								class="label label-success">{{menu.active}}</span> <span
+								ng-if="menu.active==false" class="label label-danger">{{menu.active}}</span>
+							</td>
+							<td class="text-right">
+								<div class="btn-group flex-btn-group-container">
+									<button type="submit" ui-sref="menu.edit({id:menu.id})"
+										class="btn btn-primary btn-sm">
+										<span class="glyphicon glyphicon-pencil"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+									</button>
+									<button type="submit" ui-sref="menu.delete({id:menu.id})"
+										class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-remove-circle"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h2 data-translate="gastronomeeApp.dish.home.title">Dishes</h2>
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+						<tr jh-sort="vm.predicate" ascending="vm.reverse"
+							callback="vm.transition()">						
+							<th jh-sort-by="name"><span
+								data-translate="gastronomeeApp.dish.name">Name</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="recipe"><span
+								data-translate="gastronomeeApp.dish.recipe">Recipe</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="menu.name"><span
+								data-translate="gastronomeeApp.dish.menu">Menu</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="category.name"><span
+								data-translate="gastronomeeApp.dish.category">Category</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="priority"><span
+								data-translate="gastronomeeApp.dish.priority">Priority</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="active"><span
+								data-translate="gastronomeeApp.dish.active">Active</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dish in vm.dishes track by dish.id">
+							<td><a ui-sref="dish-detail({id:dish.id})">{{dish.name}}</a></td>
+							<td>{{dish.recipe}}</td>
+							<td><a ui-sref="menu-detail({id:dish.menu.id})">{{dish.menu.name}}</a>
+							</td>
+							<td><a ui-sref="dish-category-detail({id:dish.category.id})">{{dish.category.name}}</a>
+							</td>
+							<td>{{dish.priority}}</td>
+							<td><span ng-if="dish.active==true"
+								class="label label-success">{{dish.active}}</span> <span
+								ng-if="dish.active==false || dish.active==''"
+								class="label label-danger">{{dish.active}}</span></td>
+							<td class="text-right">
+								<div class="btn-group flex-btn-group-container">
+									<button ng-if="vm.account.login==dish.user.login" type="submit"
+										ui-sref="dish.edit({id:dish.id})"
+										class="btn btn-primary btn-sm">
+										<span class="glyphicon glyphicon-pencil"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+									</button>
+									<button ng-if="vm.account.login==dish.user.login" type="submit"
+										ui-sref="dish.delete({id:dish.id})"
+										class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-remove-circle"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<h2 data-translate="gastronomeeApp.rating.home.title">Ratings</h2>
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+						<tr jh-sort="vm.predicate" ascending="vm.reverse"
+							callback="vm.reset()">
+							<th jh-sort-by="rate"><span
+								data-translate="gastronomeeApp.rating.rate">Rate</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th jh-sort-by="restaurant.name"><span
+								data-translate="gastronomeeApp.rating.restaurant">Restaurant</span>
+								<span class="glyphicon glyphicon-sort"></span></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody infinite-scroll="vm.loadPage(vm.page + 1)"
+						infinite-scroll-disabled="vm.page >= vm.links['last']">
+						<tr ng-repeat="rating in vm.ratings track by rating.id">
+							<td>{{rating.rate}}</td>
+							<td><a
+								ui-sref="restaurant-detail({id:rating.restaurant.id})">{{rating.restaurant.name}}</a>
+							</td>
+							<td class="text-right">
+								<div class="btn-group flex-btn-group-container">
+									<button type="submit" ui-sref="rating.edit({id:rating.id})"
+										class="btn btn-primary btn-sm">
+										<span class="glyphicon glyphicon-pencil"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+									</button>
+									<button type="submit" ui-sref="rating.delete({id:rating.id})"
+										class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-remove-circle"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h2 data-translate="gastronomeeApp.dishCategory.home.title">Dish
+				Categories</h2>
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+						<tr jh-sort="vm.predicate" ascending="vm.reverse"
+							callback="vm.transition()">							
+							<th jh-sort-by="name"><span
+								data-translate="gastronomeeApp.dishCategory.name">Name</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="dishCategory in vm.dishCategories track by dishCategory.id">
+							<td><a ui-sref="dish-category-detail({id:dishCategory.id})">{{dishCategory.name}}</a></td>
+							<td class="text-right">
+								<div class="btn-group flex-btn-group-container">
+									<button ng-if="vm.account.login==dishCategory.user.login"
+										type="submit"
+										ui-sref="dish-category.edit({id:dishCategory.id})"
+										class="btn btn-primary btn-sm">
+										<span class="glyphicon glyphicon-pencil"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+									</button>
+									<button ng-if="vm.account.login==dishCategory.user.login"
+										type="submit"
+										ui-sref="dish-category.delete({id:dishCategory.id})"
+										class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-remove-circle"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<h2 data-translate="gastronomeeApp.ingredient.home.title">Ingredients</h2>
+			<div class="table-responsive">
+				<table class="jh-table table table-striped">
+					<thead>
+						<tr jh-sort="vm.predicate" ascending="vm.reverse"
+							callback="vm.transition()">
+							<th jh-sort-by="name"><span
+								data-translate="gastronomeeApp.ingredient.name">Name</span> <span
+								class="glyphicon glyphicon-sort"></span></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="ingredient in vm.ingredients track by ingredient.id">
+							<td><a ui-sref="ingredient-detail({id:ingredient.id})">{{ingredient.name}}</a></td>
+							<td class="text-right">
+								<div class="btn-group flex-btn-group-container">
+									<button ng-if="vm.account.login==ingredient.user.login"
+										type="submit" ui-sref="ingredient.edit({id:ingredient.id})"
+										class="btn btn-primary btn-sm">
+										<span class="glyphicon glyphicon-pencil"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+									</button>
+									<button ng-if="vm.account.login==ingredient.user.login"
+										type="submit" ui-sref="ingredient.delete({id:ingredient.id})"
+										class="btn btn-danger btn-sm">
+										<span class="glyphicon glyphicon-remove-circle"></span> <span
+											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+									</button>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
 </div>

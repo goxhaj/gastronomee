@@ -124,6 +124,25 @@ public class DishCategoryResource {
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, dishCategory.getId().toString()))
             .body(result);
     }
+    
+    /**
+     * GET  /dish-categories/my : get all my dish categories.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
+     */
+    @GetMapping("/dish-categories/my")
+    @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
+    public ResponseEntity<List<DishCategory>> getMyDishes(@ApiParam Pageable pageable) {
+        log.debug("REST request to get my DishCategories");
+        Page<DishCategory> page = dishCategoryRepository.findByUserIsCurrentUser(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dish-categories/my");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
 
     /**
      * GET  /dish-categories : get all the dishCategories.
@@ -133,9 +152,6 @@ public class DishCategoryResource {
      */
     @GetMapping("/dish-categories")
     @Timed
-    @Secured({
-    	AuthoritiesConstants.ADMIN,
-    })
     public ResponseEntity<List<DishCategory>> getAllDishCategories(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of DishCategories");
         Page<DishCategory> page = dishCategoryRepository.findAll(pageable);

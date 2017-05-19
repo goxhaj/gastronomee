@@ -1,13 +1,13 @@
 
 <div>
-	 <h2>
+	 <h1>
 	 	<span class="glyphicon glyphicon-chevron-right"></span>
-		{{vm.restaurant.name}} 
-		<sup>
-			<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
-			<span ng-if="vm.restaurant.opened==false" class="label label-danger">CLOSED</span>
-		</sup>
-	</h2>
+		{{vm.restaurant.name}} 	<sup class="open">
+		<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
+		<span ng-if="vm.restaurant.opened==false" class="label label-danger">CLOSED</span>
+	</sup>
+	</h1>
+
 
     <div class="info">
     	<label data-translate="gastronomeeApp.restaurant.open">Open</label>: <span class="label label-success">{{vm.restaurant.open}}</span> - <label data-translate="gastronomeeApp.restaurant.close">Close</label>: <span class="label label-danger">{{vm.restaurant.close}}</span>    
@@ -15,42 +15,46 @@
     	<label data-translate="gastronomeeApp.restaurant.tables">Tables</label>: {{vm.restaurant.tables}}  <label data-translate="gastronomeeApp.restaurant.chairs">Chairs</label>: {{vm.restaurant.chairs}}
     </div>
     
+    <br />
+    
     <div class="row">
 	    <div class="col-md-8">
-	        <h3>
+	        <h2>
 			    <span class="glyphicon glyphicon-asterisk"></span>
 			    <span data-translate="gastronomeeApp.restaurant.description">Description</span>
-		    </h3>
+		    </h2>
 			{{vm.restaurant.description}}
 
 			<div ng-if="vm.dishes.length>0">
-			
-				<h3>
-					<span class="glyphicon glyphicon-th"></span> 
-					<span data-translate="gastronomeeApp.menu.detail.title">Menu</span>
-				</h3>
-				
+				<br />
 				<div ng-repeat="(key,value) in vm.dishes | orderBy: 'priority' | groupBy: '[menu.name]'">
-					<h4>{{ key }} </h4>
-					<div ng-repeat="(k,v) in value | orderBy: 'priority' | groupBy: '[category.name]'">
-					    <h5>{{ k }} </h5>
-						<ul class="list-group">
-							<li class="list-group-item" ng-repeat="dish in v | orderBy: 'priority'">
-						        {{ dish.name }}	
-								<span ng-repeat="ingredient in dish.ingredients | orderBy: 'name'">
-									<span class="label label-default">{{ ingredient.name }}</span> 
-								</span> 				        
-						    </li>
-						</ul>
+					<h2> 
+						<span class="glyphicon glyphicon-th"></span> {{ key }}
+					</h2>
+					<div class="row">
+						<div class="col-md-6" class="categories" ng-repeat="(k,v) in value | orderBy: 'priority' | groupBy: '[category.name]'">
+							<h3>
+							    {{ k }} 
+							</h3>
+							<ul class="list-group">
+								<li class="list-group-item" ng-repeat="dish in v | orderBy: 'priority'">
+									{{ dish.name }}	
+									<span ng-repeat="ingredient in dish.ingredients | orderBy: 'name'">
+										<span class="label label-default">{{ ingredient.name }}</span> 
+									</span> 				        
+								</li>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
     	<div ng-if="vm.restaurant.location!=null" class="col-md-4">
-		    <h3>
+    		<br />
+		    <h2>
 			    <span class="glyphicon glyphicon-map-marker"></span>
 			    <span data-translate="gastronomeeApp.restaurant.location">Location</span>
-		    </h3>
+		    </h2>
 	        <div>
 	        	<leaflet lf-center="center" markers="markers"  width="100%" height="280px"></leaflet>
 	        </div>

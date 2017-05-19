@@ -5,14 +5,19 @@
         .module('gastronomeeApp')
         .controller('DashboardController', DashboardController);
 
-    DashboardController.$inject = ['$scope', 'Principal','AlertService', 'Restaurant', 'RestaurantSearch', 'Rating', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
+    DashboardController.$inject = ['$scope', 'Principal','AlertService', 'Restaurant', 'Menu', 'Dish', 'DishCategory', 'Ingredient', 'Rating', '$state', 'ParseLinks', 'paginationConstants', 'pagingParams'];
 
-    function DashboardController ($scope, Principal, AlertService, Restaurant, RestaurantSearch, Rating, $state, ParseLinks, paginationConstants, pagingParams) {
+    function DashboardController ($scope, Principal, AlertService, Restaurant, Menu, Dish, DishCategory, Ingredient, Rating, $state, ParseLinks, paginationConstants, pagingParams) {
         var vm = this;
         
         vm.account = null;
         
         vm.restaurants = [];
+        vm.menus = [];
+        vm.dishes = [];
+        vm.ratings = [];
+        vm.dishCategories = [];
+        vm.ingredients = [];
         
         vm.loadPage = loadPage;
         vm.predicate = pagingParams.predicate;
@@ -22,8 +27,6 @@
         vm.clear = clear;
         vm.search = search;
         
-        vm.loadMyRestaurants = loadMyRestaurants;
-        vm.loadMyRatings = loadMyRatings;
         
         vm.searchQuery = pagingParams.search;
         vm.currentSearch = pagingParams.search;
@@ -33,24 +36,20 @@
         });
 
         loadMyRestaurants();
+        loadMyMenus();
+        loadMyDishes();
         loadMyRatings();
+        loadMyDishCategories();
+        loadMyIngredients();
         
 
         function loadMyRestaurants () {
-            if (pagingParams.search) {
-                RestaurantSearch.my({
-                    query: pagingParams.search,
+            Restaurant.my({
                     page: pagingParams.page - 1,
                     size: vm.itemsPerPage,
                     sort: sort()
-                }, onSuccess, onError);
-            } else {
-                Restaurant.my({
-                    page: pagingParams.page - 1,
-                    size: vm.itemsPerPage,
-                    sort: sort()
-                }, onSuccess, onError);
-            }
+            }, onSuccess, onError);
+            
             function sort() {
                 var result = [vm.predicate + ',' + (vm.reverse ? 'asc' : 'desc')];
                 if (vm.predicate !== 'id') {
@@ -58,6 +57,7 @@
                 }
                 return result;
             }
+            
             function onSuccess(data, headers) {
                 vm.links = ParseLinks.parse(headers('link'));
                 vm.totalItems = headers('X-Total-Count');
@@ -65,6 +65,7 @@
                 vm.restaurants = data;
                 vm.page = pagingParams.page;
             }
+            
             function onError(error) {
                 AlertService.error(error.data.message);
             }
@@ -74,6 +75,46 @@
         	Rating.my(onSuccess, onError);        
             function onSuccess(data, headers) {
                 vm.ratings = data;
+            }     
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
+        }
+        
+        function loadMyMenus () {
+        	Menu.my(onSuccess, onError);        
+            function onSuccess(data, headers) {
+                vm.menus = data;
+            }     
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
+        }
+        
+        function loadMyDishes () {
+        	Dish.my(onSuccess, onError);        
+            function onSuccess(data, headers) {
+                vm.dishes = data;
+            }     
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
+        }
+        
+        function loadMyDishCategories () {
+        	DishCategory.my(onSuccess, onError);        
+            function onSuccess(data, headers) {
+                vm.dishCategories = data;
+            }     
+            function onError(error) {
+                AlertService.error(error.data.message);
+            }
+        }
+        
+        function loadMyIngredients () {
+        	Ingredient.my(onSuccess, onError);        
+            function onSuccess(data, headers) {
+                vm.ingredients = data;
             }     
             function onError(error) {
                 AlertService.error(error.data.message);

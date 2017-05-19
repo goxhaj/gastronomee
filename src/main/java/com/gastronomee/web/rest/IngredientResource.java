@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
+import com.gastronomee.domain.DishCategory;
 import com.gastronomee.domain.Ingredient;
 import com.gastronomee.repository.IngredientRepository;
 import com.gastronomee.repository.UserRepository;
@@ -74,6 +75,25 @@ public class IngredientResource {
 		List<Ingredient> ingredients = ingredientRepository.findByNameIgnoreCaseContainingAndActiveTrue(name);
 		return new ResponseEntity<List<Ingredient>>(ingredients, HttpStatus.OK);
 		
+    }
+    
+    /**
+     * GET  /dish-categories/my : get all my dish categories.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of restaurants in body
+     */
+    @GetMapping("/ingredients/my")
+    @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    	AuthoritiesConstants.MANAGER,
+    })
+    public ResponseEntity<List<Ingredient>> getMyDishes(@ApiParam Pageable pageable) {
+        log.debug("REST request to get my DishCategories");
+        Page<Ingredient> page = ingredientRepository.findByUserIsCurrentUser(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/ingredients/my");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 
     /**

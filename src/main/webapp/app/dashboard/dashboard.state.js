@@ -45,7 +45,11 @@
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
                     $translatePartialLoader.addPart('restaurant');
+                    $translatePartialLoader.addPart('menu');
+                    $translatePartialLoader.addPart('dish');
                     $translatePartialLoader.addPart('rating');
+                    $translatePartialLoader.addPart('dishCategory');
+                    $translatePartialLoader.addPart('ingredient');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
