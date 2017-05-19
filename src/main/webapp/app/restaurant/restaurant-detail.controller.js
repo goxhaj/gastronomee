@@ -35,6 +35,19 @@
         if(vm.restaurant.location!=null){
         	vm.lng=vm.restaurant.location.lng;
         }
+        
+        vm.adr=null;
+        if(vm.restaurant.location!=null){
+        	vm.adr=vm.restaurant.location.streetAddress + ', '
+        	+ vm.restaurant.location.postalCode + ', '
+        	+ vm.restaurant.location.city + ', '
+        	+ vm.restaurant.location.stateProvince;
+        	if(vm.restaurant.location.country!=null){
+            	vm.adr=vm.adr+ ', ' +vm.restaurant.location.country.name;
+            }
+        	
+        }
+        
 
         vm.hoveringOver = function(value) {
           vm.overStar = value;
@@ -49,17 +62,22 @@
           {stateOff: 'glyphicon-off'}
         ];
         
+        var mainMarker = {
+        	lat: vm.lat,
+            lng: vm.lng,
+            focus: true,
+            message: vm.adr,
+            draggable: true
+        };
+        
     	angular.extend($scope, {
             center: {
                 lat: vm.lat,
                 lng: vm.lng,
-                zoom: 6
+                zoom: 7
             },
             markers: {
-                taipei: {
-                    lat: vm.lat,
-                    lng: vm.lng,
-                }
+                mainMarker: angular.copy(mainMarker)
             },
             layers: {
                 baselayers: {

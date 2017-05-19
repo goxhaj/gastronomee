@@ -51,29 +51,6 @@
 			    <span class="glyphicon glyphicon-map-marker"></span>
 			    <span data-translate="gastronomeeApp.restaurant.location">Location</span>
 		    </h3>
-		    <div>
-	        	<div class="row">
-			     	<label class="col-md-6 control-label" data-translate="gastronomeeApp.location.streetAddress">Street Address</label>		      
-			        <span class="col-md-6">{{vm.restaurant.location.streetAddress}}</span>
-				</div>
-				<div class="row">
-		        	<label class="col-md-6 control-label" data-translate="gastronomeeApp.location.postalCode">Postal code</label>		      		        	
-			        <span class="col-md-6">{{vm.restaurant.location.postalCode}}</span>
-		        </div>
-
-		        <div class="row">
-		            <label class="col-md-6 control-label" data-translate="gastronomeeApp.location.city">City</label>
-			        <span class="col-md-6">{{vm.restaurant.location.city}}</span>
-			    </div>
-			    <div class="row">
-			        <label class="col-md-6 control-label" data-translate="gastronomeeApp.location.stateProvince">State province</label>
-			    	<span class="col-md-6">{{vm.restaurant.location.stateProvince}}</span>
-	        	</div>
-				<div class="row">
-				   <label class="col-md-6 control-label" data-translate="gastronomeeApp.location.country">Country</label>
-					<span class="col-md-6">{{vm.restaurant.location.country.name}}</span>
-	        	</div>
-	        </div>
 	        <div>
 	        	<leaflet lf-center="center" markers="markers"  width="100%" height="280px"></leaflet>
 	        </div>
