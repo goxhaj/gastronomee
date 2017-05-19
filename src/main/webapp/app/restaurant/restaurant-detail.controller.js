@@ -10,11 +10,12 @@
     function RestaurantAppDetailController($scope, $rootScope, $stateParams, AlertService, previousState, entity, Restaurant, Location, Rating) {
 
     	var vm = this;
+    	vm.previousState = previousState.name;
 
         vm.restaurant = entity;
-        vm.dishes = [];
+        vm.dishes=[];
         vm.ratings = [];
-        vm.previousState = previousState.name;
+        
         
         vm.rating={};
         vm.rating.restaurant=entity;
@@ -22,8 +23,9 @@
         vm.max = 10;
         vm.isReadonly = false;
         vm.rate = rate;
-        loadAllRatings();
-        loadAllDishes();
+        
+        loadRatings();
+        loadDishes();
         
         vm.lat=41.327953;
         if(vm.restaurant.location!=null){
@@ -99,7 +101,7 @@
         }
         
 
-        function loadAllRatings () {
+        function loadRatings () {
         	Restaurant.ratings({
         		id: vm.restaurant.id
             }, onSuccess, onError);
@@ -114,8 +116,7 @@
         }
         
         
-        
-        function loadAllDishes () {
+        function loadDishes () {
         	Restaurant.dishes({
         		id: vm.restaurant.id
             }, onSuccess, onError);

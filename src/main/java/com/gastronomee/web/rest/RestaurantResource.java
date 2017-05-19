@@ -212,7 +212,7 @@ public class RestaurantResource {
     @Timed
     public ResponseEntity<List<Menu>> getAllMenusByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
         log.debug("REST request to get a page of Menus");
-        Page<Menu> page = menuRepository.findAllByRestaurantId(id, pageable);
+        Page<Menu> page = menuRepository.findAllByRestaurantIdAndActiveTrue(id, pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/restaurants/{id}/menus");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
@@ -240,13 +240,13 @@ public class RestaurantResource {
      */
     @GetMapping("/restaurants/{id}/dishes")
     @Timed
-    public ResponseEntity<List<Dish>> getAllDishesByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
+    public ResponseEntity<List<Dish>> getActiveDishesByRestaurant(@PathVariable Long id, @ApiParam Pageable pageable) {
         log.debug("REST request to get restaurant Dishes");
         
         Restaurant restaurant = restaurantRepository.findOne(id);
-        List<Menu> menus = menuRepository.findAllByRestaurant(restaurant);
+        List<Menu> menus = menuRepository.findAllByRestaurantAndActiveTrue(restaurant);
 
-        List<Dish> page = dishRepository.findAllByMenuIn(menus);
+        List<Dish> page = dishRepository.findAllByMenuInAndActiveTrue(menus);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 

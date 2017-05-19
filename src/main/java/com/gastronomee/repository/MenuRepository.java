@@ -16,13 +16,12 @@ import java.util.List;
 @SuppressWarnings("unused")
 public interface MenuRepository extends JpaRepository<Menu,Long> {
 
-	List<Menu> findAllByRestaurantId(Long id);
-	Page<Menu> findAllByRestaurantId(Long id, Pageable pageable);
+	Page<Menu> findAllByRestaurantIdAndActiveTrue(Long id, Pageable pageable);
 	
 	List<Menu> findAllByRestaurantIn(List<Restaurant> restaurants);
 	Page<Menu> findAllByRestaurantIn(List<Restaurant> restaurants, Pageable pageable);
 	
-	List<Menu> findAllByRestaurant(Restaurant restaurant);
+	List<Menu> findAllByRestaurantAndActiveTrue(Restaurant restaurant);
 	
 	
 

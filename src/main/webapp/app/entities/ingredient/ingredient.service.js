@@ -14,6 +14,7 @@
             'getIngredients': { 
             	method: 'GET', isArray: true, params:{ action : 'name' }
             },
+            'active': { method: 'GET', isArray: true, params: {action: 'active'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

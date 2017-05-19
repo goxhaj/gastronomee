@@ -11,7 +11,8 @@
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
-            'myMenus': { method: 'GET', isArray: true, params: {action: 'my'}},
+            'my': { method: 'GET', isArray: true, params: {action: 'my'}},
+            'active': { method: 'GET', isArray: true, params: {action: 'active'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

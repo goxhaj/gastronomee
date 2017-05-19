@@ -6,6 +6,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -41,6 +43,7 @@ public class Menu implements Serializable {
     @ManyToOne
     @OnDelete(action = OnDeleteAction.CASCADE)
     @NotNull
+    @JsonIgnore
     private Restaurant restaurant;
     
     @OneToMany(mappedBy = "menu", cascade = CascadeType.REMOVE)

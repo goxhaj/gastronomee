@@ -4,6 +4,8 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.elasticsearch.annotations.Document;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
@@ -39,6 +41,7 @@ public class DishCategory implements Serializable {
     private Integer priority;
     
     @ManyToOne
+    @JsonIgnore
     private User user;
 
     public Long getId() {

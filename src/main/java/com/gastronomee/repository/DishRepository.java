@@ -25,9 +25,10 @@ public interface DishRepository extends JpaRepository<Dish,Long> {
     @Query("select dish from Dish dish left join fetch dish.ingredients where dish.id =:id")
     Dish findOneWithEagerRelationships(@Param("id") Long id);
 
-    List<Dish> findAllByMenuIn(List<Menu> menus);
-	//Page<Dish> findAllByMenuIn(List<Menu> menus, Pageable pageable);
-
 	Dish findOneByUserLoginAndId(String currentUserLogin, Long id);
+
+	Page<Dish> findAllByActiveTrue(Pageable pageable);
+
+	List<Dish> findAllByMenuInAndActiveTrue(List<Menu> menus);
 
 }

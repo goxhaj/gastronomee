@@ -12,6 +12,7 @@
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
             'my': { method: 'GET', isArray: true, params: {action: 'my'}},
+            'active': { method: 'GET', isArray: true, params: {action: 'active'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

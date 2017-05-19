@@ -13,9 +13,9 @@
         vm.dish = entity;
         vm.clear = clear;
         vm.save = save;
-        vm.menus = Menu.myMenus();
+        vm.menus = Menu.my();
 
-        vm.dishcategories = DishCategory.query();
+        vm.dishcategories = DishCategory.active();
         
 		vm.searchIngredients=[];
 		vm.ingredients=[];

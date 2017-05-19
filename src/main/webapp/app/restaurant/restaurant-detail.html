@@ -22,24 +22,29 @@
 			    <span data-translate="gastronomeeApp.restaurant.description">Description</span>
 		    </h3>
 			{{vm.restaurant.description}}
-			
+
 			<div ng-if="vm.dishes.length>0">
 			
 				<h3>
 					<span class="glyphicon glyphicon-th"></span> 
 					<span data-translate="gastronomeeApp.menu.detail.title">Menu</span>
 				</h3>
-			
-				<div ng-repeat="(key, value) in vm.dishes | groupBy: 'menu.name'">
-				    <h4>{{ key }}</h4>
-				    <ul class="list-group">
-				      <li class="list-group-item" ng-repeat="dish in value">
-				        {{ dish.name }}
-				      </li>
-				    </ul>
+				
+				<div ng-repeat="(key,value) in vm.dishes | orderBy: 'priority' | groupBy: '[menu.name]'">
+					<h4>{{ key }} </h4>
+					<div ng-repeat="(k,v) in value | orderBy: 'priority' | groupBy: '[category.name]'">
+					    <h5>{{ k }} </h5>
+						<ul class="list-group">
+							<li class="list-group-item" ng-repeat="dish in v | orderBy: 'priority'">
+						        {{ dish.name }}	
+								<span ng-repeat="ingredient in dish.ingredients | orderBy: 'name'">
+									<span class="label label-default">{{ ingredient.name }}</span> 
+								</span> 				        
+						    </li>
+						</ul>
+					</div>
 				</div>
 			</div>
-		
 		</div>
     	<div ng-if="vm.restaurant.location!=null" class="col-md-4">
 		    <h3>

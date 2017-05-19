@@ -133,10 +133,28 @@ public class DishCategoryResource {
      */
     @GetMapping("/dish-categories")
     @Timed
+    @Secured({
+    	AuthoritiesConstants.ADMIN,
+    })
     public ResponseEntity<List<DishCategory>> getAllDishCategories(@ApiParam Pageable pageable) {
         log.debug("REST request to get a page of DishCategories");
         Page<DishCategory> page = dishCategoryRepository.findAll(pageable);
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dish-categories");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
+    /**
+     * GET  /dish-categories/active : get active the dishCategories.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of dishCategories in body
+     */
+    @GetMapping("/dish-categories/active")
+    @Timed
+    public ResponseEntity<List<DishCategory>> getActiveDishCategories(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of active DishCategories");
+        Page<DishCategory> page = dishCategoryRepository.findAllByActiveTrue(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dish-categories/active");
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
 

@@ -7,10 +7,11 @@
     DishCategory.$inject = ['$resource'];
 
     function DishCategory ($resource) {
-        var resourceUrl =  'api/dish-categories/:id';
+        var resourceUrl =  'api/dish-categories/:id/:action';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},
+            'active': { method: 'GET', isArray: true, params: {action: 'active'}},
             'get': {
                 method: 'GET',
                 transformResponse: function (data) {

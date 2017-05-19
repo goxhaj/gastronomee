@@ -68,10 +68,10 @@ public class IngredientResource {
      */
     @GetMapping("/ingredients/name")
     @Timed
-    public ResponseEntity<List<Ingredient>> getCountriesByName(@RequestParam(value = "name" , required = false) String name)
+    public ResponseEntity<List<Ingredient>> getIngredientsByName(@RequestParam(value = "name" , required = false) String name)
         throws URISyntaxException {
     	
-		List<Ingredient> ingredients = ingredientRepository.findByNameIgnoreCaseContaining(name);
+		List<Ingredient> ingredients = ingredientRepository.findByNameIgnoreCaseContainingAndActiveTrue(name);
 		return new ResponseEntity<List<Ingredient>>(ingredients, HttpStatus.OK);
 		
     }
@@ -137,6 +137,7 @@ public class IngredientResource {
             .headers(HeaderUtil.createEntityUpdateAlert(ENTITY_NAME, ingredient.getId().toString()))
             .body(result);
     }
+    
 
     /**
      * GET  /ingredients : get all the ingredients.

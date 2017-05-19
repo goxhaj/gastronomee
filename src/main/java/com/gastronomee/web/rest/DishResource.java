@@ -156,6 +156,22 @@ public class DishResource {
         return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
     }
     
+    
+    /**
+     * GET  /dishes/active : get all the dishes.
+     *
+     * @param pageable the pagination information
+     * @return the ResponseEntity with status 200 (OK) and the list of dishes in body
+     */
+    @GetMapping("/dishes/active")
+    @Timed
+    public ResponseEntity<List<Dish>> getActiveDishes(@ApiParam Pageable pageable) {
+        log.debug("REST request to get a page of active Dishes");
+        Page<Dish> page = dishRepository.findAllByActiveTrue(pageable);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(page, "/api/dishes/active");
+        return new ResponseEntity<>(page.getContent(), headers, HttpStatus.OK);
+    }
+    
    
 
     /**
