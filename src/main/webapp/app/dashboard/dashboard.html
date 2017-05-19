@@ -5,34 +5,21 @@
 			<h2 data-translate="gastronomeeApp.restaurant.home.title">Restaurants</h2>
 			<jhi-alert></jhi-alert>
 			<div class="table-responsive">
-				<table class="jh-table table table-striped">
+				<table class="table table-striped">
 					<thead>
-						<tr jh-sort="vm.predicate" ascending="vm.reverse"
-							callback="vm.transition()">
-							<th jh-sort-by="name"><span
-								data-translate="gastronomeeApp.restaurant.name">Name</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="open"><span
-								data-translate="gastronomeeApp.restaurant.open">Open</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="close"><span
-								data-translate="gastronomeeApp.restaurant.close">Close</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="tables"><span
-								data-translate="gastronomeeApp.restaurant.tables">Tables</span>
-								<span class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="chairs"><span
-								data-translate="gastronomeeApp.restaurant.chairs">Chairs</span>
-								<span class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="dayOfWeekClosed"><span
-								data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day
-									Of Week Closed</span> <span class="glyphicon glyphicon-sort"></span></th>
+						<tr>
+							<th><span data-translate="gastronomeeApp.restaurant.name">Name</span></th>
+							<th><span data-translate="gastronomeeApp.restaurant.open">Open</span></th>
+							<th><span data-translate="gastronomeeApp.restaurant.close">Close</span></th>
+							<th><span data-translate="gastronomeeApp.restaurant.tables">Tables</span></th>
+							<th><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span></th>
+							<th><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day
+									Of Week Closed</span></th>
 							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr
-							ng-repeat="restaurant in vm.restaurants track by restaurant.id">
+						<tr ng-repeat="restaurant in vm.restaurants track by restaurant.id">
 							<td><a ui-sref="restaurant-app-detail({id:restaurant.id})">{{restaurant.name}}</a></td>
 							<td>{{restaurant.open}}</td>
 							<td>{{restaurant.close}}</td>
@@ -63,20 +50,11 @@
 			<div class="table-responsive">
 				<table class="jh-table table table-striped">
 					<thead>
-						<tr jh-sort="vm.predicate" ascending="vm.reverse"
-							callback="vm.transition()">
-							<th jh-sort-by="name"><span
-								data-translate="gastronomeeApp.menu.name">Name</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="restaurant.name"><span
-								data-translate="gastronomeeApp.menu.restaurant">Restaurant</span>
-								<span class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="priority"><span
-								data-translate="gastronomeeApp.menu.priority">Priority</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="active"><span
-								data-translate="gastronomeeApp.menu.active">Active</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
+						<tr>
+							<th><span data-translate="gastronomeeApp.menu.name">Name</span></th>
+							<th><span data-translate="gastronomeeApp.menu.restaurant">Restaurant</span></th>
+							<th><span data-translate="gastronomeeApp.menu.priority">Priority</span></th>
+							<th><span data-translate="gastronomeeApp.menu.active">Active</span></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -112,26 +90,13 @@
 			<div class="table-responsive">
 				<table class="jh-table table table-striped">
 					<thead>
-						<tr jh-sort="vm.predicate" ascending="vm.reverse"
-							callback="vm.transition()">						
-							<th jh-sort-by="name"><span
-								data-translate="gastronomeeApp.dish.name">Name</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="recipe"><span
-								data-translate="gastronomeeApp.dish.recipe">Recipe</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="menu.name"><span
-								data-translate="gastronomeeApp.dish.menu">Menu</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="category.name"><span
-								data-translate="gastronomeeApp.dish.category">Category</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="priority"><span
-								data-translate="gastronomeeApp.dish.priority">Priority</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="active"><span
-								data-translate="gastronomeeApp.dish.active">Active</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
+						<tr>						
+							<th><span data-translate="gastronomeeApp.dish.name">Name</span></th>
+							<th><span data-translate="gastronomeeApp.dish.recipe">Recipe</span></th>
+							<th><span data-translate="gastronomeeApp.dish.menu">Menu</span></th>
+							<th><span data-translate="gastronomeeApp.dish.category">Category</span></th>
+							<th><span data-translate="gastronomeeApp.dish.priority">Priority</span></th>
+							<th><span data-translate="gastronomeeApp.dish.active">Active</span></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -174,23 +139,16 @@
 			<div class="table-responsive">
 				<table class="jh-table table table-striped">
 					<thead>
-						<tr jh-sort="vm.predicate" ascending="vm.reverse"
-							callback="vm.reset()">
-							<th jh-sort-by="rate"><span
-								data-translate="gastronomeeApp.rating.rate">Rate</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
-							<th jh-sort-by="restaurant.name"><span
-								data-translate="gastronomeeApp.rating.restaurant">Restaurant</span>
-								<span class="glyphicon glyphicon-sort"></span></th>
+						<tr>
+							<th><span data-translate="gastronomeeApp.rating.rate">Rate</span></th>
+							<th><span data-translate="gastronomeeApp.rating.restaurant">Restaurant</span></th>
 							<th></th>
 						</tr>
 					</thead>
-					<tbody infinite-scroll="vm.loadPage(vm.page + 1)"
-						infinite-scroll-disabled="vm.page >= vm.links['last']">
+					<tbody>
 						<tr ng-repeat="rating in vm.ratings track by rating.id">
 							<td>{{rating.rate}}</td>
-							<td><a
-								ui-sref="restaurant-detail({id:rating.restaurant.id})">{{rating.restaurant.name}}</a>
+							<td><a ui-sref="restaurant-detail({id:rating.restaurant.id})">{{rating.restaurant.name}}</a>
 							</td>
 							<td class="text-right">
 								<div class="btn-group flex-btn-group-container">
@@ -216,11 +174,8 @@
 			<div class="table-responsive">
 				<table class="jh-table table table-striped">
 					<thead>
-						<tr jh-sort="vm.predicate" ascending="vm.reverse"
-							callback="vm.transition()">							
-							<th jh-sort-by="name"><span
-								data-translate="gastronomeeApp.dishCategory.name">Name</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
+						<tr>							
+							<th><span data-translate="gastronomeeApp.dishCategory.name">Name</span></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -251,13 +206,10 @@
 			</div>
 			<h2 data-translate="gastronomeeApp.ingredient.home.title">Ingredients</h2>
 			<div class="table-responsive">
-				<table class="jh-table table table-striped">
+				<table class="table table-striped">
 					<thead>
-						<tr jh-sort="vm.predicate" ascending="vm.reverse"
-							callback="vm.transition()">
-							<th jh-sort-by="name"><span
-								data-translate="gastronomeeApp.ingredient.name">Name</span> <span
-								class="glyphicon glyphicon-sort"></span></th>
+						<tr>
+							<th><span data-translate="gastronomeeApp.ingredient.name">Name</span></th>
 							<th></th>
 						</tr>
 					</thead>

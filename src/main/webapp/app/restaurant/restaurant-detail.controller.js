@@ -16,6 +16,7 @@
         vm.dishes=[];
         vm.ratings = [];
         
+        vm.ratingCalc = 0;
         
         vm.rating={};
         vm.rating.restaurant=entity;
@@ -26,6 +27,9 @@
         
         loadRatings();
         loadDishes();
+       
+
+
         
         vm.lat=41.327953;
         if(vm.restaurant.location!=null){
@@ -69,6 +73,8 @@
             message: vm.adr,
             draggable: false
         };
+        
+        
         
     	angular.extend($scope, {
             center: {
@@ -126,6 +132,11 @@
             
             function onSuccess(data, headers) {
                 vm.ratings = data;
+                var result = 0;
+                angular.forEach(data, function(num) {
+                  result += (num.rate);
+                });
+                vm.calcRating = parseFloat(result / data.length);
             }
             
             function onError(error) {
