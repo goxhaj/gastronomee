@@ -27,9 +27,6 @@
         
         loadRatings();
         loadDishes();
-       
-
-
         
         vm.lat=41.327953;
         if(vm.restaurant.location!=null){
@@ -117,6 +114,7 @@
                 vm.ratings.push(result);
                 vm.isSaving = false;
                 vm.rating={};
+                loadAverageRate (vm.ratings);
             }
 
             function onSaveError () {
@@ -132,17 +130,21 @@
             
             function onSuccess(data, headers) {
                 vm.ratings = data;
-                var result = 0;
-                angular.forEach(data, function(num) {
-                  result += (num.rate);
-                });
-                if(data.length>0)
-                	vm.calcRating = parseFloat(result / data.length);
+                loadAverageRate (vm.ratings);
             }
             
             function onError(error) {
                 AlertService.error(error.data.message);
             }
+        }
+        
+        function loadAverageRate (data) {
+            var result = 0;
+            angular.forEach(data, function(num) {
+              result += (num.rate);
+            });
+            if(data.length>0)
+            	vm.calcRating = parseFloat(result / data.length).toFixed(1);
         }
         
         
