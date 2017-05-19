@@ -136,7 +136,8 @@
                 angular.forEach(data, function(num) {
                   result += (num.rate);
                 });
-                vm.calcRating = parseFloat(result / data.length);
+                if(data.length>0)
+                	vm.calcRating = parseFloat(result / data.length);
             }
             
             function onError(error) {

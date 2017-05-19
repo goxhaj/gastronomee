@@ -2,7 +2,7 @@
 <div>
 	 <h1>
 	 	<span class="glyphicon glyphicon-chevron-right"></span>
-		{{vm.restaurant.name}} [{{vm.calcRating}}/10]	<sup class="open">
+		{{vm.restaurant.name}} <span ng-if="vm.ratings.length>0" class="">[{{vm.calcRating}}]</span>	<sup class="open">
 		<span ng-if="vm.restaurant.opened==true" class="label label-success">OPENED</span>
 		<span ng-if="vm.restaurant.opened==false" class="label label-danger">CLOSED</span>
 	</sup>

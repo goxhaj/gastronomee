@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
-import com.gastronomee.domain.DishCategory;
 import com.gastronomee.domain.Ingredient;
 import com.gastronomee.repository.IngredientRepository;
 import com.gastronomee.repository.UserRepository;
