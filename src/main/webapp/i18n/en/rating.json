@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Rating"
             },
+            "noRatingFound": "No rating found!",
             "rate": "Rate",
             "comment": "Comment",
             "user": "User",

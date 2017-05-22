@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Menu"
             },
+            "noMenuFound": "No menu found!",
             "name": "Name",
             "active": "Active",
             "priority": "Priority",

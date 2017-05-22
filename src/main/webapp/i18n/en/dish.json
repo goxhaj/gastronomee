@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Dish"
             },
+            "noDishFound": "No dish found!",
             "name": "Name",
             "recipe": "Recipe",
             "active": "Active",

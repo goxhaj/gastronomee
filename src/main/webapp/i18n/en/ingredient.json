@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Ingredient"
             },
+            "noIngredientFound": "No ingredient found!",
             "name": "Name",
             "search": "Search ingredients...",
             "description": "Description",

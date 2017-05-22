@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/rating',
             data: {
-                authorities: ['ROLE_USER'],
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
                 pageTitle: 'gastronomeeApp.rating.home.title'
             },
             views: {
@@ -35,7 +35,7 @@
             parent: 'rating',
             url: '/rating/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
                 pageTitle: 'gastronomeeApp.rating.detail.title'
             },
             views: {
@@ -67,7 +67,7 @@
             parent: 'rating-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -92,7 +92,7 @@
             parent: 'rating',
             url: '/new',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -121,7 +121,7 @@
             parent: 'rating',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -146,7 +146,7 @@
             parent: 'rating',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

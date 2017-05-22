@@ -13,7 +13,7 @@
             parent: 'entity',
             url: '/country?page&sort&search',
             data: {
-                authorities: ['ROLE_USER'],
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
                 pageTitle: 'gastronomeeApp.country.home.title'
             },
             views: {
@@ -55,7 +55,7 @@
             parent: 'country',
             url: '/country/{id}',
             data: {
-                authorities: ['ROLE_USER'],
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
                 pageTitle: 'gastronomeeApp.country.detail.title'
             },
             views: {
@@ -87,7 +87,7 @@
             parent: 'country-detail',
             url: '/detail/edit',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -140,7 +140,7 @@
             parent: 'country',
             url: '/{id}/edit',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
@@ -165,7 +165,7 @@
             parent: 'country',
             url: '/{id}/delete',
             data: {
-                authorities: ['ROLE_USER']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({

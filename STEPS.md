@@ -198,4 +198,10 @@ which basically adds a new role: ROLE_MANAGER to the jhi_authority table
 ### Step 5 - Fix problem when update-ing a user role from admin user management menu (there is no ROLE_MANAGER)
 Added the role ROLE_MANAGER into vm.authorities array of roles in user-management.controller.js and user-management-dialog.controller.js located in the src/main/webapp/app/admin/user-management directory
 
+### Step 6 - Added select-ui
+
+### Step 7 - Added leaflet-ui
+
+### Step 8 - Added a new entity rating using jhipster generator 
+
 

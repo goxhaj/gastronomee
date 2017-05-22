@@ -1,9 +1,10 @@
 <div ng-cloak>
 	<div class="row">
-		<div class="col-md-8">
-
+		<div class="col-md-8" has-any-authority="ROLE_USER">
+			<h2>USER</h2>
+		</div>
+		<div class="col-md-8" has-any-authority="ROLE_MANAGER, ROLE_ADMIN">
 			<h2 data-translate="gastronomeeApp.restaurant.home.title">Restaurants</h2>
-			<jhi-alert></jhi-alert>
 			<div class="table-responsive">
 				<table class="table table-striped">
 					<thead>
@@ -13,8 +14,7 @@
 							<th><span data-translate="gastronomeeApp.restaurant.close">Close</span></th>
 							<th><span data-translate="gastronomeeApp.restaurant.tables">Tables</span></th>
 							<th><span data-translate="gastronomeeApp.restaurant.chairs">Chairs</span></th>
-							<th><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day
-									Of Week Closed</span></th>
+							<th><span data-translate="gastronomeeApp.restaurant.dayOfWeekClosed">Day Of Week Closed</span></th>
 							<th></th>
 						</tr>
 					</thead>
@@ -29,23 +29,27 @@
 							<td class="text-right">
 								<div class="btn-group flex-btn-group-container">
 									<button type="submit"
-										ui-sref="restaurant.edit({id:restaurant.id})"
-										class="btn btn-primary btn-sm">
+											ui-sref="restaurant.edit({id:restaurant.id})"
+											class="btn btn-primary btn-sm">
 										<span class="glyphicon glyphicon-pencil"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+												class="hidden-sm-down" data-translate="entity.action.edit"></span>
 									</button>
 									<button type="submit"
-										ui-sref="restaurant.delete({id:restaurant.id})"
-										class="btn btn-danger btn-sm">
+											ui-sref="restaurant.delete({id:restaurant.id})"
+											class="btn btn-danger btn-sm">
 										<span class="glyphicon glyphicon-remove-circle"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+												class="hidden-sm-down" data-translate="entity.action.delete"></span>
 									</button>
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="7" data-translate="gastronomeeApp.restaurant.noRestaurantFound" ng-if="vm.restaurants.length==0">No restaurant found!</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			
 			<h2 data-translate="gastronomeeApp.menu.home.title">Menus</h2>
 			<div class="table-responsive">
 				<table class="jh-table table table-striped">
@@ -61,31 +65,34 @@
 					<tbody>
 						<tr ng-repeat="menu in vm.menus track by menu.id">
 							<td><a ui-sref="menu-detail({id:menu.id})">{{menu.name}}</a></td>
-							<td>{{menu.restaurant.name}}
-							</td>
+							<td>{{menu.restaurant.name}}</td>
 							<td>{{menu.priority}}</td>
 							<td><span ng-if="menu.active==true"
-								class="label label-success">{{menu.active}}</span> <span
-								ng-if="menu.active==false" class="label label-danger">{{menu.active}}</span>
+									class="label label-success">{{menu.active}}</span> <span
+									ng-if="menu.active==false" class="label label-danger">{{menu.active}}</span>
 							</td>
 							<td class="text-right">
 								<div class="btn-group flex-btn-group-container">
 									<button type="submit" ui-sref="menu.edit({id:menu.id})"
-										class="btn btn-primary btn-sm">
+											class="btn btn-primary btn-sm">
 										<span class="glyphicon glyphicon-pencil"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+												class="hidden-sm-down" data-translate="entity.action.edit"></span>
 									</button>
 									<button type="submit" ui-sref="menu.delete({id:menu.id})"
-										class="btn btn-danger btn-sm">
+											class="btn btn-danger btn-sm">
 										<span class="glyphicon glyphicon-remove-circle"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+												class="hidden-sm-down" data-translate="entity.action.delete"></span>
 									</button>
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="5" data-translate="gastronomeeApp.menu.noMenuFound" ng-if="vm.menus.length==0">No menu found!</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
+			
 			<h2 data-translate="gastronomeeApp.dish.home.title">Dishes</h2>
 			<div class="table-responsive">
 				<table class="jh-table table table-striped">
@@ -104,36 +111,34 @@
 						<tr ng-repeat="dish in vm.dishes track by dish.id">
 							<td><a ui-sref="dish-detail({id:dish.id})">{{dish.name}}</a></td>
 							<td>{{dish.recipe}}</td>
-							<td><a ui-sref="menu-detail({id:dish.menu.id})">{{dish.menu.name}}</a>
-							</td>
-							<td><a ui-sref="dish-category-detail({id:dish.category.id})">{{dish.category.name}}</a>
-							</td>
+							<td><a ui-sref="menu-detail({id:dish.menu.id})">{{dish.menu.name}}</a></td>
+							<td><a ui-sref="dish-category-detail({id:dish.category.id})">{{dish.category.name}}</a></td>
 							<td>{{dish.priority}}</td>
-							<td><span ng-if="dish.active==true"
-								class="label label-success">{{dish.active}}</span> <span
-								ng-if="dish.active==false || dish.active==''"
-								class="label label-danger">{{dish.active}}</span></td>
+							<td><span ng-if="dish.active==true" class="label label-success">{{dish.active}}</span> <span
+										ng-if="dish.active==false || dish.active==''" class="label label-danger">{{dish.active}}</span></td>
 							<td class="text-right">
 								<div class="btn-group flex-btn-group-container">
-									<button ng-if="vm.account.login==dish.user.login" type="submit"
-										ui-sref="dish.edit({id:dish.id})"
-										class="btn btn-primary btn-sm">
+									<button ng-if="vm.account.login==dish.user.login" type="submit" ui-sref="dish.edit({id:dish.id})"
+												class="btn btn-primary btn-sm">
 										<span class="glyphicon glyphicon-pencil"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.edit"></span>
+													class="hidden-sm-down" data-translate="entity.action.edit"></span>
 									</button>
-									<button ng-if="vm.account.login==dish.user.login" type="submit"
-										ui-sref="dish.delete({id:dish.id})"
-										class="btn btn-danger btn-sm">
+									<button ng-if="vm.account.login==dish.user.login" type="submit" ui-sref="dish.delete({id:dish.id})"
+												class="btn btn-danger btn-sm">
 										<span class="glyphicon glyphicon-remove-circle"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.delete"></span>
+													class="hidden-sm-down" data-translate="entity.action.delete"></span>
 									</button>
 								</div>
 							</td>
+						</tr>
+						<tr>
+							<td colspan="7" data-translate="gastronomeeApp.dish.noDishFound" ng-if="vm.dishes.length==0">No dish found!</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
+
 		<div class="col-md-4">
 			<h2 data-translate="gastronomeeApp.rating.home.title">Ratings</h2>
 			<div class="table-responsive">
@@ -165,76 +170,89 @@
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<td colspan="3" data-translate="gastronomeeApp.rating.noRatingFound" ng-if="vm.ratings.length==0">No rating found!</td>
+						</tr>
 					</tbody>
 				</table>
 			</div>
 
-			<h2 data-translate="gastronomeeApp.dishCategory.home.title">Dish
-				Categories</h2>
-			<div class="table-responsive">
-				<table class="jh-table table table-striped">
-					<thead>
-						<tr>							
-							<th><span data-translate="gastronomeeApp.dishCategory.name">Name</span></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="dishCategory in vm.dishCategories track by dishCategory.id">
-							<td><a ui-sref="dish-category-detail({id:dishCategory.id})">{{dishCategory.name}}</a></td>
-							<td class="text-right">
-								<div class="btn-group flex-btn-group-container">
-									<button ng-if="vm.account.login==dishCategory.user.login"
-										type="submit"
-										ui-sref="dish-category.edit({id:dishCategory.id})"
-										class="btn btn-primary btn-sm">
-										<span class="glyphicon glyphicon-pencil"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.edit"></span>
-									</button>
-									<button ng-if="vm.account.login==dishCategory.user.login"
-										type="submit"
-										ui-sref="dish-category.delete({id:dishCategory.id})"
-										class="btn btn-danger btn-sm">
-										<span class="glyphicon glyphicon-remove-circle"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.delete"></span>
-									</button>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			<div has-any-authority="ROLE_MANAGER, ROLE_ADMIN">
+				<h2 data-translate="gastronomeeApp.dishCategory.home.title">Dish Categories</h2>
+				<div class="table-responsive">
+					<table class="jh-table table table-striped">
+						<thead>
+							<tr>							
+								<th><span data-translate="gastronomeeApp.dishCategory.name">Name</span></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="dishCategory in vm.dishCategories track by dishCategory.id">
+								<td><a ui-sref="dish-category-detail({id:dishCategory.id})">{{dishCategory.name}}</a></td>
+								<td class="text-right">
+									<div class="btn-group flex-btn-group-container">
+										<button ng-if="vm.account.login==dishCategory.user.login"
+											type="submit"
+											ui-sref="dish-category.edit({id:dishCategory.id})"
+											class="btn btn-primary btn-sm">
+											<span class="glyphicon glyphicon-pencil"></span> <span
+												class="hidden-sm-down" data-translate="entity.action.edit"></span>
+										</button>
+										<button ng-if="vm.account.login==dishCategory.user.login"
+											type="submit"
+											ui-sref="dish-category.delete({id:dishCategory.id})"
+											class="btn btn-danger btn-sm">
+											<span class="glyphicon glyphicon-remove-circle"></span> <span
+												class="hidden-sm-down" data-translate="entity.action.delete"></span>
+										</button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" data-translate="gastronomeeApp.dishCategory.noDishCategoryFound" ng-if="vm.dishCategories.length==0">No dish category found!</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
-			<h2 data-translate="gastronomeeApp.ingredient.home.title">Ingredients</h2>
-			<div class="table-responsive">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th><span data-translate="gastronomeeApp.ingredient.name">Name</span></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="ingredient in vm.ingredients track by ingredient.id">
-							<td><a ui-sref="ingredient-detail({id:ingredient.id})">{{ingredient.name}}</a></td>
-							<td class="text-right">
-								<div class="btn-group flex-btn-group-container">
-									<button ng-if="vm.account.login==ingredient.user.login"
-										type="submit" ui-sref="ingredient.edit({id:ingredient.id})"
-										class="btn btn-primary btn-sm">
-										<span class="glyphicon glyphicon-pencil"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.edit"></span>
-									</button>
-									<button ng-if="vm.account.login==ingredient.user.login"
-										type="submit" ui-sref="ingredient.delete({id:ingredient.id})"
-										class="btn btn-danger btn-sm">
-										<span class="glyphicon glyphicon-remove-circle"></span> <span
-											class="hidden-sm-down" data-translate="entity.action.delete"></span>
-									</button>
-								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+			
+			<div has-any-authority="ROLE_MANAGER, ROLE_ADMIN">
+				<h2 data-translate="gastronomeeApp.ingredient.home.title">Ingredients</h2>
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th><span data-translate="gastronomeeApp.ingredient.name">Name</span></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="ingredient in vm.ingredients track by ingredient.id">
+								<td><a ui-sref="ingredient-detail({id:ingredient.id})">{{ingredient.name}}</a></td>
+								<td class="text-right">
+									<div class="btn-group flex-btn-group-container">
+										<button ng-if="vm.account.login==ingredient.user.login"
+											type="submit" ui-sref="ingredient.edit({id:ingredient.id})"
+											class="btn btn-primary btn-sm">
+											<span class="glyphicon glyphicon-pencil"></span> <span
+												class="hidden-sm-down" data-translate="entity.action.edit"></span>
+										</button>
+										<button ng-if="vm.account.login==ingredient.user.login"
+											type="submit" ui-sref="ingredient.delete({id:ingredient.id})"
+											class="btn btn-danger btn-sm">
+											<span class="glyphicon glyphicon-remove-circle"></span> <span
+												class="hidden-sm-down" data-translate="entity.action.delete"></span>
+										</button>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" data-translate="gastronomeeApp.ingredient.noIngredientFound" ng-if="vm.ingredients.length==0">No ingredient found!</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>

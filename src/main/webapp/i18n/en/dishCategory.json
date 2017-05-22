@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Dish Category"
             },
+            "noDishCategoryFound": "No dish category found!",
             "name": "Name",
             "description": "Description",
             "active": "Active",

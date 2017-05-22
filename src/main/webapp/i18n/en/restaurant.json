@@ -16,6 +16,7 @@
             "detail": {
                 "title": "Restaurant"
             },
+            "noRestaurantFound": "No restaurant found!",
             "name": "Name",
             "description": "Who we are",
             "open": "Open",
