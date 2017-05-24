@@ -14,6 +14,9 @@
     <include file="classpath:config/liquibase/changelog/20170510210849_added_entity_Menu.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170510210850_added_entity_Dish.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170516091609_added_entity_Rating.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170523075453_added_entity_DishOrder.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170523075452_added_entity_RestaurantOrder.xml" relativeToChangelogFile="false"/>
+    
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="classpath:config/liquibase/changelog/20170510210846_added_entity_constraints_Country.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170510210847_added_entity_constraints_Location.xml" relativeToChangelogFile="false"/>
@@ -22,6 +25,9 @@
     <include file="classpath:config/liquibase/changelog/20170510210850_added_entity_constraints_Dish.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170510210851_added_entity_constrains_Ingredient.xml" relativeToChangelogFile="false"/>
     <include file="classpath:config/liquibase/changelog/20170510210852_added_entity_constrains_DishCategory.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170523075453_added_entity_constraints_DishOrder.xml" relativeToChangelogFile="false"/>
+    <include file="classpath:config/liquibase/changelog/20170523075452_added_entity_constraints_RestaurantOrder.xml" relativeToChangelogFile="false"/>
+    
     
     <include file="classpath:config/liquibase/changelog/20170516091609_added_entity_constraints_Rating.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->

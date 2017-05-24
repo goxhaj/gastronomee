@@ -45,14 +45,6 @@
             
         }
 
-        vm.loadCountries = function(location) {  
-        	if(location!=null && location.country!=null){      		
-        		vm.refreshCountries(location.country.name);       		
-        	} else {
-        		vm.countries = Country.query({filter: 'location-is-null'});               
-        	}
-            
-        };
         
         vm.refreshCountries = function(name) {
         	if(name!=null && name!=''){

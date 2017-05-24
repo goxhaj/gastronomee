@@ -7,9 +7,11 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
+import com.gastronomee.domain.enumeration.CurrencyType;
 import com.gastronomee.domain.enumeration.RestaurantOrderStatus;
 
 /**
@@ -42,6 +44,9 @@ public class RestaurantOrder implements Serializable {
     @NotNull
     @Column(name = "jhi_comment", nullable = false)
     private String comment;
+    
+    @Column(name = "order_date")
+    private ZonedDateTime orderDate;
 
     @Column(name = "created")
     private ZonedDateTime created;
@@ -52,6 +57,13 @@ public class RestaurantOrder implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private RestaurantOrderStatus status;
+    
+    @Column(name = "price")
+    private BigDecimal price;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "currency")
+    private CurrencyType currency;
 
     @ManyToOne
     private User user;
@@ -171,7 +183,31 @@ public class RestaurantOrder implements Serializable {
         this.restaurant = restaurant;
     }
 
-    @Override
+    public ZonedDateTime getOrderDate() {
+		return orderDate;
+	}
+
+	public void setOrderDate(ZonedDateTime orderDate) {
+		this.orderDate = orderDate;
+	}
+
+	public BigDecimal getPrice() {
+		return price;
+	}
+
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
+
+	public CurrencyType getCurrency() {
+		return currency;
+	}
+
+	public void setCurrency(CurrencyType currency) {
+		this.currency = currency;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) {
             return true;

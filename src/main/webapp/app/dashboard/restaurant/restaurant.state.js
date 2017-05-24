@@ -43,14 +43,6 @@
                         ascending: PaginationUtil.parseAscending($stateParams.sort),
                         search: $stateParams.search
                     };
-                }],
-                translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('restaurant'); 
-                    $translatePartialLoader.addPart('country');
-                    $translatePartialLoader.addPart('location');
-                    $translatePartialLoader.addPart('dayOfWeek');
-                    $translatePartialLoader.addPart('global');
-                    return $translate.refresh();
                 }]
             }
         })

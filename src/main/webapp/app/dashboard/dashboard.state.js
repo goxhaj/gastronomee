@@ -52,6 +52,7 @@
                     $translatePartialLoader.addPart('location');
                     $translatePartialLoader.addPart('dishCategory');
                     $translatePartialLoader.addPart('ingredient');
+                    $translatePartialLoader.addPart('dayOfWeek');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]

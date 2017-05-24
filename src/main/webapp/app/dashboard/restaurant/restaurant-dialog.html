@@ -161,8 +161,7 @@
 			<div class="col-md-4">	         	
 				<div class="form-group">
 				 	<label class="control-label" data-translate="gastronomeeApp.location.country" for="field_country">Country</label>
-			   		<ui-select id="field_country" name="country" ng-model="vm.restaurant.location.country" 
-			   		theme="bootstrap" on-select="loadCountries(vm.restaurant.location.country.name)">
+			   		<ui-select id="field_country" name="country" ng-model="vm.restaurant.location.country" theme="bootstrap">
 						<ui-select-match placeholder="{{ 'gastronomeeApp.country.search' | translate }}">
 							<span>{{$select.selected.name}}</span>
 						</ui-select-match>
