@@ -16,8 +16,10 @@
                 "ingredient": "Ingredient",
                 "dishCategory": "Dish Category",
                 "restaurant": "Restaurant",
+                "restaurantOrder": "Restaurant Order",
                 "menu": "Menu",
                 "dish": "Dish",
+                "dishOrder": "Dish Order",
                 "rating": "Rating",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },

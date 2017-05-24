@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('restaurant', {
-            parent: 'entity',
-            url: '/restaurant?page&sort&search',
+        .state('dashboard.dish-category', {
+            parent: 'dashboard',
+            url: '/dashboard-dish-category?page&sort&search',
             data: {
                 authorities: [],
-                pageTitle: 'gastronomeeApp.restaurant.home.title'
+                pageTitle: 'gastronomeeApp.dishCategory.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/restaurant/restaurants.html',
-                    controller: 'RestaurantController',
+                    templateUrl: 'app/dashboard/dish-category/dish-categories.html',
+                    controller: 'DishCategoryController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,45 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('restaurant'); 
-                    $translatePartialLoader.addPart('country');
-                    $translatePartialLoader.addPart('location');
-                    $translatePartialLoader.addPart('dayOfWeek');
+                    $translatePartialLoader.addPart('dishCategory');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('restaurant-detail', {
-            parent: 'restaurant',
-            url: '/restaurant/{id}',
+        .state('dashboard.dish-category-detail', {
+            parent: 'dashboard',
+            url: '/dish-category/{id}',
             data: {
-                authorities: ['ROLE_MANAGER','ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.restaurant.detail.title'
+                authorities: [],
+                pageTitle: 'gastronomeeApp.dishCategory.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/restaurant/restaurant-detail.html',
-                    controller: 'RestaurantDetailController',
+                    templateUrl: 'app/dashboard/dish-category/dish-category-detail.html',
+                    controller: 'DishCategoryDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('restaurant');
-                    $translatePartialLoader.addPart('menu');
-                    $translatePartialLoader.addPart('rating');
-                    $translatePartialLoader.addPart('country');
-                    $translatePartialLoader.addPart('location');
-                    $translatePartialLoader.addPart('dayOfWeek');
+                    $translatePartialLoader.addPart('dishCategory');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Restaurant', function($stateParams, Restaurant) {
-                    return Restaurant.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'DishCategory', function($stateParams, DishCategory) {
+                    return DishCategory.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'restaurant',
+                        name: $state.current.name || 'dashboard',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -91,22 +83,22 @@
                 }]
             }
         })
-        .state('restaurant-detail.edit', {
-            parent: 'restaurant-detail',
-            url: '/detail/edit',
+        .state('dashboard.dish-category-detail.edit', {
+            parent: 'dashboard.dish-category-detail',
+            url: '/dish-category/detail/edit',
             data: {
-                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
+                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/restaurant/restaurant-dialog.html',
-                    controller: 'RestaurantDialogController',
+                    templateUrl: 'app/entities/dish-category/dish-category-dialog.html',
+                    controller: 'DishCategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Restaurant', function(Restaurant) {
-                            return Restaurant.get({id : $stateParams.id}).$promise;
+                        entity: ['DishCategory', function(DishCategory) {
+                            return DishCategory.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -116,16 +108,16 @@
                 });
             }]
         })
-        .state('restaurant.new', {
-            parent: 'restaurant',
-            url: '/new',
+        .state('dashboard.dish-category.new', {
+            parent: 'dashboard',
+            url: '/dish-category/new',
             data: {
-                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
+                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/restaurant/restaurant-dialog.html',
-                    controller: 'RestaurantDialogController',
+                    templateUrl: 'app/dashboard/dish-category/dish-category-dialog.html',
+                    controller: 'DishCategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -134,67 +126,63 @@
                             return {
                                 name: null,
                                 description: null,
-                                open: null,
-                                close: null,
-                                tables: null,
-                                chairs: null,
-                                dayOfWeekClosed: null,
-                                opened: null,
+                                active: null,
+                                priority: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('restaurant', null, { reload: 'restaurant' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
-                    $state.go('restaurant');
+                    $state.go('dashboard');
                 });
             }]
         })
-        .state('restaurant.edit', {
-            parent: 'restaurant',
-            url: '/{id}/edit',
+        .state('dashboard.dish-category.edit', {
+            parent: 'dashboard',
+            url: '/dish-category/{id}/edit',
             data: {
-                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
+                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/restaurant/restaurant-dialog.html',
-                    controller: 'RestaurantDialogController',
+                    templateUrl: 'app/dashboard/dish-category/dish-category-dialog.html',
+                    controller: 'DishCategoryDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Restaurant', function(Restaurant) {
-                            return Restaurant.get({id : $stateParams.id}).$promise;
+                        entity: ['DishCategory', function(DishCategory) {
+                            return DishCategory.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('restaurant', null, { reload: 'restaurant' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('restaurant.delete', {
-            parent: 'restaurant',
-            url: '/{id}/delete',
+        .state('dashboard.dish-category.delete', {
+            parent: 'dashboard',
+            url: '/dish-category/{id}/delete',
             data: {
-                authorities: ['ROLE_MANAGER','ROLE_ADMIN']
+                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/restaurant/restaurant-delete-dialog.html',
-                    controller: 'RestaurantDeleteController',
+                    templateUrl: 'app/dashboard/dish-category/dish-category-delete-dialog.html',
+                    controller: 'DishCategoryDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Restaurant', function(Restaurant) {
-                            return Restaurant.get({id : $stateParams.id}).$promise;
+                        entity: ['DishCategory', function(DishCategory) {
+                            return DishCategory.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('restaurant', null, { reload: 'restaurant' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
                     $state.go('^');
                 });

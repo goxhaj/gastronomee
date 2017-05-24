@@ -56,6 +56,56 @@ entity DishCategory {
     priority Integer
 }
 
+entity Rating {
+ 	rate Integer min(1) max(10) required,
+	comment String required,
+    created ZonedDateTime ,
+    updated ZonedDateTime
+}
+
+enum RestaurantOrderStatus {
+    OPENED, CLOSED, CANCELLED
+}
+
+entity RestaurantOrder {
+ 	rate Integer min(1) max(10) required,
+ 	persons Integer min(1) required,
+	comment String required,
+    created ZonedDateTime,
+    updated ZonedDateTime,
+    status RestaurantOrderStatus
+}
+
+entity DishOrder {
+ 	rate Integer min(1) max(10) required,
+ 	nr Integer min(1) required,
+	comment String required,
+    created ZonedDateTime,
+    updated ZonedDateTime
+}
+
+relationship ManyToOne {
+	DishOrder{RestaurantOrder} to RestaurantOrder
+}
+
+relationship ManyToOne {
+	DishOrder{dish(name)} to Dish
+}
+
+relationship ManyToOne {
+	RestaurantOrder{user(login)} to User
+}
+relationship ManyToOne {
+	RestaurantOrder{restaurant(name)} to Restaurant
+}
+
+relationship ManyToOne {
+	Rating{user(login)} to User
+}
+
+relationship ManyToOne {
+	Rating{restaurant(name)} to Restaurant
+}
 
 relationship OneToOne {
 	Country{region(name)} to Region
@@ -101,4 +151,4 @@ relationship ManyToOne {
 	Dish{category(name)} to DishCategory
 }
 
-paginate Region, Country, Location, Restaurant, Menu, Dish, Ingredient, DishCategory with pager
+paginate Region, Country, Location, Restaurant, Menu, Dish, Ingredient, DishCategory, RestaurantOrder, DishOrder with pager

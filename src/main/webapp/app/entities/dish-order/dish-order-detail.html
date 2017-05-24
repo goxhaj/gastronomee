@@ -1,0 +1,47 @@
+
+<div>
+    <h2><span data-translate="gastronomeeApp.dishOrder.detail.title">Dish Order</span> {{vm.dishOrder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="gastronomeeApp.dishOrder.rate">Rate</span></dt>
+        <dd>
+            <span>{{vm.dishOrder.rate}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dishOrder.nr">Nr</span></dt>
+        <dd>
+            <span>{{vm.dishOrder.nr}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dishOrder.comment">Comment</span></dt>
+        <dd>
+            <span>{{vm.dishOrder.comment}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dishOrder.created">Created</span></dt>
+        <dd>
+            <span>{{vm.dishOrder.created | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dishOrder.updated">Updated</span></dt>
+        <dd>
+            <span>{{vm.dishOrder.updated | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dishOrder.restaurantOrder">Restaurant Order</span></dt>
+        <dd>
+            <a ui-sref="restaurant-order-detail({id:vm.dishOrder.restaurantOrder.id})">{{vm.dishOrder.restaurantOrder.id}}</a>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.dishOrder.dish">Dish</span></dt>
+        <dd>
+            <a ui-sref="dish-detail({id:vm.dishOrder.dish.id})">{{vm.dishOrder.dish.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="dish-order-detail.edit({id:vm.dishOrder.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

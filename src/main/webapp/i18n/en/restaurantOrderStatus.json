@@ -1,0 +1,10 @@
+{
+    "gastronomeeApp": {
+        "RestaurantOrderStatus" : {
+            "null": "",
+            "OPENED": "OPENED",
+            "CLOSED": "CLOSED",
+            "CANCELLED": "CANCELLED"
+        }
+    }
+}

@@ -71,6 +71,10 @@
     "postinstall": "webdriver-manager update"
   },
   "dependencies": {
-    "generator-jhipster-leaflet": "^1.0.0"
+    "generator-jhipster": "^4.3.0",
+    "generator-jhipster-elasticsearch-reindexer": "^0.3.0",
+    "generator-jhipster-leaflet": "^1.0.0",
+    "jhipster": "0.0.2",
+    "jhipster-uml": "^2.0.3"
   }
 }

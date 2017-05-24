@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('dish-category', {
-            parent: 'entity',
-            url: '/dish-category?page&sort&search',
+        .state('dashboard.ingredient', {
+            parent: 'dashboard',
+            url: '/dashboard-ingredient?page&sort&search',
             data: {
-                authorities: [],
-                pageTitle: 'gastronomeeApp.dishCategory.home.title'
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
+                pageTitle: 'gastronomeeApp.ingredient.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/dish-category/dish-categories.html',
-                    controller: 'DishCategoryController',
+                    templateUrl: 'app/dashboard/ingredient/ingredients.html',
+                    controller: 'IngredientController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,37 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('dishCategory');
+                    $translatePartialLoader.addPart('ingredient');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('dish-category-detail', {
-            parent: 'dish-category',
-            url: '/dish-category/{id}',
+        .state('dashboard.ingredient-detail', {
+            parent: 'dashboard',
+            url: '/ingredient/{id}',
             data: {
-                authorities: [],
-                pageTitle: 'gastronomeeApp.dishCategory.detail.title'
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
+                pageTitle: 'gastronomeeApp.ingredient.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/dish-category/dish-category-detail.html',
-                    controller: 'DishCategoryDetailController',
+                    templateUrl: 'app/dashboard/ingredient/ingredient-detail.html',
+                    controller: 'IngredientDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('dishCategory');
+                    $translatePartialLoader.addPart('ingredient');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'DishCategory', function($stateParams, DishCategory) {
-                    return DishCategory.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Ingredient', function($stateParams, Ingredient) {
+                    return Ingredient.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'dish-category',
+                        name: $state.current.name || 'dashboard',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -83,22 +83,22 @@
                 }]
             }
         })
-        .state('dish-category-detail.edit', {
-            parent: 'dish-category-detail',
-            url: '/detail/edit',
+        .state('dashboard.ingredient-detail.edit', {
+            parent: 'dashboard.ingredient-detail',
+            url: '/ingredient/detail/edit',
             data: {
-                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish-category/dish-category-dialog.html',
-                    controller: 'DishCategoryDialogController',
+                    templateUrl: 'app/entities/ingredient/ingredient-dialog.html',
+                    controller: 'IngredientDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['DishCategory', function(DishCategory) {
-                            return DishCategory.get({id : $stateParams.id}).$promise;
+                        entity: ['Ingredient', function(Ingredient) {
+                            return Ingredient.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,16 +108,16 @@
                 });
             }]
         })
-        .state('dish-category.new', {
-            parent: 'dish-category',
-            url: '/new',
+        .state('dashboard.ingredient.new', {
+            parent: 'dashboard',
+            url: '/ingredient/new',
             data: {
-                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish-category/dish-category-dialog.html',
-                    controller: 'DishCategoryDialogController',
+                    templateUrl: 'app/dashboard/ingredient/ingredient-dialog.html',
+                    controller: 'IngredientDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
@@ -133,56 +133,56 @@
                         }
                     }
                 }).result.then(function() {
-                    $state.go('dish-category', null, { reload: 'dish-category' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
-                    $state.go('dish-category');
+                    $state.go('dashboard');
                 });
             }]
         })
-        .state('dish-category.edit', {
-            parent: 'dish-category',
-            url: '/{id}/edit',
+        .state('dashboard.ingredient.edit', {
+            parent: 'dashboard',
+            url: '/ingredient/{id}/edit',
             data: {
-                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish-category/dish-category-dialog.html',
-                    controller: 'DishCategoryDialogController',
+                    templateUrl: 'app/dashboard/ingredient/ingredient-dialog.html',
+                    controller: 'IngredientDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['DishCategory', function(DishCategory) {
-                            return DishCategory.get({id : $stateParams.id}).$promise;
+                        entity: ['Ingredient', function(Ingredient) {
+                            return Ingredient.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('dish-category', null, { reload: 'dish-category' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('dish-category.delete', {
-            parent: 'dish-category',
-            url: '/{id}/delete',
+        .state('dashboard.ingredient.delete', {
+            parent: 'dashboard',
+            url: '/ingredient/{id}/delete',
             data: {
-                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish-category/dish-category-delete-dialog.html',
-                    controller: 'DishCategoryDeleteController',
+                    templateUrl: 'app/dashboard/ingredient/ingredient-delete-dialog.html',
+                    controller: 'IngredientDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['DishCategory', function(DishCategory) {
-                            return DishCategory.get({id : $stateParams.id}).$promise;
+                        entity: ['Ingredient', function(Ingredient) {
+                            return Ingredient.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('dish-category', null, { reload: 'dish-category' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
                     $state.go('^');
                 });

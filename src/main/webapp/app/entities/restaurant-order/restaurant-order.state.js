@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('ingredient', {
+        .state('restaurant-order', {
             parent: 'entity',
-            url: '/ingredient?page&sort&search',
+            url: '/restaurant-order?page&sort&search',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.ingredient.home.title'
+                authorities: ['ROLE_USER'],
+                pageTitle: 'gastronomeeApp.restaurantOrder.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/ingredient/ingredients.html',
-                    controller: 'IngredientController',
+                    templateUrl: 'app/entities/restaurant-order/restaurant-orders.html',
+                    controller: 'RestaurantOrderController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,37 +45,39 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('ingredient');
+                    $translatePartialLoader.addPart('restaurantOrder');
+                    $translatePartialLoader.addPart('restaurantOrderStatus');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('ingredient-detail', {
-            parent: 'ingredient',
-            url: '/ingredient/{id}',
+        .state('restaurant-order-detail', {
+            parent: 'restaurant-order',
+            url: '/restaurant-order/{id}',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.ingredient.detail.title'
+                authorities: ['ROLE_USER'],
+                pageTitle: 'gastronomeeApp.restaurantOrder.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/ingredient/ingredient-detail.html',
-                    controller: 'IngredientDetailController',
+                    templateUrl: 'app/entities/restaurant-order/restaurant-order-detail.html',
+                    controller: 'RestaurantOrderDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('ingredient');
+                    $translatePartialLoader.addPart('restaurantOrder');
+                    $translatePartialLoader.addPart('restaurantOrderStatus');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Ingredient', function($stateParams, Ingredient) {
-                    return Ingredient.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'RestaurantOrder', function($stateParams, RestaurantOrder) {
+                    return RestaurantOrder.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'ingredient',
+                        name: $state.current.name || 'restaurant-order',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -83,22 +85,22 @@
                 }]
             }
         })
-        .state('ingredient-detail.edit', {
-            parent: 'ingredient-detail',
+        .state('restaurant-order-detail.edit', {
+            parent: 'restaurant-order-detail',
             url: '/detail/edit',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ingredient/ingredient-dialog.html',
-                    controller: 'IngredientDialogController',
+                    templateUrl: 'app/entities/restaurant-order/restaurant-order-dialog.html',
+                    controller: 'RestaurantOrderDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Ingredient', function(Ingredient) {
-                            return Ingredient.get({id : $stateParams.id}).$promise;
+                        entity: ['RestaurantOrder', function(RestaurantOrder) {
+                            return RestaurantOrder.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,81 +110,83 @@
                 });
             }]
         })
-        .state('ingredient.new', {
-            parent: 'ingredient',
+        .state('restaurant-order.new', {
+            parent: 'restaurant-order',
             url: '/new',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ingredient/ingredient-dialog.html',
-                    controller: 'IngredientDialogController',
+                    templateUrl: 'app/entities/restaurant-order/restaurant-order-dialog.html',
+                    controller: 'RestaurantOrderDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
-                                description: null,
-                                active: null,
-                                priority: null,
+                                rate: null,
+                                persons: null,
+                                comment: null,
+                                created: null,
+                                updated: null,
+                                status: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('ingredient', null, { reload: 'ingredient' });
+                    $state.go('restaurant-order', null, { reload: 'restaurant-order' });
                 }, function() {
-                    $state.go('ingredient');
+                    $state.go('restaurant-order');
                 });
             }]
         })
-        .state('ingredient.edit', {
-            parent: 'ingredient',
+        .state('restaurant-order.edit', {
+            parent: 'restaurant-order',
             url: '/{id}/edit',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ingredient/ingredient-dialog.html',
-                    controller: 'IngredientDialogController',
+                    templateUrl: 'app/entities/restaurant-order/restaurant-order-dialog.html',
+                    controller: 'RestaurantOrderDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Ingredient', function(Ingredient) {
-                            return Ingredient.get({id : $stateParams.id}).$promise;
+                        entity: ['RestaurantOrder', function(RestaurantOrder) {
+                            return RestaurantOrder.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('ingredient', null, { reload: 'ingredient' });
+                    $state.go('restaurant-order', null, { reload: 'restaurant-order' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('ingredient.delete', {
-            parent: 'ingredient',
+        .state('restaurant-order.delete', {
+            parent: 'restaurant-order',
             url: '/{id}/delete',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/ingredient/ingredient-delete-dialog.html',
-                    controller: 'IngredientDeleteController',
+                    templateUrl: 'app/entities/restaurant-order/restaurant-order-delete-dialog.html',
+                    controller: 'RestaurantOrderDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Ingredient', function(Ingredient) {
-                            return Ingredient.get({id : $stateParams.id}).$promise;
+                        entity: ['RestaurantOrder', function(RestaurantOrder) {
+                            return RestaurantOrder.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('ingredient', null, { reload: 'ingredient' });
+                    $state.go('restaurant-order', null, { reload: 'restaurant-order' });
                 }, function() {
                     $state.go('^');
                 });

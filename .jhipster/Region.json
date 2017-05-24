@@ -1,15 +1,15 @@
 {
-  "relationships": [],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "name",
-      "fieldType": "String"
-    }
-  ],
-  "changelogDate": "20170510210845",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "entityTableName": "region"
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170510210845",
+    "entityTableName": "region",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

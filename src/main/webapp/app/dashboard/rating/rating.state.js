@@ -9,73 +9,53 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('menu', {
-            parent: 'entity',
-            url: '/menu?page&sort&search',
+        .state('dashboard.rating', {
+            parent: 'dashboard',
+            url: '/dashboard-rating',
             data: {
-                authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.menu.home.title'
+            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
+                pageTitle: 'gastronomeeApp.rating.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/menu/menus.html',
-                    controller: 'MenuController',
+                    templateUrl: 'app/dashboard/rating/ratings.html',
+                    controller: 'RatingController',
                     controllerAs: 'vm'
                 }
             },
-            params: {
-                page: {
-                    value: '1',
-                    squash: true
-                },
-                sort: {
-                    value: 'id,asc',
-                    squash: true
-                },
-                search: null
-            },
             resolve: {
-                pagingParams: ['$stateParams', 'PaginationUtil', function ($stateParams, PaginationUtil) {
-                    return {
-                        page: PaginationUtil.parsePage($stateParams.page),
-                        sort: $stateParams.sort,
-                        predicate: PaginationUtil.parsePredicate($stateParams.sort),
-                        ascending: PaginationUtil.parseAscending($stateParams.sort),
-                        search: $stateParams.search
-                    };
-                }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('menu');
+                    $translatePartialLoader.addPart('rating');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('menu-detail', {
-            parent: 'menu',
-            url: '/menu/{id}',
+        .state('dashboard.rating-detail', {
+            parent: 'dashboard',
+            url: '/rating/{id}',
             data: {
             	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.menu.detail.title'
+                pageTitle: 'gastronomeeApp.rating.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/menu/menu-detail.html',
-                    controller: 'MenuDetailController',
+                    templateUrl: 'app/dashboard/rating/rating-detail.html',
+                    controller: 'RatingDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('menu');
+                    $translatePartialLoader.addPart('rating');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Menu', function($stateParams, Menu) {
-                    return Menu.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Rating', function($stateParams, Rating) {
+                    return Rating.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'menu',
+                        name: $state.current.name || 'dashboard',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -83,22 +63,22 @@
                 }]
             }
         })
-        .state('menu-detail.edit', {
-            parent: 'menu-detail',
-            url: '/detail/edit',
+        .state('dashboard.rating-detail.edit', {
+            parent: 'dashboard.rating-detail',
+            url: '/rating/detail/edit',
             data: {
             	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/menu/menu-dialog.html',
-                    controller: 'MenuDialogController',
+                    templateUrl: 'app/dashboard/rating/rating-dialog.html',
+                    controller: 'RatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Menu', function(Menu) {
-                            return Menu.get({id : $stateParams.id}).$promise;
+                        entity: ['Rating', function(Rating) {
+                            return Rating.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -108,80 +88,79 @@
                 });
             }]
         })
-        .state('menu.new', {
-            parent: 'menu',
-            url: '/new',
+        .state('dashboard.rating.new', {
+            parent: 'dashboard',
+            url: '/rating/new',
             data: {
             	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/menu/menu-dialog.html',
-                    controller: 'MenuDialogController',
+                    templateUrl: 'app/dashboard/rating/rating-dialog.html',
+                    controller: 'RatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
-                                active: null,
-                                priority: null,
+                                rate: null,
+                                comment: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('menu', null, { reload: 'menu' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
-                    $state.go('menu');
+                    $state.go('dashboard');
                 });
             }]
         })
-        .state('menu.edit', {
-            parent: 'menu',
-            url: '/{id}/edit',
+        .state('dashboard.rating.edit', {
+            parent: 'dashboard',
+            url: '/rating/{id}/edit',
             data: {
             	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/menu/menu-dialog.html',
-                    controller: 'MenuDialogController',
+                    templateUrl: 'app/dashboard/rating/rating-dialog.html',
+                    controller: 'RatingDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Menu', function(Menu) {
-                            return Menu.get({id : $stateParams.id}).$promise;
+                        entity: ['Rating', function(Rating) {
+                            return Rating.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('menu', null, { reload: 'menu' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('menu.delete', {
-            parent: 'menu',
-            url: '/{id}/delete',
+        .state('dashboard.rating.delete', {
+            parent: 'dashboard',
+            url: '/rating/{id}/delete',
             data: {
             	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/menu/menu-delete-dialog.html',
-                    controller: 'MenuDeleteController',
+                    templateUrl: 'app/dashboard/rating/rating-delete-dialog.html',
+                    controller: 'RatingDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Menu', function(Menu) {
-                            return Menu.get({id : $stateParams.id}).$promise;
+                        entity: ['Rating', function(Rating) {
+                            return Rating.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('menu', null, { reload: 'menu' });
+                    $state.go('dashboard', null, { reload: 'dashboard' });
                 }, function() {
                     $state.go('^');
                 });

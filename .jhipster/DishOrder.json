@@ -3,14 +3,14 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "user",
-            "otherEntityName": "user",
-            "otherEntityField": "login"
+            "relationshipName": "restaurantOrder",
+            "otherEntityName": "restaurantOrder",
+            "otherEntityField": "id"
         },
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "restaurant",
-            "otherEntityName": "restaurant",
+            "relationshipName": "dish",
+            "otherEntityName": "dish",
             "otherEntityField": "name"
         }
     ],
@@ -25,6 +25,15 @@
             ],
             "fieldValidateRulesMin": 1,
             "fieldValidateRulesMax": 10
+        },
+        {
+            "fieldName": "nr",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "required"
+            ],
+            "fieldValidateRulesMin": 1
         },
         {
             "fieldName": "comment",
@@ -42,9 +51,9 @@
             "fieldType": "ZonedDateTime"
         }
     ],
-    "changelogDate": "20170516091609",
-    "entityTableName": "rating",
+    "changelogDate": "20170523075453",
+    "entityTableName": "dish_order",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pager",
     "service": "no"
 }

@@ -1,60 +1,61 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "many-to-one",
-      "relationshipName": "menu",
-      "otherEntityName": "menu",
-      "otherEntityField": "id"
-    },
-    {
-      "relationshipId": 2,
-      "relationshipType": "many-to-many",
-      "relationshipName": "ingredient",
-      "otherEntityName": "ingredient",
-      "otherEntityField": "id",
-      "ownerSide": true
-    },
-    {
-      "relationshipId": 3,
-      "relationshipType": "many-to-one",
-      "relationshipName": "category",
-      "otherEntityName": "dishCategory",
-      "otherEntityField": "id"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "name",
-      "fieldType": "String",
-      "fieldValidateRules": [
-        "required"
-      ]
-    },
-    {
-      "fieldId": 2,
-      "fieldName": "recipe",
-      "fieldType": "String",
-      "fieldValidateRules": [
-        "maxlength"
-      ],
-      "fieldValidateRulesMaxlength": 2500
-    },
-    {
-      "fieldId": 3,
-      "fieldName": "active",
-      "fieldType": "Boolean"
-    },
-    {
-      "fieldId": 4,
-      "fieldName": "priority",
-      "fieldType": "Integer"
-    }
-  ],
-  "changelogDate": "20170510210850",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "entityTableName": "dish"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "menu",
+            "otherEntityName": "menu",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "category",
+            "otherEntityName": "dishCategory",
+            "otherEntityField": "name"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityRelationshipName": "dish",
+            "relationshipName": "ingredient",
+            "otherEntityName": "ingredient",
+            "otherEntityField": "name",
+            "ownerSide": true
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "recipe",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "maxlength"
+            ],
+            "fieldValidateRulesMaxlength": 2500
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "priority",
+            "fieldType": "Integer"
+        }
+    ],
+    "changelogDate": "20170510210850",
+    "entityTableName": "dish",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

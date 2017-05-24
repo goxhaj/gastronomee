@@ -48,6 +48,8 @@
                     $translatePartialLoader.addPart('menu');
                     $translatePartialLoader.addPart('dish');
                     $translatePartialLoader.addPart('rating');
+                    $translatePartialLoader.addPart('country');
+                    $translatePartialLoader.addPart('location');
                     $translatePartialLoader.addPart('dishCategory');
                     $translatePartialLoader.addPart('ingredient');
                     $translatePartialLoader.addPart('global');

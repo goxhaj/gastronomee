@@ -1,20 +1,20 @@
 <div>
-    <h2 data-translate="gastronomeeApp.location.home.title">Locations</h2>
+    <h2 data-translate="gastronomeeApp.dishOrder.home.title">Dish Orders</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="location.new" >
+                <button class="btn btn-primary" ui-sref="dish-order.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span class="hidden-xs-down"  data-translate="gastronomeeApp.location.home.createLabel">
-                        Create new Location
+                    <span class="hidden-xs-down"  data-translate="gastronomeeApp.dishOrder.home.createLabel">
+                        Create new Dish Order
                     </span>
                 </button>
             </div>
             <div class="col-xs-8 no-padding-right">
                 <form name="searchForm" class="form-inline">
                     <div class="input-group pull-right" >
-                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'gastronomeeApp.location.home.search' | translate }}">
+                        <input type="text" class="form-control" ng-model="vm.searchQuery" id="searchQuery" placeholder="{{ 'gastronomeeApp.dishOrder.home.search' | translate }}">
                         <span  class="input-group-btn width-min" >
                             <button class="btn btn-info" ng-click="vm.search(vm.searchQuery)">
                                 <span class="glyphicon glyphicon-search"></span>
@@ -36,40 +36,46 @@
             <thead>
                 <tr jh-sort="vm.predicate" ascending="vm.reverse" callback="vm.transition()">
                     <th jh-sort-by="id"><span data-translate="global.field.id">ID</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="streetAddress"><span data-translate="gastronomeeApp.location.streetAddress">Street Address</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="postalCode"><span data-translate="gastronomeeApp.location.postalCode">Postal Code</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="city"><span data-translate="gastronomeeApp.location.city">City</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="stateProvince"><span data-translate="gastronomeeApp.location.stateProvince">State Province</span> <span class="glyphicon glyphicon-sort"></span></th>
-                    <th jh-sort-by="country.id"><span data-translate="gastronomeeApp.location.country">Country</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="rate"><span data-translate="gastronomeeApp.dishOrder.rate">Rate</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="nr"><span data-translate="gastronomeeApp.dishOrder.nr">Nr</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="comment"><span data-translate="gastronomeeApp.dishOrder.comment">Comment</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="created"><span data-translate="gastronomeeApp.dishOrder.created">Created</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="updated"><span data-translate="gastronomeeApp.dishOrder.updated">Updated</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="restaurantOrder.id"><span data-translate="gastronomeeApp.dishOrder.restaurantOrder">Restaurant Order</span> <span class="glyphicon glyphicon-sort"></span></th>
+                    <th jh-sort-by="dish.name"><span data-translate="gastronomeeApp.dishOrder.dish">Dish</span> <span class="glyphicon glyphicon-sort"></span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="location in vm.locations track by location.id">
-                    <td><a ui-sref="location-detail({id:location.id})">{{location.id}}</a></td>
-                    <td>{{location.streetAddress}}</td>
-                    <td>{{location.postalCode}}</td>
-                    <td>{{location.city}}</td>
-                    <td>{{location.stateProvince}}</td>
+                <tr ng-repeat="dishOrder in vm.dishOrders track by dishOrder.id">
+                    <td><a ui-sref="dish-order-detail({id:dishOrder.id})">{{dishOrder.id}}</a></td>
+                    <td>{{dishOrder.rate}}</td>
+                    <td>{{dishOrder.nr}}</td>
+                    <td>{{dishOrder.comment}}</td>
+                    <td>{{dishOrder.created | date:'medium'}}</td>
+                    <td>{{dishOrder.updated | date:'medium'}}</td>
                     <td>
-                        <a ui-sref="country-detail({id:location.country.id})">{{location.country.name}}</a>
+                        <a ui-sref="restaurant-order-detail({id:dishOrder.restaurantOrder.id})">{{dishOrder.restaurantOrder.id}}</a>
+                    </td>
+                    <td>
+                        <a ui-sref="dish-detail({id:dishOrder.dish.id})">{{dishOrder.dish.name}}</a>
                     </td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="location-detail({id:location.id})"
+                                    ui-sref="dish-order-detail({id:dishOrder.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-sm-down" data-translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="location.edit({id:location.id})"
+                                    ui-sref="dish-order.edit({id:dishOrder.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-sm-down" data-translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="location.delete({id:location.id})"
+                                    ui-sref="dish-order.delete({id:dishOrder.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-sm-down" data-translate="entity.action.delete"></span>

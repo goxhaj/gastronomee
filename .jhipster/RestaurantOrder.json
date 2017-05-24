@@ -27,6 +27,15 @@
             "fieldValidateRulesMax": 10
         },
         {
+            "fieldName": "persons",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "min",
+                "required"
+            ],
+            "fieldValidateRulesMin": 1
+        },
+        {
             "fieldName": "comment",
             "fieldType": "String",
             "fieldValidateRules": [
@@ -40,11 +49,16 @@
         {
             "fieldName": "updated",
             "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "RestaurantOrderStatus",
+            "fieldValues": "OPENED,CLOSED,CANCELLED"
         }
     ],
-    "changelogDate": "20170516091609",
-    "entityTableName": "rating",
+    "changelogDate": "20170523075452",
+    "entityTableName": "restaurant_order",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pager",
     "service": "no"
 }

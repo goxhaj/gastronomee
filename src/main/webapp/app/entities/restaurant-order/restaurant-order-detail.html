@@ -1,0 +1,51 @@
+
+<div>
+    <h2><span data-translate="gastronomeeApp.restaurantOrder.detail.title">Restaurant Order</span> {{vm.restaurantOrder.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.rate">Rate</span></dt>
+        <dd>
+            <span>{{vm.restaurantOrder.rate}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.persons">Persons</span></dt>
+        <dd>
+            <span>{{vm.restaurantOrder.persons}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.comment">Comment</span></dt>
+        <dd>
+            <span>{{vm.restaurantOrder.comment}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.created">Created</span></dt>
+        <dd>
+            <span>{{vm.restaurantOrder.created | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.updated">Updated</span></dt>
+        <dd>
+            <span>{{vm.restaurantOrder.updated | date:'medium'}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.status">Status</span></dt>
+        <dd>
+            <span data-translate="{{'gastronomeeApp.RestaurantOrderStatus.' + vm.restaurantOrder.status}}">{{vm.restaurantOrder.status}}</span>
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.user">User</span></dt>
+        <dd>
+            {{vm.restaurantOrder.user.login}}
+        </dd>
+        <dt><span data-translate="gastronomeeApp.restaurantOrder.restaurant">Restaurant</span></dt>
+        <dd>
+            <a ui-sref="restaurant-detail({id:vm.restaurantOrder.restaurant.id})">{{vm.restaurantOrder.restaurant.name}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="restaurant-order-detail.edit({id:vm.restaurantOrder.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-sm-down" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

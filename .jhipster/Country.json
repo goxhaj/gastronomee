@@ -1,25 +1,24 @@
 {
-  "relationships": [
-    {
-      "relationshipId": 1,
-      "relationshipType": "one-to-one",
-      "relationshipName": "region",
-      "otherEntityName": "region",
-      "otherEntityField": "id",
-      "ownerSide": true,
-      "otherEntityRelationshipName": "country"
-    }
-  ],
-  "fields": [
-    {
-      "fieldId": 1,
-      "fieldName": "name",
-      "fieldType": "String"
-    }
-  ],
-  "changelogDate": "20170510210846",
-  "dto": "no",
-  "pagination": "pager",
-  "service": "no",
-  "entityTableName": "country"
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "region",
+            "otherEntityName": "region",
+            "otherEntityField": "name",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "country"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20170510210846",
+    "entityTableName": "country",
+    "dto": "no",
+    "pagination": "pager",
+    "service": "no"
 }

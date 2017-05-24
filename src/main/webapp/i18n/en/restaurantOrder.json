@@ -1,0 +1,27 @@
+{
+    "gastronomeeApp": {
+        "restaurantOrder" : {
+            "home": {
+                "title": "Restaurant Orders",
+                "createLabel": "Create a new Restaurant Order",
+                "createOrEditLabel": "Create or edit a Restaurant Order",
+                "search": "Search for Restaurant Order"
+            },
+            "created": "A new Restaurant Order is created with identifier {{ param }}",
+            "updated": "A Restaurant Order is updated with identifier {{ param }}",
+            "deleted": "A Restaurant Order is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Restaurant Order {{ id }}?"
+            },
+            "detail": {
+                "title": "Restaurant Order"
+            },
+            "rate": "Rate",
+            "persons": "Persons",
+            "comment": "Comment",
+            "status": "Status",
+            "user": "User",
+            "restaurant": "Restaurant"
+        }
+    }
+}

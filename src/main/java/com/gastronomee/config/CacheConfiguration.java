@@ -54,6 +54,8 @@ public class CacheConfiguration {
             cm.createCache(com.gastronomee.domain.Dish.class.getName(), jcacheConfiguration);
             cm.createCache(com.gastronomee.domain.Dish.class.getName() + ".ingredients", jcacheConfiguration);
             cm.createCache(com.gastronomee.domain.Rating.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.RestaurantOrder.class.getName(), jcacheConfiguration);
+            cm.createCache(com.gastronomee.domain.DishOrder.class.getName(), jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

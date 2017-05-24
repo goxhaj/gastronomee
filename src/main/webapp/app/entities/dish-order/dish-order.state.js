@@ -9,17 +9,17 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('dish', {
+        .state('dish-order', {
             parent: 'entity',
-            url: '/dish?page&sort&search',
+            url: '/dish-order?page&sort&search',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.dish.home.title'
+                authorities: ['ROLE_USER'],
+                pageTitle: 'gastronomeeApp.dishOrder.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/dish/dishes.html',
-                    controller: 'DishController',
+                    templateUrl: 'app/entities/dish-order/dish-orders.html',
+                    controller: 'DishOrderController',
                     controllerAs: 'vm'
                 }
             },
@@ -45,38 +45,37 @@
                     };
                 }],
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('dish');
-                    $translatePartialLoader.addPart('ingredient');
+                    $translatePartialLoader.addPart('dishOrder');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('dish-detail', {
-            parent: 'dish',
-            url: '/dish/{id}',
+        .state('dish-order-detail', {
+            parent: 'dish-order',
+            url: '/dish-order/{id}',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN'],
-                pageTitle: 'gastronomeeApp.dish.detail.title'
+                authorities: ['ROLE_USER'],
+                pageTitle: 'gastronomeeApp.dishOrder.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/dish/dish-detail.html',
-                    controller: 'DishDetailController',
+                    templateUrl: 'app/entities/dish-order/dish-order-detail.html',
+                    controller: 'DishOrderDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('dish');
+                    $translatePartialLoader.addPart('dishOrder');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Dish', function($stateParams, Dish) {
-                    return Dish.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'DishOrder', function($stateParams, DishOrder) {
+                    return DishOrder.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'dish',
+                        name: $state.current.name || 'dish-order',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -84,22 +83,22 @@
                 }]
             }
         })
-        .state('dish-detail.edit', {
-            parent: 'dish-detail',
+        .state('dish-order-detail.edit', {
+            parent: 'dish-order-detail',
             url: '/detail/edit',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish/dish-dialog.html',
-                    controller: 'DishDialogController',
+                    templateUrl: 'app/entities/dish-order/dish-order-dialog.html',
+                    controller: 'DishOrderDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Dish', function(Dish) {
-                            return Dish.get({id : $stateParams.id}).$promise;
+                        entity: ['DishOrder', function(DishOrder) {
+                            return DishOrder.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -109,81 +108,82 @@
                 });
             }]
         })
-        .state('dish.new', {
-            parent: 'dish',
+        .state('dish-order.new', {
+            parent: 'dish-order',
             url: '/new',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish/dish-dialog.html',
-                    controller: 'DishDialogController',
+                    templateUrl: 'app/entities/dish-order/dish-order-dialog.html',
+                    controller: 'DishOrderDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                name: null,
-                                recipe: null,
-                                active: null,
-                                priority: null,
+                                rate: null,
+                                nr: null,
+                                comment: null,
+                                created: null,
+                                updated: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('dish', null, { reload: 'dish' });
+                    $state.go('dish-order', null, { reload: 'dish-order' });
                 }, function() {
-                    $state.go('dish');
+                    $state.go('dish-order');
                 });
             }]
         })
-        .state('dish.edit', {
-            parent: 'dish',
+        .state('dish-order.edit', {
+            parent: 'dish-order',
             url: '/{id}/edit',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish/dish-dialog.html',
-                    controller: 'DishDialogController',
+                    templateUrl: 'app/entities/dish-order/dish-order-dialog.html',
+                    controller: 'DishOrderDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Dish', function(Dish) {
-                            return Dish.get({id : $stateParams.id}).$promise;
+                        entity: ['DishOrder', function(DishOrder) {
+                            return DishOrder.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('dish', null, { reload: 'dish' });
+                    $state.go('dish-order', null, { reload: 'dish-order' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('dish.delete', {
-            parent: 'dish',
+        .state('dish-order.delete', {
+            parent: 'dish-order',
             url: '/{id}/delete',
             data: {
-            	authorities: ['ROLE_MANAGER', 'ROLE_ADMIN']
+                authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/dish/dish-delete-dialog.html',
-                    controller: 'DishDeleteController',
+                    templateUrl: 'app/entities/dish-order/dish-order-delete-dialog.html',
+                    controller: 'DishOrderDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Dish', function(Dish) {
-                            return Dish.get({id : $stateParams.id}).$promise;
+                        entity: ['DishOrder', function(DishOrder) {
+                            return DishOrder.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('dish', null, { reload: 'dish' });
+                    $state.go('dish-order', null, { reload: 'dish-order' });
                 }, function() {
                     $state.go('^');
                 });
