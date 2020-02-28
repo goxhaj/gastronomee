@@ -14,7 +14,7 @@
     "eslint-config-angular": "0.5.0",
     "eslint-plugin-angular": "2.2.1",
     "event-stream": "3.3.4",
-    "generator-jhipster": "4.3.0",
+    "generator-jhipster": "6.3.1",
     "gulp": "3.9.1",
     "gulp-angular-filesort": "1.1.1",
     "gulp-angular-templatecache": "2.0.0",
@@ -71,7 +71,7 @@
     "postinstall": "webdriver-manager update"
   },
   "dependencies": {
-    "generator-jhipster": "^4.3.0",
+    "generator-jhipster": "^6.3.1",
     "generator-jhipster-elasticsearch-reindexer": "^0.3.0",
     "generator-jhipster-leaflet": "^1.0.0",
     "jhipster": "0.0.2",
